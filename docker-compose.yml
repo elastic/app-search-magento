@@ -1,4 +1,4 @@
-version: "3"
+version: "3.4"
 
 services:
 
@@ -11,7 +11,9 @@ services:
     image: redis:5
 
   magento:
-    build: ./dev/images/magento
+    build:
+      context: ./dev/images/magento
+      target: magento
     volumes:
     - .:/var/www/app-search-module
     env_file:

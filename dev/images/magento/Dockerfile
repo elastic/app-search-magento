@@ -1,4 +1,5 @@
-FROM php:7.2-apache
+ARG PHP_VERSION=7.2
+FROM php:${PHP_VERSION}-apache as php-ext
 
 # Installing packages required to run Magento.
 RUN apt-get update \
@@ -14,6 +15,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
  && php composer-setup.php \
  && php -r "unlink('composer-setup.php');" \
  && mv composer.phar /usr/local/bin/composer
+
+FROM php-ext as magento
 
 # Configure PHP and Apache to run Magento.
 ENV PHP_MEMORY_LIMIT 2G
