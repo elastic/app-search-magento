@@ -40,30 +40,61 @@ jobs:
           composer config repositories.app-search '{"type": "path", "url": "../repo"}'
           composer config "minimum-stability" dev
           composer require swiftype/swiftype-app-search-magento
-    - run: ls -al magento/vendor/swiftype
     - save_cache:
         paths:
         - ~/.composer/cache/
         key: v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
+    - persist_to_workspace:
+        root: .
+        paths:
+        - .
+
+  test-compile:
+    parameters:
+      executor:
+        type: executor
+    executor: << parameters.executor >>
+    steps:
+    - attach_workspace:
+        at: .
+    - run: cd magento && bin/magento setup:di:compile
 
 workflows:
-  php72-mage23:
+  workflow:
     jobs:
     - build:
+        name: Build [PHP 7.2][Magento 2.3]
         executor: php-72
         magento_version: ^2.3
-  php71-mage23:
-    jobs:
+    - test-compile:
+        name: Test Compile [PHP 7.2][Magento 2.3]
+        executor: php-72
+        requires:
+        - Build [PHP 7.2][Magento 2.3]
     - build:
+        name: Build [PHP 7.1][Magento 2.3]
         executor: php-71
         magento_version: ^2.3
-  php72-mage22:
-    jobs:
+    - test-compile:
+        name: Test Compile [PHP 7.1][Magento 2.3]
+        executor: php-71
+        requires:
+        - Build [PHP 7.1][Magento 2.3]
     - build:
+        name: Build [PHP 7.2][Magento 2.2]
         executor: php-72
         magento_version: ^2.2
-  php71-mage22:
-    jobs:
+    - test-compile:
+        name: Test Compile [PHP 7.1][Magento 2.2]
+        executor: php-72
+        requires:
+        - Build [PHP 7.2][Magento 2.2]
     - build:
+        name: Build [PHP 7.1][Magento 2.2]
         executor: php-71
         magento_version: ^2.2
+    - test-compile:
+        name: Test Compile [PHP 7.1][Magento 2.2]
+        executor: php-71
+        requires:
+        - Build [PHP 7.1][Magento 2.2]
