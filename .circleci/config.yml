@@ -1,34 +1,43 @@
 version: 2.1
 
 executors:
-  php:
-    parameters:
-      version:
-        type: string
-        default: "7.2"
+  php-72:
     docker:
-    - image: circleci/php:<< parameters.version >>-browsers
+    - image: circleci/php:7.2-browsers
+  php-71:
+    docker:
+    - image: circleci/php:7.1-browsers
 
 jobs:
   build:
     parameters:
       executor:
         type: executor
+      magento_version:
+        type: string
     executor: << parameters.executor >>
     steps:
     - run: php -v
+    - run: echo << parameters.magento_version >>
 
 workflows:
   php72-mage23:
     jobs:
     - build:
-        executor:
-          name: php
-          version: "7.2"
-
+        executor: php-72
+        magento_version: ^2.3
   php71-mage23:
     jobs:
     - build:
-        executor:
-          name: php
-          version: "7.1"
+        executor: php-71
+        magento_version: ^2.3
+  php72-mage22:
+    jobs:
+    - build:
+        executor: php-72
+        magento_version: ^2.2
+  php71-mage23:
+    jobs:
+    - build:
+        executor: php-71
+        magento_version: ^2.2
