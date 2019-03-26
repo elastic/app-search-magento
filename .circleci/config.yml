@@ -25,6 +25,7 @@ jobs:
     - restore_cache:
         keys:
         - v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "repo/composer.json" }}
+    - run: sudo docker-php-ext-install bcmath
     - run: composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run: cat magento/composer.json
     - save_cache:
