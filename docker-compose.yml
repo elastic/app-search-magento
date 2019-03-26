@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+
+  mysql:
+    image: mysql:5.7
+    env_file:
+    - ./dev/magento.env
+
+  redis:
+    image: redis:5
+
+  magento:
+    build: ./dev/images/magento
+    volumes:
+    - .:/var/www/app-search-module
+    env_file:
+    - ./dev/magento.env
+    ports:
+    - 8888:80
