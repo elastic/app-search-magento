@@ -36,7 +36,7 @@ workflows:
     - build:
         executor: php-72
         magento_version: ^2.2
-  php71-mage23:
+  php71-mage22:
     jobs:
     - build:
         executor: php-71
