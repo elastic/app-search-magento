@@ -22,7 +22,7 @@
             <resource>Elastic_AppSearch::config_elastic_appsearch</resource>
             <group id="client" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Client configuration</label>
-                <field id="api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="0" showInWebsite="0" showInStore="0">
+                <field id="api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>App Search API Endpoint</label>
                 </field>
                 <field id="api_key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
