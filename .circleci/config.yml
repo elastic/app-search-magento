@@ -20,16 +20,17 @@ jobs:
         default: community
     executor: << parameters.executor >>
     steps:
+    - checkout:
+        path: repo
     - restore_cache:
         keys:
-        - v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "composer.json" }}
+        - v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "repo/composer.json" }}
     - run: composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run: cat magento/composer.json
     - save_cache:
         paths:
         - ~/.composer/cache/
-        key: v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "composer.json" }}
-
+        key: v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "repo/composer.json" }}
 
 workflows:
   php72-mage23:
