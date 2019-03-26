@@ -15,10 +15,21 @@ jobs:
         type: executor
       magento_version:
         type: string
+      magento_edition:
+        type: string
+        default: community
     executor: << parameters.executor >>
     steps:
-    - run: php -v
-    - run: echo << parameters.magento_version >>
+    - restore_cache:
+        keys:
+        - v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "composer.json" }}
+    - run: composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
+    - run: cat magento/composer.json
+    - save_cache:
+        paths:
+        - ~/.composer/cache/
+        key: v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "composer.json" }}
+
 
 workflows:
   php72-mage23:
