@@ -3,10 +3,14 @@ version: 2.1
 executors:
   php-72:
     docker:
-    - image: circleci/php:7.2-browsers
+    - image: thecodingmachine/php:7.2-v2-apache
+    environment:
+      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
   php-71:
     docker:
-    - image: circleci/php:7.1-browsers
+    - image: thecodingmachine/php:7.1-v2-apache
+    environment:
+      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
 
 jobs:
   build:
@@ -25,7 +29,6 @@ jobs:
     - restore_cache:
         keys:
         - v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>{{ checksum "repo/composer.json" }}
-    - run: sudo docker-php-ext-install bcmath
     - run: composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run: cat magento/composer.json
     - save_cache:
