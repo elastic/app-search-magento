@@ -1,38 +1,34 @@
 version: 2.1
 
-php72: &php72
-  docker:
-  - image: circleci/php:7.2-browsers
-
-php71: &php71
-  docker:
-  - image: circleci/php:7.1-browsers
-
-commands:
-
-  install_magento:
-    steps:
-    - checkout
-
-build: &build
-  steps:
-  - install_magento
+executors:
+  php:
+    parameters:
+      version:
+        type: string
+        default: "7.2"
+    docker:
+    - image: circleci/php:<< parameters.version >>-browsers
 
 jobs:
-
-  php-72-mage-23-install:
-    <<: *build
-    <<: *php72
-
-  php-71-mage-23-install:
-    <<: *build
-    <<: *php72
+  build:
+    parameters:
+      executor:
+        type: executor
+    executor: << parameters.executor >>
+    steps:
+    - run: php -v
 
 workflows:
-  version: 2
-  php-72-mage-23:
+  php72-mage23:
     jobs:
-    - php-72-mage-23-install
-  php-71-mage-23:
+    - build:
+        executor:
+          name: php
+          version: "7.2"
+
+  php71-mage23:
     jobs:
-    - php-71-mage-23-install
+    - build:
+        executor:
+          name: php
+          version: "7.1"
