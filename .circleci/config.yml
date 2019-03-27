@@ -62,7 +62,7 @@ jobs:
         paths:
         - .
 
-  test-compile:
+  compile:
     parameters:
       executor:
         type: executor
@@ -78,18 +78,24 @@ jobs:
         name: Compile Magento DI
         command: bin/magento setup:di:compile
 
-  test-unit:
+  tests:
     parameters:
       executor:
         type: executor
+      testsuite:
+        type: string
     executor: << parameters.executor >>
     working_directory: ~/project/magento
     steps:
     - configure_php
     - attach_workspace:
         at: ~/project
-    - run: ls
-    - run: bin/magento
+    - run:
+        name: Copying test suite config.
+        command: cp vendor/swiftype/swiftype-app-search-magento/dev/tests/<< parameters.testsuite >>/phpunit.xml.dist dev/tests/<< parameters.testsuite >>/
+    - run:
+        name: Running test suite (<< parameters.testsuite >>)
+        command: vendor/bin/phpunit -c dev/tests/<< parameters.testsuite >>/phpunit.xml.dist
 
 workflows:
   php-7.2-mage-2.3:
@@ -98,14 +104,15 @@ workflows:
         name: build-php-7.2-mage-2.3
         executor: php-72
         magento_version: ^2.3
-    - test-compile:
+    - compile:
         name: compile-php-7.2-mage-2.3
         executor: php-72
         requires:
         - build-php-7.2-mage-2.3
-    - test-unit:
+    - tests:
         name: unit-test-php-7.2-mage-2.3
         executor: php-72
+        testsuite: unit
         requires:
         - build-php-7.2-mage-2.3
   php-7.1-mage-2.3:
@@ -114,14 +121,15 @@ workflows:
         name: build-php-7.1-mage-2.3
         executor: php-71
         magento_version: ^2.3
-    - test-compile:
+    - compile:
         name: compile-php-7.1-mage-2.3
         executor: php-71
         requires:
         - build-php-7.1-mage-2.3
-    - test-unit:
+    - tests:
         name: unit-test-php-7.1-mage-2.3
         executor: php-71
+        testsuite: unit
         requires:
         - build-php-7.1-mage-2.3
   php-7.2-mage-2.2:
@@ -130,14 +138,15 @@ workflows:
         name: build-php-7.2-mage-2.2
         executor: php-72
         magento_version: ^2.2
-    - test-compile:
+    - compile:
         name: compile-php-7.1-mage-2.2
         executor: php-72
         requires:
         - build-php-7.2-mage-2.2
-    - test-unit:
+    - tests:
         name: unit-test-php-7.2-mage-2.2
         executor: php-72
+        testsuite: unit
         requires:
         - build-php-7.2-mage-2.2
   php-7.1-mage-2.2:
@@ -146,13 +155,14 @@ workflows:
         name: build-php-7.1-mage-2.2
         executor: php-71
         magento_version: ^2.2
-    - test-compile:
+    - compile:
         name: compile-php-7.1-mage-2.2
         executor: php-71
         requires:
         - build-php-7.1-mage-2.2
-    - test-unit:
+    - tests:
         name: unit-test-php-7.1-mage-2.2
         executor: php-71
+        testsuite: unit
         requires:
         - build-php-7.1-mage-2.2
