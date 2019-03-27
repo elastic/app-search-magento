@@ -20,7 +20,7 @@
   },
   "autoload" : {
     "psr-4" : {
-      "Swiftype\\AppSearch\\" : ""
+      "Elastic\\AppSearch\\" : ""
     },
     "files": [
       "registration.php"
