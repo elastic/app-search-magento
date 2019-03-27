@@ -14,6 +14,13 @@ executors:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
       PHP_INI_MEMORY_LIMIT: "-1"
 
+commands:
+  configure_php:
+    steps:
+      - run:
+          name: Configure PHP
+          command: php /usr/local/bin/generate_conf.php | sudo su -c "tee /usr/local/etc/php/conf.d/generated_conf.ini" > /dev/null
+
 jobs:
   build:
     parameters:
@@ -26,6 +33,7 @@ jobs:
         default: community
     executor: << parameters.executor >>
     steps:
+    - configure_php
     - checkout:
         path: repo
     - restore_cache:
@@ -61,6 +69,7 @@ jobs:
     executor: << parameters.executor >>
     working_directory: ~/project/magento
     steps:
+    - configure_php
     - attach_workspace:
         at: .
     - attach_workspace:
@@ -76,6 +85,7 @@ jobs:
     executor: << parameters.executor >>
     working_directory: ~/project/magento
     steps:
+    - configure_php
     - attach_workspace:
         at: ~/project
     - run: ls
