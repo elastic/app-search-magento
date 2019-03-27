@@ -57,7 +57,7 @@ jobs:
     steps:
     - attach_workspace:
         at: .
-    - run: cd magento && bin/magento setup:di:compile
+    - run: cd magento && bin/magento module:enable --all && bin/magento setup:di:compile
 
 workflows:
   workflow:
