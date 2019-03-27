@@ -6,13 +6,13 @@ executors:
     - image: thecodingmachine/php:7.2-v2-apache
     environment:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
-      PHP_INI_MEMORY_LIMIT: 2g
+      PHP_INI_MEMORY_LIMIT: -1
   php-71:
     docker:
     - image: thecodingmachine/php:7.1-v2-apache
     environment:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
-      PHP_INI_MEMORY_LIMIT: 2g
+      PHP_INI_MEMORY_LIMIT: -1
 
 jobs:
   build:
@@ -36,12 +36,15 @@ jobs:
         command: |
           composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run:
-        name: Install App Search extension
+        name: Install App Search module
         command: |
           cd magento
           composer config repositories.app-search '{"type": "path", "url": "../repo"}'
           composer config "minimum-stability" dev
           composer require swiftype/swiftype-app-search-magento
+    - run:
+        name: Enable Magento modules
+        command: cd magento && bin/magento module:enable --all
     - save_cache:
         paths:
         - ~/.composer/cache/
@@ -59,7 +62,19 @@ jobs:
     steps:
     - attach_workspace:
         at: .
-    - run: cd magento && bin/magento module:enable --all && bin/magento setup:di:compile
+    - run: cd magento && bin/magento setup:di:compile
+
+  test-unit:
+    parameters:
+      executor:
+        type: executor
+    executor: << parameters.executor >>
+    working_directory: ~/project/magento
+    steps:
+    - attach_workspace:
+        at: ~/project
+    - run: ls
+    - run: bin/magento
 
 workflows:
   workflow:
@@ -73,30 +88,35 @@ workflows:
         executor: php-72
         requires:
         - Build [PHP 7.2][Magento 2.3]
-    - build:
-        name: Build [PHP 7.1][Magento 2.3]
-        executor: php-71
-        magento_version: ^2.3
-    - test-compile:
-        name: Test Compile [PHP 7.1][Magento 2.3]
-        executor: php-71
-        requires:
-        - Build [PHP 7.1][Magento 2.3]
-    - build:
-        name: Build [PHP 7.2][Magento 2.2]
-        executor: php-72
-        magento_version: ^2.2
-    - test-compile:
-        name: Test Compile [PHP 7.1][Magento 2.2]
+    - test-unit:
+        name: Test Unit [PHP 7.2][Magento 2.3]
         executor: php-72
         requires:
-        - Build [PHP 7.2][Magento 2.2]
-    - build:
-        name: Build [PHP 7.1][Magento 2.2]
-        executor: php-71
-        magento_version: ^2.2
-    - test-compile:
-        name: Test Compile [PHP 7.1][Magento 2.2]
-        executor: php-71
-        requires:
-        - Build [PHP 7.1][Magento 2.2]
+        - Build [PHP 7.2][Magento 2.3]
+    # - build:
+    #     name: Build [PHP 7.1][Magento 2.3]
+    #     executor: php-71
+    #     magento_version: ^2.3
+    # - test-compile:
+    #     name: Test Compile [PHP 7.1][Magento 2.3]
+    #     executor: php-71
+    #     requires:
+    #     - Build [PHP 7.1][Magento 2.3]
+    # - build:
+    #     name: Build [PHP 7.2][Magento 2.2]
+    #     executor: php-72
+    #     magento_version: ^2.2
+    # - test-compile:
+    #     name: Test Compile [PHP 7.1][Magento 2.2]
+    #     executor: php-72
+    #     requires:
+    #     - Build [PHP 7.2][Magento 2.2]
+    # - build:
+    #     name: Build [PHP 7.1][Magento 2.2]
+    #     executor: php-71
+    #     magento_version: ^2.2
+    # - test-compile:
+    #     name: Test Compile [PHP 7.1][Magento 2.2]
+    #     executor: php-71
+    #     requires:
+    #     - Build [PHP 7.1][Magento 2.2]
