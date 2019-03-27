@@ -6,13 +6,13 @@ executors:
     - image: thecodingmachine/php:7.2-v2-apache
     environment:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
-      PHP_INI_MEMORY_LIMIT: -1
+      PHP_INI_MEMORY_LIMIT: "-1"
   php-71:
     docker:
     - image: thecodingmachine/php:7.1-v2-apache
     environment:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
-      PHP_INI_MEMORY_LIMIT: -1
+      PHP_INI_MEMORY_LIMIT: "-1"
 
 jobs:
   build:
