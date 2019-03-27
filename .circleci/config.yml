@@ -80,13 +80,13 @@ jobs:
           vendor/bin/phpcs --config-set installed_paths vendor/magento/marketplace-eqp/
           vendor/bin/phpcs --config-set m2-path ../magento/
     - run:
-        name: Check coding quality against PSR12 rules.
+        name: Check coding quality against PSR12 rules
         command: vendor/bin/phpcs . --standard=PSR12 --extensions=php --ignore=vendor/*,.git/*,dev
     - run:
-        name: Check coding quality against Magento Marketplace rules (MEQP2).
+        name: Check coding quality against Magento Marketplace rules (MEQP2)
         command: vendor/bin/phpcs . --standard=MEQP2 --extensions=php,phtml --ignore=vendor/*,.git/*,dev --severity=10
     - run:
-        name: Check coding quality using phpmd.
+        name: Check coding quality using phpmd
         command: vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,.git --suffixes php
     - save_cache:
         paths:
