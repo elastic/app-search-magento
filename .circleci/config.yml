@@ -51,14 +51,6 @@ jobs:
           composer config "minimum-stability" dev
           composer require swiftype/swiftype-app-search-magento
     - run:
-        name: Install dev dependencies
-        command: |
-          cd repo
-          composer config repositories.magento composer "https://repo.magento.com/"
-          composer install
-          vendor/bin/phpcs --config-set installed_paths vendor/magento/marketplace-eqp/
-          vendor/bin/phpcs --config-set m2-path ../magento/
-    - run:
         name: Enable Magento modules
         command: cd magento && bin/magento module:enable --all
     - save_cache:
@@ -74,6 +66,16 @@ jobs:
     executor: php-72
     working_directory: ~/project/repo
     steps:
+    - restore_cache:
+        keys:
+        - v1-qa-dependencies-{{ checksum "composer.json" }}
+    - run:
+        name: Install dev dependencies
+        command: |
+          composer config repositories.magento composer "https://repo.magento.com/"
+          composer install
+          vendor/bin/phpcs --config-set installed_paths vendor/magento/marketplace-eqp/
+          vendor/bin/phpcs --config-set m2-path ../magento/
     - run:
         name: Check coding quality against PSR12 rules.
         command: vendor/bin/phpcs . --standard=PSR12 --extensions=php --ignore=vendor/*,.git/*,dev
@@ -83,6 +85,10 @@ jobs:
     - run:
         name: Check coding quality using phpmd.
         command: vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,.git --suffixes php
+    - save_cache:
+        paths:
+        - ~/.composer/cache/
+        key: v1-qa-dependencies-{{ checksum "composer.json" }}
 
   compile:
     parameters:
