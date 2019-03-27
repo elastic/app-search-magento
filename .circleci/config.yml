@@ -59,10 +59,15 @@ jobs:
       executor:
         type: executor
     executor: << parameters.executor >>
+    working_directory: ~/project/magento
     steps:
     - attach_workspace:
         at: .
-    - run: cd magento && bin/magento setup:di:compile
+    - attach_workspace:
+        at: ~/project
+    - run:
+        name: Compile Magento DI
+        command: bin/magento setup:di:compile
 
   test-unit:
     parameters:
@@ -77,46 +82,67 @@ jobs:
     - run: bin/magento
 
 workflows:
-  workflow:
+  php-7.2-mage-2.3:
     jobs:
     - build:
-        name: Build [PHP 7.2][Magento 2.3]
+        name: build-php-7.2-mage-2.3
         executor: php-72
         magento_version: ^2.3
     - test-compile:
-        name: Test Compile [PHP 7.2][Magento 2.3]
+        name: compile-php-7.2-mage-2.3
         executor: php-72
         requires:
-        - Build [PHP 7.2][Magento 2.3]
+        - build-php-7.2-mage-2.3
     - test-unit:
-        name: Test Unit [PHP 7.2][Magento 2.3]
+        name: unit-test-php-7.2-mage-2.3
         executor: php-72
         requires:
-        - Build [PHP 7.2][Magento 2.3]
-    # - build:
-    #     name: Build [PHP 7.1][Magento 2.3]
-    #     executor: php-71
-    #     magento_version: ^2.3
-    # - test-compile:
-    #     name: Test Compile [PHP 7.1][Magento 2.3]
-    #     executor: php-71
-    #     requires:
-    #     - Build [PHP 7.1][Magento 2.3]
-    # - build:
-    #     name: Build [PHP 7.2][Magento 2.2]
-    #     executor: php-72
-    #     magento_version: ^2.2
-    # - test-compile:
-    #     name: Test Compile [PHP 7.1][Magento 2.2]
-    #     executor: php-72
-    #     requires:
-    #     - Build [PHP 7.2][Magento 2.2]
-    # - build:
-    #     name: Build [PHP 7.1][Magento 2.2]
-    #     executor: php-71
-    #     magento_version: ^2.2
-    # - test-compile:
-    #     name: Test Compile [PHP 7.1][Magento 2.2]
-    #     executor: php-71
-    #     requires:
-    #     - Build [PHP 7.1][Magento 2.2]
+        - build-php-7.2-mage-2.3
+  php-7.1-mage-2.3:
+    jobs:
+    - build:
+        name: build-php-7.1-mage-2.3
+        executor: php-71
+        magento_version: ^2.3
+    - test-compile:
+        name: compile-php-7.1-mage-2.3
+        executor: php-71
+        requires:
+        - build-php-7.1-mage-2.3
+    - test-unit:
+        name: unit-test-php-7.1-mage-2.3
+        executor: php-71
+        requires:
+        - build-php-7.1-mage-2.3
+  php-7.2-mage-2.2:
+    jobs:
+    - build:
+        name: build-php-7.2-mage-2.2
+        executor: php-72
+        magento_version: ^2.2
+    - test-compile:
+        name: compile-php-7.1-mage-2.2
+        executor: php-72
+        requires:
+        - build-php-7.2-mage-2.2
+    - test-unit:
+        name: unit-test-php-7.2-mage-2.2
+        executor: php-72
+        requires:
+        - build-php-7.2-mage-2.2
+  php-7.1-mage-2.2:
+    jobs:
+    - build:
+        name: build-php-7.1-mage-2.2
+        executor: php-71
+        magento_version: ^2.2
+    - test-compile:
+        name: compile-php-7.1-mage-2.2
+        executor: php-71
+        requires:
+        - build-php-7.1-mage-2.2
+    - test-unit:
+        name: unit-test-php-7.1-mage-2.2
+        executor: php-71
+        requires:
+        - build-php-7.1-mage-2.2
