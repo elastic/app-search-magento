@@ -56,9 +56,15 @@ class ClientConfiguration implements ClientConfigurationInterface
      */
     public function getApiKey()
     {
-        $encryptedApiKey = (string) $this->scopeConfig->getValue('elastic_appsearch/client/api_key');
+        $apiKey = (string) $this->scopeConfig->getValue('elastic_appsearch/client/api_key');
 
-        return empty($encryptedApiKey) ? null : (string) $this->encryptor->decrypt($encryptedApiKey);
+        if (empty($apiKey)) {
+            $apiKey = null;
+        } elseif (substr($apiKey, 0, 7) !== 'private') {
+            $apiKey = (string) $this->encryptor->decrypt($apiKey);
+        }
+
+        return $apiKey;
     }
 
     /**
