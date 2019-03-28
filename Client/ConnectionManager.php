@@ -70,6 +70,8 @@ class ConnectionManager
     /**
      * Create the App Search client.
      *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     *
      * @param array $options
      *
      * @return \Swiftype\AppSearch\Client

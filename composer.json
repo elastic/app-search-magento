@@ -16,11 +16,16 @@
   "require" : {
     "php" : "^7.0",
     "swiftype/swiftype-app-search-php" : "^1.0.0@beta",
-    "psr/log" : "^1.0."
+    "magento/framework": ">=101.0.0"
+  },
+  "require-dev" : {
+    "squizlabs/php_codesniffer": "@stable",
+    "phpmd/phpmd": "@stable",
+    "magento/marketplace-eqp": "@stable"
   },
   "autoload" : {
     "psr-4" : {
-      "Swiftype\\AppSearch\\" : ""
+      "Elastic\\AppSearch\\" : ""
     },
     "files": [
       "registration.php"
