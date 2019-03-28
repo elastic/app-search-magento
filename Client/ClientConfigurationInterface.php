@@ -38,7 +38,7 @@ interface ClientConfigurationInterface
     /**
      * When debug mode is enabled, all request to the App Search service are logged.
      *
-     * @return true
+     * @return bool
      */
     public function isDebug();
 }

@@ -56,9 +56,9 @@ class ClientConfiguration implements ClientConfigurationInterface
      */
     public function getApiKey()
     {
-        $encryptedApiKey = $this->scopeConfig->getValue('elastic_appsearch/client/api_key');
+        $encryptedApiKey = (string) $this->scopeConfig->getValue('elastic_appsearch/client/api_key');
 
-        return (string) $this->encryptor->decrypt($encryptedApiKey);
+        return empty($encryptedApiKey) ? null : (string) $this->encryptor->decrypt($encryptedApiKey);
     }
 
     /**
@@ -66,6 +66,6 @@ class ClientConfiguration implements ClientConfigurationInterface
      */
     public function isDebug()
     {
-        return (string) $this->scopeConfig->getValue('elastic_appsearch/client/is_debug');
+        return (bool) $this->scopeConfig->getValue('elastic_appsearch/client/is_debug');
     }
 }
