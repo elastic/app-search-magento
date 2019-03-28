@@ -49,7 +49,7 @@ Because, there is a lot of dependencies to install the first run may takes sever
 ## Configure App Search
 
 Your App Search credential are stored into the `dev/magento.env` file.
-You should replace them before launching the stack.
+When launching for the first time you need to create it (we recommend that you copy the `dev/magento.env.sample`) and replace your credential before launching the stack.
 
 **Note:** Every time you change something in the `dev/magento.env` file, the containers will be recreated if running `docker-compose up` and you will need to reinstall Magento.
 
@@ -98,6 +98,6 @@ bin/magento admin:user:create
 ```
 
 You can check the App Search extension is correctly installed and configured by connecting to the admin:
-1. Go into `Store --> Configuration`.
+1. Go into `Stores --> Configuration`.
 2. You should be able to find a `Èlastic App Search` tab into the General section
 3. Click on it and see if your API Endpoint is correctly configured (should be disabled for edit if using env variable).

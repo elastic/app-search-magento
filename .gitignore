@@ -1,0 +1,21 @@
+# Standard composer ignored paths
+composer.phar
+/vendor/
+composer.lock
+
+# Ignore devbox environment file
+dev/magento.env
+
+# Standard IDEs ignored paths
+.metadata
+*.ide/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.project
+.buildpath
+.idea/
