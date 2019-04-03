@@ -57,7 +57,7 @@ class LanguageResolver
      *
      * @return string
      */
-    public function getLanguage(int $storeId): string
+    public function getLanguage(int $storeId): ?string
     {
         $language = $this->getStoreLocaleCode($storeId);
 

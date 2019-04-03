@@ -29,9 +29,9 @@ class LanguageResolverTest extends \PHPUnit\Framework\TestCase
      * @param string $appSearchLanguage
      *
      * @testWith ["en_GB", "en"]
-     * @testWith ["en", "en"]
-     * @testWith ["sv_SE", null]
-     * @testWith ["sv", null]
+     *           ["en", "en"]
+     *           ["sv_SE", null]
+     *           ["sv", null]
      */
     public function testLanguage($magentoLanguage, $appSearchLanguage)
     {
