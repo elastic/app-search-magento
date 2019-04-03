@@ -45,6 +45,8 @@ class ClientConfigurationTest extends \PHPUnit\Framework\TestCase
     /**
      * Test is debug mode accross various persited value.
      *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     *
      * @param mixed $debugMode
      *
      * @testWith [true]
