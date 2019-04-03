@@ -17,6 +17,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Elastic\AppSearch\Client\ClientConfigurationInterface" type="Elastic\AppSearch\Client\ClientConfiguration" />
+    <preference for="Elastic\AppSearch\Model\Adapter\EngineInterface" type="Elastic\AppSearch\Model\Adapter\Engine" />
 
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
