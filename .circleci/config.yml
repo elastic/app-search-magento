@@ -67,11 +67,11 @@ jobs:
     working_directory: ~/project/repo
     steps:
     - configure_php
+    - attach_workspace:
+        at: ~/project
     - restore_cache:
         keys:
         - v1-qa-dependencies-{{ checksum "composer.json" }}
-    - attach_workspace:
-        at: ~/project
     - run:
         name: Install dev dependencies
         command: |
