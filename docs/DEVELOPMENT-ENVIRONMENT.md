@@ -1,6 +1,6 @@
 # Installing your dev environment.
 
-This documentation is intended to help you to install your environment in the following cases:
+This documentation is intended to help you install your environment in the following cases:
 * You want to contribute to App Search Magento module as a developer.
 * You need a full featured Magento environment with App Search enabled for testing / QA purpose.
 
@@ -12,7 +12,7 @@ The development environment is dockerized, you will need Docker to be installed 
 
 ### Magento Developer Account:
 
-In order to download Magento, an account it is required to have an account on Magento. If you do not have one already, you can create it at: https://account.magento.com/customer/account/create/
+In order to download Magento, an Magento account is required. If you do not have one already, you can create it at: https://account.magento.com/customer/account/create/
 
 Once your account is created AND VALIDATED (check your mail inbox to get the validation link), you should be able to access your credentials management page at the following address: https://marketplace.magento.com/customer/accessKeys/
 
@@ -32,6 +32,15 @@ The stack contains:
 * Preconfigured component to store data (MySQL and Redis)
 * A custom Apache PHP image containing all the Magento code (+ sample catalog data)
 
+## Configure ENV file 
+
+Your App Search credentials are stored into the `dev/magento.env` file.
+
+When building or launching the stack for the first time, you will need to create a `dev/magento.env` file. We recommend you copy `dev/magento.env.sample` and update the file with your App Search credentials before launching the stack.
+
+**Note:** Every time you change something in the `dev/magento.env` file, the containers will be recreated if running `docker-compose up` and you will need to reinstall Magento.
+
+
 ## Building the stack:
 
 Before being able to use the stack you will need to build the custom image:
@@ -44,14 +53,7 @@ docker-compose build --build-arg public_key="<public_key>" --build-arg private_k
 * Replace both `<public_key>` and `<private_key` by your credentials created in your Magento account
 * Additional build args can be used to change the Magento version or to disable sample data install
 
-Because, there is a lot of dependencies to install the first run may takes several minutes. Consecutive run will be faster.
-
-## Configure App Search
-
-Your App Search credential are stored into the `dev/magento.env` file.
-When launching for the first time you need to create it (we recommend that you copy the `dev/magento.env.sample`) and replace your credential before launching the stack.
-
-**Note:** Every time you change something in the `dev/magento.env` file, the containers will be recreated if running `docker-compose up` and you will need to reinstall Magento.
+Because there are a lot of dependencies to install the first run may takes several minutes. Consecutive runs will be faster.
 
 ## Running the stack
 
@@ -69,9 +71,9 @@ docker-compose exec magento sudo -u www-data -E /bin/bash
 
 **Note:** We are using the `www-data` user in order to preserve access rights when using Magento command. You should never use another account.
 
-## Installing App Search module:
+## Installing App Search
 
-Before installing Magento, you have to deploy the App Search module by using the following command (into the container).
+We need to install the App Search module before we install Magento. Deploy the App Search module by issuing the following command (in a bash session in the container):
 
 ```bash
 composer require "swiftype/swiftype-app-search-magento"
@@ -79,9 +81,9 @@ composer require "swiftype/swiftype-app-search-magento"
 
 **Note:** The App Search module will be symlinked from your host machine. So any change you will do will be replicated in your Magento instance.
 
-## Installing Magento:
+## Installing Magento
 
-To install your Magento instance, you have to login in the container and use:
+To install your Magento instance, login to the container and use:
 
 ```bash
 bin/magento setup:install
