@@ -22,6 +22,7 @@
     <preference for="Elastic\AppSearch\Model\Adapter\EngineResolverInterface" type="Elastic\AppSearch\Model\Adapter\EngineResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\EngineManagerInterface" type="Elastic\AppSearch\Model\Adapter\EngineManager" />
 
+    <preference for="Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema" />
 
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
