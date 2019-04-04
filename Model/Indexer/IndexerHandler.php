@@ -113,10 +113,16 @@ class IndexerHandler implements IndexerInterface
      */
     public function isAvailable($dimensions = [])
     {
-        $storeId = $this->scopeResolver->getScope(current($dimensions)->getValue())->getId();
-        $engine  = $this->engineResolver->getEngine($this->engineIdentifier, $storeId);
+        $isEngineAvailable = true;
 
-        return $this->engineManager->engineExists($engine);
+        if (!empty($dimensions)) {
+            $storeId = $this->scopeResolver->getScope(current($dimensions)->getValue())->getId();
+            $engine  = $this->engineResolver->getEngine($this->engineIdentifier, $storeId);
+
+            $isEngineAvailable = $this->engineManager->engineExists($engine);
+        }
+
+        return !empty($dimensions) ? $isEngineAvailable : $this->engineManager->ping();
     }
 
     /**

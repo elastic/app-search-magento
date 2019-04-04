@@ -24,6 +24,13 @@ use Magento\Framework\Exception\LocalizedException;
 interface EngineManagerInterface
 {
     /**
+     * Test if we can connect to App Search.
+     *
+     * @return bool
+     */
+    public function ping(): bool;
+
+    /**
      * Check an engine exists.
      *
      * @throws LocalizedException

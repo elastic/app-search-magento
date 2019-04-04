@@ -140,6 +140,47 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * Test the ping method of the engine manager.
+     *
+     * @return void
+     */
+    public function testPing()
+    {
+        $client = $this->createMock(Client::class);
+
+        $connectionManager = $this->createConnectionManager($client);
+
+        $engineManager = new EngineManager($connectionManager, new NullLogger());
+
+        $isAvailable = $engineManager->ping();
+
+        $this->assertInternalType('bool', $isAvailable);
+        $this->assertEquals(true, $isAvailable);
+    }
+
+    /**
+     * Test the ping method of the engine manager when an exception occurs.
+     *
+     * @return void
+     */
+    public function testPingError()
+    {
+        $client = $this->createMock(Client::class);
+        $client->expects($this->any())
+            ->method('listEngines')
+            ->will($this->throwException(new ConnectionException("message")));
+
+        $connectionManager = $this->createConnectionManager($client);
+
+        $engineManager = new EngineManager($connectionManager, new NullLogger());
+
+        $isAvailable = $engineManager->ping();
+
+        $this->assertInternalType('bool', $isAvailable);
+        $this->assertEquals(false, $isAvailable);
+    }
+
+    /**
      * Init the connection manager with a client.
      *
      * @param Client $client

@@ -50,6 +50,21 @@ class EngineManager implements EngineManagerInterface
     /**
      * {@inheritDoc}
      */
+    public function ping(): bool
+    {
+        try {
+            $this->client->listEngines();
+        } catch (\Exception $e) {
+            $this->logger->critical($e);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function engineExists(EngineInterface $engine): bool
     {
         $hasEngine = true;
