@@ -33,6 +33,9 @@
                     <label>Enable App Search Debug</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="engine_prefix" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App Search Engine prefix</label>
+                </field>
             </group>
         </section>
     </system>
