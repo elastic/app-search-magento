@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Test\Unit\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Test\Unit\Model\Adapter;
 
 use Elastic\AppSearch\Model\Adapter\Engine;
 
