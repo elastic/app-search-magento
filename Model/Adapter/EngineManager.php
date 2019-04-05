@@ -15,6 +15,7 @@ use Swiftype\Exception\NotFoundException;
 use Magento\Framework\Exception\LocalizedException;
 use Swiftype\AppSearch\Client;
 use Psr\Log\LoggerInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
 
 /**
  * Engine management service implementation.
@@ -91,6 +92,19 @@ class EngineManager implements EngineManagerInterface
         } catch (\Exception $e) {
             $this->logger->critical($e);
             throw new LocalizedException(__('Could not create engine: %1', $e->getMessage()), $e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateSchema(EngineInterface $engine, SchemaInterface $schema): void
+    {
+        try {
+            $this->client->updateSchema($engine->getName(), $schema->getFields());
+        } catch (\Exception $e) {
+            $this->logger->critical($e);
+            throw new LocalizedException(__('Could not update engine schema: %1', $e->getMessage()), $e);
         }
     }
 }

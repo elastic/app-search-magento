@@ -11,6 +11,7 @@
 namespace Elastic\AppSearch\Model\Adapter;
 
 use Magento\Framework\Exception\LocalizedException;
+use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
 
 /**
  * Engine management service.
@@ -51,4 +52,16 @@ interface EngineManagerInterface
      * @return void
      */
     public function createEngine(EngineInterface $engine): void;
+
+    /**
+     * Update an engine schema.
+     *
+     * @throws LocalizedException
+     *
+     * @param EngineInterface $engine
+     * @param SchemaInterface $schema
+     *
+     * @return void
+     */
+    public function updateSchema(EngineInterface $engine, SchemaInterface $schema): void;
 }

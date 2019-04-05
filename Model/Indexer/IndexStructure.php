@@ -14,6 +14,7 @@ use Magento\Framework\Indexer\IndexStructureInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Elastic\AppSearch\Model\Adapter\EngineManagerInterface;
 use Elastic\AppSearch\Model\Adapter\EngineResolverInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\SchemaResolverInterface;
 
 /**
  * Implementation of the App Search index structure.
@@ -35,25 +36,33 @@ class IndexStructure implements IndexStructureInterface
     private $engineManager;
 
     /**
-     * @var EngineManagerInterface
+     * @var EngineResolverInterface
      */
     private $engineResolver;
+
+    /**
+     * @var SchemaResolverInterface
+     */
+    private $schemaResolver;
 
     /**
      * Constructor.
      *
      * @param EngineManagerInterface  $engineManager
      * @param EngineResolverInterface $engineResolver
+     * @param SchemaResolverInterface $schemaResolver
      * @param ScopeResolverInterface  $scopeResolver
      */
     public function __construct(
         EngineManagerInterface $engineManager,
         EngineResolverInterface $engineResolver,
+        SchemaResolverInterface $schemaResolver,
         ScopeResolverInterface $scopeResolver
     ) {
-        $this->scopeResolver  = $scopeResolver;
         $this->engineManager  = $engineManager;
+        $this->schemaResolver = $schemaResolver;
         $this->engineResolver = $engineResolver;
+        $this->scopeResolver  = $scopeResolver;
     }
 
     /**
@@ -64,9 +73,14 @@ class IndexStructure implements IndexStructureInterface
         $storeId = $this->scopeResolver->getScope(current($dimensions)->getValue())->getId();
         $engine  = $this->engineResolver->getEngine($index, $storeId);
 
+        // If the engine does not exists yet, create it.
         if ($this->engineManager->engineExists($engine) === false) {
             $this->engineManager->createEngine($engine);
         }
+
+        // Update the schema of the engine.
+        $schema = $this->schemaResolver->getSchema($index);
+        $this->engineManager->updateSchema($engine, $schema);
     }
 
     /**
