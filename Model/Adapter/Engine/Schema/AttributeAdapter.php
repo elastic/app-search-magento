@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\Model\Adapter\Engine\Schema;
 
-use Magento\Framework\Api\CustomAttributesDataInterface;
+use Magento\Eav\Api\Data\AttributeInterface;
 
 /**
  * Wrap EAV attribute to be usable to build a schema.
@@ -22,16 +22,16 @@ use Magento\Framework\Api\CustomAttributesDataInterface;
 class AttributeAdapter
 {
     /**
-     * @var CustomAttributesDataInterface
+     * @var AttributeInterface
      */
     private $attribute;
 
     /**
      * Constructor.
      *
-     * @param CustomAttributesDataInterface $attribute
+     * @param AttributeInterface $attribute
      */
-    public function __construct(CustomAttributesDataInterface $attribute)
+    public function __construct(AttributeInterface $attribute)
     {
         $this->attribute = $attribute;
     }
