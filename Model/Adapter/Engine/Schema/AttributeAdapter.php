@@ -91,7 +91,7 @@ class AttributeAdapter
      *
      * @return boolean
      */
-    public function isNumberType()
+    public function isNumberType(): bool
     {
         $isNumber = false;
         $backendType = $this->attribute->getBackendType();
@@ -109,7 +109,7 @@ class AttributeAdapter
      *
      * @return boolean
      */
-    public function isDateType()
+    public function isDateType(): bool
     {
         return in_array($this->attribute->getBackendType(), ['timestamp', 'datetime']);
     }
