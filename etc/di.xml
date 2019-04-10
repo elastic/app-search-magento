@@ -90,7 +90,10 @@
      <virtualType name="Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
+                <item name="base" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\BaseSchemaProvider\Proxy</item>
                 <item name="attributes" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\AttributeSchemaProvider\Proxy</item>
+                <item name="price" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\PriceSchemaProvider\Proxy</item>
+                <item name="categories" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\CategorySchemaProvider\Proxy</item>
             </argument>
         </arguments>
      </virtualType>

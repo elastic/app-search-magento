@@ -14,10 +14,10 @@ namespace Elastic\AppSearch\Model\Adapter\Engine\Schema\Product;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\BuilderInterface;
-use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeDataProvider;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterFactory;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
+use Magento\Eav\Api\Data\AttributeInterfaceFactory;
 
 /**
  * Add product attributes to the schema.
@@ -28,7 +28,7 @@ use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class AttributeSchemaProvider implements SchemaProviderInterface
+abstract class AbstractSchemaProvider implements SchemaProviderInterface
 {
     /**
      * @var BuilderInterface
@@ -36,9 +36,9 @@ class AttributeSchemaProvider implements SchemaProviderInterface
     private $builder;
 
     /**
-     * @var AttributeDataProvider
+     * @var FieldNameResolverInterface
      */
-    private $attributeDataProvider;
+    private $fieldNameResolver;
 
     /**
      * @var AttributeDataProvider
@@ -46,37 +46,28 @@ class AttributeSchemaProvider implements SchemaProviderInterface
     private $attributeAdapterFactory;
 
     /**
-     * @var FieldNameResolverInterface
+     * @var AttributeInterfaceFactory
      */
-    private $fieldNameResolver;
-
-    /**
-     * @var string[]
-     */
-    private $contexts = [
-        SchemaInterface::CONTEXT_FILTER,
-        SchemaInterface::CONTEXT_SEARCH,
-        SchemaInterface::CONTEXT_SORT,
-    ];
+    private $attributeFactory;
 
     /**
      * Constructor.
      *
      * @param BuilderInterface           $builder
-     * @param AttributeDataProvider      $attributeDataProvider
      * @param AttributeAdapterFactory    $attributeAdapterFactory
+     * @param AttributeInterfaceFactory  $attributeFactory
      * @param FieldNameResolverInterface $fieldNameResolver
      */
     public function __construct(
         BuilderInterface $builder,
-        AttributeDataProvider $attributeDataProvider,
         AttributeAdapterFactory $attributeAdapterFactory,
+        AttributeInterfaceFactory $attributeFactory,
         FieldNameResolverInterface $fieldNameResolver
     ) {
         $this->builder                 = $builder;
-        $this->attributeDataProvider   = $attributeDataProvider;
         $this->attributeAdapterFactory = $attributeAdapterFactory;
         $this->fieldNameResolver       = $fieldNameResolver;
+        $this->attributeFactory        = $attributeFactory;
     }
 
     /**
@@ -84,16 +75,39 @@ class AttributeSchemaProvider implements SchemaProviderInterface
      */
     public function getSchema(): SchemaInterface
     {
-        $productAttributes = $this->attributeDataProvider->getSearchableAttributes();
+        $attributes = $this->getAttributes();
 
-        foreach ($productAttributes as $productAttribute) {
-            $attribute = $this->attributeAdapterFactory->create(['attribute' => $productAttribute]);
-            foreach ($this->contexts as $contextName) {
-                $fieldName = $this->fieldNameResolver->getFieldName($attribute, ['type' => $contextName]);
-                $this->builder->addField($fieldName, SchemaInterface::FIELD_TYPE_TEXT);
-            }
+        foreach ($attributes as $attribute) {
+            $fieldName = $this->fieldNameResolver->getFieldName($attribute);
+            $this->builder->addField($fieldName, SchemaInterface::FIELD_TYPE_TEXT);
         }
 
         return $this->builder->build();
+    }
+
+    /**
+     * List of static fields definition.
+     *
+     * @return array
+     */
+    abstract protected function getAttributesData();
+
+    /**
+     * Retrieved used attributes and wrap them into an attribute adapter.
+     *
+     * @return AttributeAdapter[]
+     */
+    private function getAttributes()
+    {
+        $attributes = array_map(
+            function ($attributeData) {
+                $attribute = $this->attributeFactory->create(['data' => $attributeData]);
+
+                return $this->attributeAdapterFactory->create(['attribute' =>  $attribute]);
+            },
+            $this->getAttributesData()
+        );
+
+        return $attributes;
     }
 }
