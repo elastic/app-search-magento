@@ -19,13 +19,11 @@ namespace Elastic\AppSearch\Model\Adapter\Engine\Schema\Product;
  */
 class PriceSchemaProvider extends AbstractSchemaProvider
 {
-    /**
-     * {@inheritDoc}
-     */
+
     protected function getAttributesData()
     {
         return [
-            ['attribute_code' => 'price'],
+            ['attribute_code' => 'price', 'backend_type' => 'decimal'],
             ['attribute_code' => 'customer_group_id'],
         ];
     }

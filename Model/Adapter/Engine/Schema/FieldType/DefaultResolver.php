@@ -28,6 +28,14 @@ class DefaultResolver implements FieldTypeResolverInterface
      */
     public function getFieldType(AttributeAdapter $attribute): ?string
     {
-        return SchemaInterface::FIELD_TYPE_TEXT;
+        $fieldType = SchemaInterface::FIELD_TYPE_TEXT;
+
+        if ($attribute->isNumberType()) {
+            $fieldType = SchemaInterface::FIELD_TYPE_NUMBER;
+        } elseif ($attribute->isDateType()) {
+            $fieldType = SchemaInterface::FIELD_TYPE_DATE;
+        }
+
+        return $fieldType;
     }
 }

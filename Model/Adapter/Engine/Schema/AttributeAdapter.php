@@ -85,4 +85,32 @@ class AttributeAdapter
     {
         return (bool) $this->attribute->getUsedForSortBy();
     }
+
+    /**
+     * Check if an attribute is a number.
+     *
+     * @return boolean
+     */
+    public function isNumberType()
+    {
+        $isNumber = false;
+        $backendType = $this->attribute->getBackendType();
+
+        if (in_array($backendType, ['decimal', 'int', 'smallint'])) {
+            $frontendType = $this->getFrontendInput();
+            $isNumber = !in_array($frontendType, ['select', 'multiselect', 'boolean']);
+        }
+
+        return $isNumber;
+    }
+
+    /**
+     * Check if an attribute is a date.
+     *
+     * @return boolean
+     */
+    public function isDateType()
+    {
+        return in_array($this->attribute->getBackendType(), ['timestamp', 'datetime']);
+    }
 }
