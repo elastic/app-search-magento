@@ -26,6 +26,7 @@
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\SchemaResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\Builder" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
+    <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldType\DefaultResolver" />
 
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
@@ -97,11 +98,5 @@
             </argument>
         </arguments>
      </virtualType>
-
-     <type name="Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\AttributeSchemaProvider">
-          <arguments>
-              <argument name="fieldNameResolver" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface</argument>
-          </arguments>
-     </type>
 
 </config>

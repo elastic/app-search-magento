@@ -17,6 +17,7 @@ use Elastic\AppSearch\Model\Adapter\Engine\Schema\BuilderInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterFactory;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
 use Magento\Eav\Api\Data\AttributeInterfaceFactory;
 
 /**
@@ -41,6 +42,11 @@ abstract class AbstractSchemaProvider implements SchemaProviderInterface
     private $fieldNameResolver;
 
     /**
+     * @var FieldTypeResolverInterface
+     */
+    private $fieldTypeResolver;
+
+    /**
      * @var AttributeDataProvider
      */
     private $attributeAdapterFactory;
@@ -57,17 +63,20 @@ abstract class AbstractSchemaProvider implements SchemaProviderInterface
      * @param AttributeAdapterFactory    $attributeAdapterFactory
      * @param AttributeInterfaceFactory  $attributeFactory
      * @param FieldNameResolverInterface $fieldNameResolver
+     * @param FieldTypeResolverInterface $fieldTypeResolver
      */
     public function __construct(
         BuilderInterface $builder,
         AttributeAdapterFactory $attributeAdapterFactory,
         AttributeInterfaceFactory $attributeFactory,
-        FieldNameResolverInterface $fieldNameResolver
+        FieldNameResolverInterface $fieldNameResolver,
+        FieldTypeResolverInterface $fieldTypeResolver
     ) {
         $this->builder                 = $builder;
         $this->attributeAdapterFactory = $attributeAdapterFactory;
-        $this->fieldNameResolver       = $fieldNameResolver;
         $this->attributeFactory        = $attributeFactory;
+        $this->fieldNameResolver       = $fieldNameResolver;
+        $this->fieldTypeResolver       = $fieldTypeResolver;
     }
 
     /**
@@ -79,7 +88,9 @@ abstract class AbstractSchemaProvider implements SchemaProviderInterface
 
         foreach ($attributes as $attribute) {
             $fieldName = $this->fieldNameResolver->getFieldName($attribute);
-            $this->builder->addField($fieldName, SchemaInterface::FIELD_TYPE_TEXT);
+            $fieldType = $this->fieldTypeResolver->getFieldType($attribute);
+
+            $this->builder->addField($fieldName, $fieldType);
         }
 
         return $this->builder->build();

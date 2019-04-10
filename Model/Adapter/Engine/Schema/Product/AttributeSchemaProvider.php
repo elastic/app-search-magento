@@ -18,6 +18,7 @@ use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as Attribut
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterFactory;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
 
 /**
  * Add product attributes to the schema.
@@ -51,6 +52,11 @@ class AttributeSchemaProvider implements SchemaProviderInterface
     private $fieldNameResolver;
 
     /**
+     * @var FieldTypeResolverInterface
+     */
+    private $fieldTypeResolver;
+
+    /**
      * @var string[]
      */
     private $contexts = [
@@ -66,17 +72,20 @@ class AttributeSchemaProvider implements SchemaProviderInterface
      * @param AttributeDataProvider      $attributeDataProvider
      * @param AttributeAdapterFactory    $attributeAdapterFactory
      * @param FieldNameResolverInterface $fieldNameResolver
+     * @param FieldTypeResolverInterface $fieldTypeResolver
      */
     public function __construct(
         BuilderInterface $builder,
         AttributeDataProvider $attributeDataProvider,
         AttributeAdapterFactory $attributeAdapterFactory,
-        FieldNameResolverInterface $fieldNameResolver
+        FieldNameResolverInterface $fieldNameResolver,
+        FieldTypeResolverInterface $fieldTypeResolver
     ) {
         $this->builder                 = $builder;
         $this->attributeDataProvider   = $attributeDataProvider;
         $this->attributeAdapterFactory = $attributeAdapterFactory;
         $this->fieldNameResolver       = $fieldNameResolver;
+        $this->fieldTypeResolver       = $fieldTypeResolver;
     }
 
     /**
@@ -90,7 +99,9 @@ class AttributeSchemaProvider implements SchemaProviderInterface
             $attribute = $this->attributeAdapterFactory->create(['attribute' => $productAttribute]);
             foreach ($this->contexts as $contextName) {
                 $fieldName = $this->fieldNameResolver->getFieldName($attribute, ['type' => $contextName]);
-                $this->builder->addField($fieldName, SchemaInterface::FIELD_TYPE_TEXT);
+                $fieldType = $this->fieldTypeResolver->getFieldType($attribute);
+
+                $this->builder->addField($fieldName, $fieldType);
             }
         }
 
