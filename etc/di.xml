@@ -25,6 +25,7 @@
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\SchemaResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\Builder" />
+    <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
 
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
@@ -89,9 +90,15 @@
      <virtualType name="Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
-                <item name="base" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\DummySchemaProvider\Proxy</item>
+                <item name="attributes" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\AttributeSchemaProvider\Proxy</item>
             </argument>
         </arguments>
      </virtualType>
+
+     <type name="Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\AttributeSchemaProvider">
+          <arguments>
+              <argument name="fieldNameResolver" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface</argument>
+          </arguments>
+     </type>
 
 </config>
