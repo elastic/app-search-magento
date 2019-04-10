@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Test\Unit\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Test\Unit\Model\Adapter;
 
 use Elastic\AppSearch\Model\Adapter\EngineResolver;
 use Elastic\AppSearch\Model\Adapter\EngineInterface;
@@ -16,7 +16,7 @@ use Elastic\AppSearch\Model\Adapter\Engine\EngineNameResolver;
 use Elastic\AppSearch\Model\Adapter\Engine\LanguageResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\Model\Adapter\Engine class.
+ * Unit test for the Elastic\AppSearch\Model\Adapter\EngineResolver class.
  *
  * @package   Elastic\AppSearch\Test\Unit\Client
  * @copyright 2019 Elastic

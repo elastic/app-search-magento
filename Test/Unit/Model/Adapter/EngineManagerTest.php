@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Test\Unit\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Test\Unit\Model\Adapter;
 
 use Elastic\AppSearch\Model\Adapter\EngineManager;
 use Elastic\AppSearch\Client\ConnectionManager;
@@ -19,7 +19,7 @@ use Swiftype\Exception\NotFoundException;
 use Swiftype\Exception\ConnectionException;
 
 /**
- * Unit test for the Elastic\AppSearch\Model\Adapter\Engine class.
+ * Unit test for the Elastic\AppSearch\Model\Adapter\EngineManager class.
  *
  * @package   Elastic\AppSearch\Test\Unit\Client
  * @copyright 2019 Elastic
