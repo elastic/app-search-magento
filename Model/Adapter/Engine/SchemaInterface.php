@@ -25,7 +25,7 @@ interface SchemaInterface
      */
     public const FIELD_TYPE_TEXT        = 'text';
     public const FIELD_TYPE_NUMBER      = 'number';
-    public const FIELD_TYPE_DATE        = 'data';
+    public const FIELD_TYPE_DATE        = 'date';
     public const FIELD_TYPE_GEOLOCATION = 'geolocation';
 
     /**
