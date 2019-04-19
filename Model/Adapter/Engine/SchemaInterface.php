@@ -29,6 +29,13 @@ interface SchemaInterface
     public const FIELD_TYPE_GEOLOCATION = 'geolocation';
 
     /**
+     * App Search context types definition.
+     */
+    public const CONTEXT_SEARCH = 'search';
+    public const CONTEXT_FILTER = 'filter';
+    public const CONTEXT_SORT   = 'sort';
+
+    /**
      * List of fields of the schema (field name as key, type as value).
      *
      * @return array
