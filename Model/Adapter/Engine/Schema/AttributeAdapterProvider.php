@@ -94,9 +94,9 @@ class AttributeAdapterProvider
      *
      * @return AttributeInterface
      */
-    private function getAttribute(string $attributeCode): AttributeInterface
+    private function getAttribute(string $attributeCode): ?AttributeInterface
     {
-        return $this->eavConfig ? $this->eavConfig->getAttribute($this->entityTypeId, $attributeCode) : null;
+        return $this->eavConfig->getAttribute($this->entityTypeId, $attributeCode);
     }
 
     /**
