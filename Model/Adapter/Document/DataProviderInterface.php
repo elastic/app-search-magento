@@ -11,22 +11,21 @@
 namespace Elastic\AppSearch\Model\Adapter\Document;
 
 /**
- * Allow to retrieve the batch data mapper used for a specific engine.
- *
- * @api
+ * Retrive data for an entity to be indexed.
  *
  * @package   Elastic\Model\Adapter\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-interface BatchDataMapperResolverInterface
+interface DataProviderInterface
 {
     /**
-     * Retrieve the batch data mapper for the specified engine.
+     * Retrieve the data for a list of entity.
      *
-     * @param string $engineIdentifier
+     * @param array $entityIds
+     * @param int   $storeId
      *
-     * @return BatchDataMapperInterface
+     * @return array
      */
-    public function getMapper(string $engineIdentifier): BatchDataMapperInterface;
+    public function getData(array $entityIds, int $storeId): array;
 }

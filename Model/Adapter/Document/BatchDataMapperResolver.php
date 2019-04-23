@@ -15,7 +15,7 @@ use Magento\Framework\Exception\LocalizedException;
 /**
  * Batch data mapper resolver implementation.
  *
- * @package   Elastic\Model\AdapterDocument
+ * @package   Elastic\Model\Adapter\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

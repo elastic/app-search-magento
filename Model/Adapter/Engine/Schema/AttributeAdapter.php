@@ -63,7 +63,7 @@ class AttributeAdapter
      */
     public function isFilterable(): bool
     {
-        return (bool) ($this->getAttribute()->getIsFilterable() || $this->getAttribute()->getIsFilterableInSearch());
+        return (bool) ($this->attribute->getIsFilterable() || $this->attribute->getIsFilterableInSearch());
     }
 
     /**
@@ -112,5 +112,15 @@ class AttributeAdapter
     public function isDateType(): bool
     {
         return in_array($this->attribute->getBackendType(), ['timestamp', 'datetime']);
+    }
+
+    /**
+     * Return attribute options.
+     *
+     * @return array
+     */
+    public function getOptions(): ?array
+    {
+        return $this->attribute->getOptions();
     }
 }

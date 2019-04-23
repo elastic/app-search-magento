@@ -17,7 +17,7 @@ use Elastic\AppSearch\Model\Adapter\EngineInterface;
  *
  * @api
  *
- * @package   Elastic\Model\AdapterDocument
+ * @package   Elastic\Model\Adapter\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
