@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Model\Adapter;
 /**
  * App Search Engine implementation.
  *
- * @package   Elastic\Model\Indexer
+ * @package   Elastic\Model\Adapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
