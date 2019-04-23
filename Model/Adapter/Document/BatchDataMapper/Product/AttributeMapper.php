@@ -125,7 +125,7 @@ class AttributeMapper implements BatchDataMapperInterface
             }
         }
 
-        return is_array($value) && count($value) == 1 ? current($value) : $value;
+        return $value;
     }
 
     /**

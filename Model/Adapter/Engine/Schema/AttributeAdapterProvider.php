@@ -18,6 +18,8 @@ use Magento\Eav\Api\Data\AttributeInterface;
 /**
  * Allow to retrive attribute to be used to refer to search engine fields.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\Model\Adapter\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0

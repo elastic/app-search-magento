@@ -16,6 +16,8 @@ use Elastic\AppSearch\Model\Adapter\Document\DataProviderInterface;
 /**
  * Product batch data mapper implementation.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\Model\Adapter\Document\BatchDataMapper
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0

@@ -14,6 +14,15 @@ use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
 
+/**
+ * Retrive category data for products.
+ *
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ *
+ * @package   Elastic\Model\Adapter\Document\BatchDataMapper\Product
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
 class CategoryDataProvider extends AbstractDataProvider
 {
     /**

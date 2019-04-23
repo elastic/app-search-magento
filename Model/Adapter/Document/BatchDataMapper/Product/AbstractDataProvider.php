@@ -17,7 +17,7 @@ use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as At
 /**
  * Retrive data for an product to be indexed.
  *
- * @package   Elastic\Model\AdapterDocument
+ * @package   Elastic\Model\BatchDataMapper\Product
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

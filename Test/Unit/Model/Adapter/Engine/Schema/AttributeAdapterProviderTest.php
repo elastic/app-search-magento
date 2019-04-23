@@ -18,6 +18,8 @@ use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 /**
  * Unit test for the Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider class.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Test\Unit\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -87,6 +89,8 @@ class AttributeAdapterProviderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Load mocked eav config.
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      *
      * @return EavConfig
      */
