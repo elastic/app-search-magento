@@ -18,7 +18,7 @@ use Magento\Framework\Search\RequestInterface;
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
- * @package   Elastic\AppSearch\Test\Unit\SearchAdapter\Request
+ * @package   Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Page
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

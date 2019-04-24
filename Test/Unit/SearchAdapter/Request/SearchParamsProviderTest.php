@@ -36,6 +36,7 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
         'provider5' => ['false' => false],
         'provider6' => ['zero' => 0],
         'provider7' => ['emptystring' => ""],
+        'provider8' => [],
     ];
 
     /**
