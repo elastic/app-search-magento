@@ -13,9 +13,10 @@ namespace Elastic\AppSearch\Model\Indexer;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\Indexer\IndexStructureInterface;
 use Magento\Framework\App\ScopeResolverInterface;
-use Magento\Framework\Indexer\SaveHandler\Batch;
 use Elastic\AppSearch\Model\Adapter\EngineManagerInterface;
 use Elastic\AppSearch\Model\Adapter\EngineResolverInterface;
+use Elastic\AppSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Model\Adapter\Document\SyncManagerInterface;
 
 /**
  * Implementation of the App Search indexer handler.
@@ -32,11 +33,6 @@ class IndexerHandler implements IndexerInterface
     const DEFAULT_ENGINE_IDENTIFIER = \Magento\CatalogSearch\Model\Indexer\Fulltext::INDEXER_ID;
 
     /**
-     * Default batch size
-     */
-    const DEFAULT_BATCH_SIZE = 100;
-
-    /**
      * @var IndexStructureInterface
      */
     private $indexStructure;
@@ -45,6 +41,11 @@ class IndexerHandler implements IndexerInterface
      * @var EngineManagerInterface
      */
     private $engineManager;
+
+    /**
+     * @var SyncManagerInterface
+     */
+    private $syncManager;
 
     /**
      * @var EngineResolverInterface
@@ -57,19 +58,9 @@ class IndexerHandler implements IndexerInterface
     private $scopeResolver;
 
     /**
-     * @var Batch
-     */
-    private $batch;
-
-    /**
      * @var string
      */
     private $engineIdentifier;
-
-    /**
-     * @var int
-     */
-    private $batchSize;
 
     /**
      * @var array
@@ -81,30 +72,27 @@ class IndexerHandler implements IndexerInterface
      *
      * @param IndexStructureInterface $indexStructure
      * @param EngineManagerInterface  $engineManager
+     * @param SyncManagerInterface    $syncManager
      * @param EngineResolverInterface $engineResolver
      * @param ScopeResolverInterface  $scopeResolver
-     * @param Batch                   $batch
      * @param string                  $engineIdentifier
-     * @param int                     $batchSize
      * @param array                   $data
      */
     public function __construct(
         IndexStructureInterface $indexStructure,
         EngineManagerInterface $engineManager,
+        SyncManagerInterface $syncManager,
         EngineResolverInterface $engineResolver,
         ScopeResolverInterface $scopeResolver,
-        Batch $batch,
         $engineIdentifier = self::DEFAULT_ENGINE_IDENTIFIER,
-        $batchSize = self::DEFAULT_BATCH_SIZE,
         $data = []
     ) {
         $this->indexStructure   = $indexStructure;
         $this->engineManager    = $engineManager;
+        $this->syncManager      = $syncManager;
         $this->engineResolver   = $engineResolver;
         $this->scopeResolver    = $scopeResolver;
-        $this->batch            = $batch;
         $this->engineIdentifier = $engineIdentifier;
-        $this->batchSize        = $batchSize;
         $this->data             = $data;
     }
 
@@ -116,9 +104,7 @@ class IndexerHandler implements IndexerInterface
         $isEngineAvailable = true;
 
         if (!empty($dimensions)) {
-            $storeId = $this->scopeResolver->getScope(current($dimensions)->getValue())->getId();
-            $engine  = $this->engineResolver->getEngine($this->engineIdentifier, $storeId);
-
+            $engine = $this->getEngine($dimensions);
             $isEngineAvailable = $this->engineManager->engineExists($engine);
         }
 
@@ -130,7 +116,9 @@ class IndexerHandler implements IndexerInterface
      */
     public function saveIndex($dimensions, \Traversable $documents)
     {
-        // TODO: implementation.
+        $engine = $this->getEngine($dimensions);
+        $this->syncManager->addDocuments($engine, $documents);
+        $this->syncManager->sync();
 
         return $this;
     }
@@ -140,7 +128,8 @@ class IndexerHandler implements IndexerInterface
      */
     public function deleteIndex($dimensions, \Traversable $documents)
     {
-        // TODO: implementation.
+        $engine = $this->getEngine($dimensions);
+        $this->syncManager->deleteDocuments($engine, $documents);
 
         return $this;
     }
@@ -153,5 +142,19 @@ class IndexerHandler implements IndexerInterface
         $this->indexStructure->create($this->engineIdentifier, [], $dimensions);
 
         return $this;
+    }
+
+    /**
+     * Get engine from dimensions.
+     *
+     * @param array $dimensions
+     *
+     * @return EngineInterface
+     */
+    private function getEngine($dimensions): EngineInterface
+    {
+        $storeId = $this->scopeResolver->getScope(current($dimensions)->getValue())->getId();
+
+        return $this->engineResolver->getEngine($this->engineIdentifier, $storeId);
     }
 }

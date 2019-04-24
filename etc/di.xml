@@ -22,6 +22,9 @@
     <preference for="Elastic\AppSearch\Model\Adapter\EngineResolverInterface" type="Elastic\AppSearch\Model\Adapter\EngineResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\EngineManagerInterface" type="Elastic\AppSearch\Model\Adapter\EngineManager" />
 
+    <preference for="Elastic\AppSearch\Model\Adapter\Document\SyncManagerInterface" type="Elastic\AppSearch\Model\Adapter\Document\SyncManager" />
+    <preference for="Elastic\AppSearch\Model\Adapter\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\Model\Adapter\Document\BatchDataMapperResolver" />
+
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\SchemaResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\Builder" />
@@ -88,7 +91,7 @@
         </arguments>
     </type>
 
-     <virtualType name="Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider">
+    <virtualType name="Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
                 <item name="base" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\BaseSchemaProvider\Proxy</item>
@@ -97,6 +100,41 @@
                 <item name="categories" xsi:type="object">Elastic\AppSearch\Model\Adapter\Engine\Schema\Product\CategorySchemaProvider\Proxy</item>
             </argument>
         </arguments>
-     </virtualType>
+    </virtualType>
+
+    <type name="Elastic\AppSearch\Model\Adapter\Document\BatchDataMapperResolver">
+        <arguments>
+            <argument name="mappers" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product">
+        <arguments>
+            <argument name="attributeMapper" xsi:type="object">Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product\AttributeMapper</argument>
+            <argument name="additionalDataProviders" xsi:type="array">
+                <item name="categoryData" xsi:type="object">Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product\CategoryDataProvider</item>
+                <item name="priceData" xsi:type="object">Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product\PriceDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Model\Adapter\Document\DocumentSlicer">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="array">
+                    <item name="categoryDataSlicer" xsi:type="array">
+                        <item name="parentField" xsi:type="string">category</item>
+                        <item name="keyField" xsi:type="string">category_id</item>
+                    </item>
+                    <item name="priceDataSlicer" xsi:type="array">
+                        <item name="parentField" xsi:type="string">price</item>
+                        <item name="keyField" xsi:type="string">customer_group_id</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
 
 </config>

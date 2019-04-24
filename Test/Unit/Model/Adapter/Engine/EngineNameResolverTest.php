@@ -22,7 +22,7 @@ use Magento\Framework\Filter\TranslitUrl;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class EngineNameeResolverTest extends \PHPUnit\Framework\TestCase
+class EngineNameResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test expected engine name for catalogsearch fulltext engine..

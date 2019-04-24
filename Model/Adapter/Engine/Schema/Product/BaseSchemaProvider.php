@@ -26,6 +26,7 @@ class BaseSchemaProvider extends AbstractSchemaProvider
     {
         return [
           ['attribute_code' => 'entity_id'],
+          ['attribute_code' => 'options'],
         ];
     }
 }
