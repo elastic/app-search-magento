@@ -48,6 +48,6 @@ class SearchParamsProvider implements SearchParamsProviderInterface
             $this->providers
         );
 
-        return array_merge_recursive(...$searchParams);
+        return !empty($searchParams) ? array_merge_recursive(...array_values($searchParams)) : [];
     }
 }

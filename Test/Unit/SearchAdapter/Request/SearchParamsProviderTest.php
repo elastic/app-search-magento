@@ -29,13 +29,13 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
      * @var array
      */
     private $providersData = [
-        ['foo' => ['foo' => 'foo 1', 'bar' => 'bar'], 'bar' => 'bar', 'baz' => 'baz'],
-        ['foo' => ['foo' => 'foo 2', 'baz' => 'baz'], 'bar' => 'bar', 'qux' => 'qux'],
-        ['empty' => []],
-        ['null' => null],
-        ['false' => false],
-        ['zero' => 0],
-        ['emptystring' => ""],
+        'provider1' => ['foo' => ['foo' => 'foo 1', 'bar' => 'bar'], 'bar' => 'bar', 'baz' => 'baz'],
+        'provider2' => ['foo' => ['foo' => 'foo 2', 'baz' => 'baz'], 'bar' => 'bar', 'qux' => 'qux'],
+        'provider3' => ['empty' => []],
+        'provider4' => ['null' => null],
+        'provider5' => ['false' => false],
+        'provider6' => ['zero' => 0],
+        'provider7' => ['emptystring' => ""],
     ];
 
     /**
