@@ -50,8 +50,6 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
 
         $pageParams = $searchParamsProvider->getParams($request);
 
-        var_dump($pageParams);
-
         $this->assertArrayHasKey('page', $pageParams);
         $this->assertArrayHasKey('current', $pageParams['page']);
         $this->assertEquals($currentPage, $pageParams['page']['current']);
