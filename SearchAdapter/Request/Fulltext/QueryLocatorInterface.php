@@ -23,6 +23,11 @@ use Magento\Framework\Search\Request\QueryInterface;
 interface QueryLocatorInterface
 {
     /**
+     * @var string
+     */
+    const FULLTEXT_QUERY_NAME = "search";
+
+    /**
      * Extract the fulltext query from the request
      *
      * @param RequestInterface $request

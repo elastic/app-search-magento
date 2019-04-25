@@ -23,11 +23,6 @@ use Magento\Framework\Search\Request\QueryInterface;
 class QueryLocator implements QueryLocatorInterface
 {
     /**
-     * @var string
-     */
-    private const FULLTEXT_QUERY_NAME = "search";
-
-    /**
      * {@inheritDoc}
      */
     public function getQuery(RequestInterface $request): ?QueryInterface
