@@ -73,7 +73,9 @@ class DocumentSlicer
                             $sliceData[$field] = $fieldValue;
                         }
                         $slicedDocument = array_merge($document, $sliceData);
-                        unset($slicedDocument[$parentField]);
+                        if (!isset($sliceData[$parentField])) {
+                            unset($slicedDocument[$parentField]);
+                        }
                         $slicedDocuments[$sliceData['id']] = $slicedDocument;
                     }
                 }

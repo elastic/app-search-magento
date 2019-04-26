@@ -20,7 +20,7 @@ use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
 /**
  * Engine management service implementation.
  *
- * @package   Elastic\Model\Indexer
+ * @package   Elastic\Model\Adapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

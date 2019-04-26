@@ -31,6 +31,12 @@
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldType\DefaultResolver" />
 
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface" type="Elastic\AppSearch\SearchAdapter\Request\SearchParamsProvider" />
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocatorInterface" type="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocator" />
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface" type="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolver" />
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder" />
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder" />
+
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
             <argument name="sensitive" xsi:type="array">
@@ -63,6 +69,14 @@
         <arguments>
             <argument name="engines" xsi:type="array">
                 <item name="elastic_appsearch" xsi:type="string">elastic_appsearch</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\AdapterFactory">
+        <arguments>
+            <argument name="adapters" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\SearchAdapter\Adapter</item>
             </argument>
         </arguments>
     </type>
@@ -135,6 +149,38 @@
                 </item>
             </argument>
         </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\SearchAdapter\Request\SearchParamsProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="page" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Page\SearchParamsProvider</item>
+                <item name="filters" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\SearchParamsProvider</item>
+                <item name="search_fields" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider</item>
+                <item name="facets" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Facet\SearchParamsProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder">
+      <arguments>
+          <argument name="builders" xsi:type="array">
+              <item name="boolQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\BoolQueryFilterBuilder\Proxy</item>
+              <item name="matchQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\MatchQueryFilterBuilder</item>
+              <item name="filteredQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\FilteredQueryFilterBuilder</item>
+          </argument>
+      </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder">
+      <arguments>
+          <argument name="builders" xsi:type="array">
+              <item name="boolFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\BoolFilterBuilder\Proxy</item>
+              <item name="termFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\TermFilterBuilder</item>
+              <item name="rangeFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\RangeFilterBuilder</item>
+              <item name="wildcardFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\WildcardFilterBuilder</item>
+          </argument>
+      </arguments>
     </type>
 
 </config>
