@@ -20,7 +20,7 @@ use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 /**
  * Run the search request against the engine.
  *
- * @package   Elastic\AppSearch\SearchAdapter\Request
+ * @package   Elastic\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
