@@ -54,11 +54,12 @@ abstract class AbstractDataProvider implements DataProviderInterface
      * Return index field name from a string.
      *
      * @param string $field
+     * @param array  $context
      *
      * @return string
      */
-    protected function getFieldName(string $field): string
+    protected function getFieldName(string $field, array $context = []): string
     {
-        return $this->fieldNameResolver->getFieldName($this->attributeProvider->getAttributeAdapter($field));
+        return $this->fieldNameResolver->getFieldName($this->attributeProvider->getAttributeAdapter($field), $context);
     }
 }

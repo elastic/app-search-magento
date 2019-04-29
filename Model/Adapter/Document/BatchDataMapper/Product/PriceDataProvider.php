@@ -68,12 +68,9 @@ class PriceDataProvider extends AbstractDataProvider
         $priceData = [];
 
         foreach ($data as $customerGroupId => $price) {
-            $priceData[] = [
-                $this->getFieldName('customer_group_id') => $customerGroupId,
-                $this->getFieldName('price')             => $price,
-            ];
+            $priceData[$this->getFieldName('price', ['customer_group_id' => $customerGroupId])] = $price;
         }
 
-        return [$this->getFieldName('price') => $priceData];
+        return $priceData;
     }
 }

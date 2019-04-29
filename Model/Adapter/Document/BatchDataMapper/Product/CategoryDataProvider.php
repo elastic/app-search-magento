@@ -68,24 +68,8 @@ class CategoryDataProvider extends AbstractDataProvider
         $categoryData = [
             $this->getFieldName('category_ids')  => array_column($data, 'id'),
             $this->getFieldName('category_name') => array_column($data, 'name'),
-            $this->getFieldName('category')      => array_map([$this, 'getCategoryPosition'], $data),
         ];
 
         return $categoryData;
-    }
-
-    /**
-     * Extract category position row and convert it into the indexed format.
-     *
-     * @param array $categoryData
-     *
-     * @return array]
-     */
-    private function getCategoryPosition($categoryData)
-    {
-        return [
-            $this->getFieldName('category_id')      => $categoryData['id'],
-            $this->getFieldName('category_positon') => $categoryData['position'],
-        ];
     }
 }

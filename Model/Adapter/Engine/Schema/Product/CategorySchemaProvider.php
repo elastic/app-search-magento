@@ -25,8 +25,6 @@ class CategorySchemaProvider extends AbstractSchemaProvider
     protected function getAttributesData()
     {
         return [
-            ['attribute_code' => 'category_id'],
-            ['attribute_code' => 'category_position', 'backend_type' => 'int'],
             ['attribute_code' => 'category_name'],
             ['attribute_code' => 'category_ids'],
         ];

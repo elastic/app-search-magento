@@ -57,28 +57,20 @@ class SyncManager implements SyncManagerInterface
     private $client;
 
     /**
-     * @var DocumentSlicer
-     */
-    private $documentSlicer;
-
-    /**
      * Constructor.
      *
      * @param BatchDataMapperResolverInterface $batchDataMapperResolver
-     * @param DocumentSlicer                   $documentSlicer
      * @param ConnectionManager                $connectionManager
      * @param Batch                            $batch
      * @param int                              $batchSize
      */
     public function __construct(
         BatchDataMapperResolverInterface $batchDataMapperResolver,
-        DocumentSlicer $documentSlicer,
         ConnectionManager $connectionManager,
         Batch $batch,
         int $batchSize = self::DEFAULT_BATCH_SIZE
     ) {
         $this->batchDataMapperResolver = $batchDataMapperResolver;
-        $this->documentSlicer          = $documentSlicer;
         $this->client                  = $connectionManager->getClient();
         $this->batch                   = $batch;
         $this->batchSize               = $batchSize;
@@ -96,7 +88,7 @@ class SyncManager implements SyncManagerInterface
         $batchDataMapper = $this->batchDataMapperResolver->getMapper($engine->getIdentifier());
 
         foreach ($this->batch->getItems($documents, $this->batchSize) as $docs) {
-            $documents = $this->documentSlicer->apply($engine, $batchDataMapper->map($docs, $engine->getStoreId()));
+            $documents = $batchDataMapper->map($docs, $engine->getStoreId());
             foreach ($documents as $doc) {
                 $this->docs[$engine->getName()][$doc['id']] = $doc;
             }
@@ -113,7 +105,7 @@ class SyncManager implements SyncManagerInterface
                 function ($docId) {
                     return ["id" => $docId, "deleted" => true];
                 },
-                $this->getDeletedDocIds($engine, $entityIds)
+                $entityIds
             );
 
             foreach ($documents as $doc) {
@@ -132,51 +124,5 @@ class SyncManager implements SyncManagerInterface
                 $this->client->indexDocuments($engineName, $insertDocs);
             }
         }
-    }
-
-    /**
-     * Retrive list of doc ids to be deleted by entity id.
-     *
-     * @param EngineInterface $engine
-     * @param array           $entityIds
-     *
-     * @return string[]
-     */
-    private function getDeletedDocIds(EngineInterface $engine, array $entityIds)
-    {
-        $deletedIds   = [];
-        $searchParams = $this->getDeletedDocsSearchParams($entityIds);
-        $currentPage  = 1;
-
-        do {
-            $searchParams['page']['current'] = $currentPage;
-
-            $searchResponse = $this->client->search($engine->getName(), "", $searchParams);
-
-            $totalPages = $searchResponse['meta']['page']['total_pages'];
-            $currentPage++;
-
-            foreach ($searchResponse['results'] as $doc) {
-                $deletedIds[] = $doc['id']['raw'];
-            }
-        } while ($currentPage <= $totalPages);
-
-        return $deletedIds;
-    }
-
-    /**
-     * Search params to be used to retrieve deleted entity ids.
-     *
-     * @param array $entityIds
-     *
-     * @return array
-     */
-    private function getDeletedDocsSearchParams(array $entityIds)
-    {
-        return [
-            'filters'       => ['entity_id' => $entityIds],
-            'result_fields' => ["id" => ["raw" => []]],
-            'page'          => ['size' => $this->batchSize]
-        ];
     }
 }
