@@ -16,7 +16,7 @@ use Magento\Framework\Search\RequestInterface;
 /**
  * AppSearch search adapter implementation.
  *
- * @package   Elastic\Model\SearchAdapter
+ * @package   Elastic\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
