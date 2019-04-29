@@ -36,6 +36,9 @@
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface" type="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolver" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder" />
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilder" />
+
+    <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Model\Search" />
 
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
@@ -158,6 +161,7 @@
                 <item name="filters" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\SearchParamsProvider</item>
                 <item name="search_fields" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider</item>
                 <item name="facets" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Facet\SearchParamsProvider</item>
+                <item name="sorts" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Sort\SearchParamsProvider</item>
             </argument>
         </arguments>
     </type>
@@ -182,5 +186,17 @@
           </argument>
       </arguments>
     </type>
+
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Elastic\AppSearch\Model\ResourceModel\Product\Fulltext\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollection" type="Elastic\AppSearch\Model\ResourceModel\Product\Fulltext\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">quick_search_container</argument>
+        </arguments>
+    </virtualType>
 
 </config>
