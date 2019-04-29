@@ -16,6 +16,11 @@ use Magento\Framework\Search\Response\AggregationFactory;
 use Elastic\AppSearch\SearchAdapter\Response\DocumentFactory;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Api\Search\DocumentInterface;
+use Magento\Framework\Api\Search\BucketInterface;
+use Magento\Framework\Search\Response\BucketFactory;
+use Magento\Framework\Search\Response\Aggregation\ValueFactory as AggregationValueFactory;
+use Magento\CatalogSearch\Model\Search\RequestGenerator;
+
 
 /**
  * AppSearch search adapter response factory implementation.
@@ -52,23 +57,41 @@ class ResponseFactory
     private $instance;
 
     /**
+     * @var BucketFactory
+     */
+    private $bucketFactory;
+
+    /**
+     * @var AggregationValueFactory
+     */
+    private $aggregationValueFactory;
+
+    /**
      * Constructor.
      *
-     * @param ObjectManagerInterface $objectManager
-     * @param DocumentFactory        $documentFactory
-     * @param AggregationFactory     $aggregationFactory
-     * @param string                 $instance
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
+     * @param ObjectManagerInterface  $objectManager
+     * @param DocumentFactory         $documentFactory
+     * @param AggregationFactory      $aggregationFactory
+     * @param BucketFactory           $bucketFactory
+     * @param AggregationValueFactory $aggregationValueFactory
+     * @param string                  $instance
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
         DocumentFactory $documentFactory,
         AggregationFactory $aggregationFactory,
+        BucketFactory $bucketFactory,
+        AggregationValueFactory $aggregationValueFactory,
         string $instance = self::CLASS_NAME
     ) {
-        $this->documentFactory    = $documentFactory;
-        $this->aggregationFactory = $aggregationFactory;
-        $this->objectManager      = $objectManager;
-        $this->instance           = $instance;
+        $this->documentFactory         = $documentFactory;
+        $this->aggregationFactory      = $aggregationFactory;
+        $this->objectManager           = $objectManager;
+        $this->instance                = $instance;
+        $this->bucketFactory           = $bucketFactory;
+        $this->aggregationValueFactory = $aggregationValueFactory;
     }
 
     /**
@@ -116,14 +139,42 @@ class ResponseFactory
     /**
      * Extract aggregations from the App Search raw response.
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
      * @param array $rawResponse
      *
      * @return AggregationInterface
      */
     private function getAggregations(array $rawResponse): AggregationInterface
     {
-        return $this->aggregationFactory->create(['buckets' => []]);
+        $buckets = [];
+
+        foreach ($rawResponse['facets'] ?? [] as $facetName => $rawValues) {
+            $values = [];
+            foreach ($rawValues as $value) {
+                $valueData = ['value' => $value['value'], 'metrics' => $value];
+                $values[] = $this->aggregationValueFactory->create($valueData);
+            }
+            $buckets[$facetName] = $this->bucketFactory->create(['name' => $facetName, 'values' => $values]);
+        }
+
+        $resultCountBucket = $this->getResultCountBucket($rawResponse);
+
+        $buckets[$resultCountBucket->getName()] = $resultCountBucket;
+
+        return $this->aggregationFactory->create(['buckets' => $buckets]);
+    }
+
+    /**
+     * Temporary fix to allow having search results count available through aggregations.
+     *
+     * @return BucketInterface
+     */
+    private function getResultCountBucket(array $rawResponse): BucketInterface
+    {
+        $docCounts = $this->getDocumentsCount($rawResponse);
+
+        $valueData = ['value' => 'docs', 'metrics' => ['value' => 'docs', 'count' => $docCounts]];
+        $values = [$this->aggregationValueFactory->create($valueData)];
+
+        return $this->bucketFactory->create(['name' => '_meta' . RequestGenerator::BUCKET_SUFFIX, 'values' => $values]);
     }
 }
