@@ -61,27 +61,39 @@ class BoolQueryFilterBuilderTest extends \PHPUnit\Framework\TestCase
             ],
             [
               $this->createBoolQuery([$query1, $query2]),
-              ["all" => [["query1"], ["query2"]]],
+              ["all" => [["query" => "query1"], ["query" => "query2"]]],
             ],
             [
               $this->createBoolQuery([], [$query1, $query2]),
-              ["any" => [["query1"], ["query2"]]],
+              ["any" => [["query" => "query1"], ["query" => "query2"]]],
             ],
             [
               $this->createBoolQuery([], [], [$query1, $query2]),
-              ["none" => [["query1"], ["query2"]]],
+              ["none" => [["query" => "query1"], ["query" => "query2"]]],
             ],
             [
               $this->createBoolQuery([$query1, $emptyQuery]),
-              [["query1"]],
+              ["query" => "query1"],
+            ],
+            [
+              $this->createBoolQuery([], [$query1]),
+              ["query" => "query1"],
+            ],
+            [
+                $this->createBoolQuery([$emptyQuery], [$query1]),
+                ["query" => "query1"],
             ],
             [
               $this->createBoolQuery([$query1], [$query2]),
-              ["all" => [["query1"], ["query2"]]]
+              ["all" => [["query" => "query1"], ["query" => "query2"]]]
             ],
             [
               $this->createBoolQuery([$query1], [$query2, $query3], [$query3]),
-              ["all" => [["query1"]], "any" => [["query2"], ["query3"]], "none" => [["query3"]]]
+              [
+                "all" => [["query" => "query1"]],
+                "any" => [["query" => "query2"], ["query" => "query3"]],
+                "none" => [["query" => "query3"]],
+              ]
             ],
         ];
     }
@@ -96,7 +108,7 @@ class BoolQueryFilterBuilderTest extends \PHPUnit\Framework\TestCase
         $queryBuilder = $this->createMock(QueryFilterBuilderInterface::class);
         $queryBuilder->method('getFilter')->willReturnCallback(
             function ($query) {
-                return $query->getType() != "empty" ? [$query->getName()] : [];
+                return $query->getType() != "empty" ? [$query->getType() => $query->getName()] : [];
             }
         );
 
