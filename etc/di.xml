@@ -31,8 +31,8 @@
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
     <preference for="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface" type="Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldType\DefaultResolver" />
 
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface" type="Elastic\AppSearch\SearchAdapter\Request\QueryLocator" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface" type="Elastic\AppSearch\SearchAdapter\Request\SearchParamsProvider" />
-    <preference for="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocatorInterface" type="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocator" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface" type="Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolver" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder" />
