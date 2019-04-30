@@ -149,16 +149,18 @@ class RequestExecutor
         $results   = $response['results'];
 
         $docScores = array_map([$this, 'getDocScore'], $results);
-        $maxScore  = max(...$docScores);
+        if (!empty($docScores)) {
+            $maxScore  = max(...$docScores);
 
-        if ($maxScore > 0 && $this->getDocScore(current($results)) < $maxScore) {
-            $currentScore = count($results) + max(...$docScores);
-            $docIndex     = 0;
+            if ($maxScore > 0 && $this->getDocScore(current($results)) < $maxScore) {
+                $currentScore = count($results) + max(...$docScores);
+                $docIndex     = 0;
 
-            while (isset($results[$docIndex]) && $this->getDocScore($results[$docIndex]) < $maxScore) {
-                $results[$docIndex]['_meta']['score'] = $currentScore;
-                $currentScore--;
-                $docIndex++;
+                while (isset($results[$docIndex]) && $this->getDocScore($results[$docIndex]) < $maxScore) {
+                    $results[$docIndex]['_meta']['score'] = $currentScore;
+                    $currentScore--;
+                    $docIndex++;
+                }
             }
         }
 
