@@ -137,23 +137,6 @@
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\Model\Adapter\Document\DocumentSlicer">
-        <arguments>
-            <argument name="config" xsi:type="array">
-                <item name="catalogsearch_fulltext" xsi:type="array">
-                    <item name="categoryDataSlicer" xsi:type="array">
-                        <item name="parentField" xsi:type="string">category</item>
-                        <item name="keyField" xsi:type="string">category_id</item>
-                    </item>
-                    <item name="priceDataSlicer" xsi:type="array">
-                        <item name="parentField" xsi:type="string">price</item>
-                        <item name="keyField" xsi:type="string">customer_group_id</item>
-                    </item>
-                </item>
-            </argument>
-        </arguments>
-    </type>
-
     <type name="Elastic\AppSearch\SearchAdapter\Request\SearchParamsProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
