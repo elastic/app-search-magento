@@ -15,6 +15,7 @@ use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface;
 
 /**
  * Extract search fields from the search request.
@@ -58,7 +59,9 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     /**
      * Constructor.
      *
-     * @param QueryLocator $queryLocator
+     * @param QueryLocatorInterface      $queryLocator
+     * @param AttributeProvider          $attributeProvider
+     * @param FieldNameResolverInterface $fieldNameResolver
      */
     public function __construct(
         QueryLocatorInterface $queryLocator,

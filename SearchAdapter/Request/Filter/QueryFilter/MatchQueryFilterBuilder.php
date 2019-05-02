@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter;
 
 use Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface;
 use Magento\Framework\Search\Request\QueryInterface;
-use Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocatorInterface;
+use Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface;
 use Magento\Framework\Exception\LocalizedException;
 
 /**

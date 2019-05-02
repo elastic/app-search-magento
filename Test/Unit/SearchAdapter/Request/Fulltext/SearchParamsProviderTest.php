@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Fulltext;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
-use Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocatorInterface;
+use Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;

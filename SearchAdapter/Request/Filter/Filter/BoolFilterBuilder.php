@@ -87,7 +87,7 @@ class BoolFilterBuilder implements FilterBuilderInterface
     private function simplifyFilter(array $filter)
     {
         if (count($filter) == 1 && !empty(array_intersect(array_keys($filter), ['any', 'all']))) {
-            $filter = count(current($filter)) == 1 ? current($filter) : $filter;
+            $filter = count(current($filter)) == 1 ? current(current($filter)) : $filter;
         } elseif (isset($filter['any']) && count($filter['any']) == 1) {
             $filter['all'][] = current($filter['any']);
             unset($filter['any']);

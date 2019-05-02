@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Fulltext;
+namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
-use Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocator;
+use Elastic\AppSearch\SearchAdapter\Request\QueryLocator;
 
 /**
- * Unit test for the Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryLocator class.
+ * Unit test for the Elastic\AppSearch\SearchAdapter\Request\QueryLocator class.
  *
- * @package   Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Fulltext
+ * @package   Elastic\AppSearch\Test\Unit\SearchAdapter\Request
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

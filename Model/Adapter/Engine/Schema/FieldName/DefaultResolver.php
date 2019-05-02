@@ -13,6 +13,7 @@ namespace Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldName;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
+use Magento\Customer\Model\Session as CustomerSession;
 
 /**
  * Used to retrieve field name from an attribute depending on the context.
@@ -23,6 +24,13 @@ use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
  */
 class DefaultResolver implements FieldNameResolverInterface
 {
+    private $customerSession;
+
+    public function __construct(CustomerSession $customerSession)
+    {
+        $this->customerSession = $customerSession;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -32,6 +40,31 @@ class DefaultResolver implements FieldNameResolverInterface
 
         if (isset($context['type']) && $this->useValueField($attribute, $context['type'])) {
             $fieldName = $fieldName . '_value';
+        }
+
+        if ($fieldName == 'price') {
+            $fieldName = $this->getPriceFieldName($fieldName, $context);
+        }
+
+        return $fieldName;
+    }
+
+    /**
+     * Add customer group id to the field name.
+     *
+     * @deprecated Will be replace by a specific product resolver in the future.
+     *
+     * @param string $fieldName Original field name
+     * @param array  $context
+     *
+     * @return string
+     */
+    private function getPriceFieldName(string $fieldName, array $context)
+    {
+        $groupId = $context['customer_group_id'] ?? $this->customerSession->getCustomerGroupId();
+
+        if ($groupId) {
+            $fieldName = $fieldName . '_' . $groupId;
         }
 
         return $fieldName;

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\SearchAdapter\Request\Fulltext;
+namespace Elastic\AppSearch\SearchAdapter\Request;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
@@ -16,12 +16,22 @@ use Magento\Framework\Search\Request\QueryInterface;
 /**
  * Fulltext search query locator implementation.
  *
- * @package   Elastic\AppSearch\SearchAdapter\Request\Fulltext
+ * @package   Elastic\AppSearch\SearchAdapter\Request
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
 class QueryLocator implements QueryLocatorInterface
 {
+    /**
+     * @var string
+     */
+    private $queryName;
+
+    public function __construct(string $queryName = self::FULLTEXT_QUERY_NAME)
+    {
+        $this->queryName = $queryName;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -44,7 +54,7 @@ class QueryLocator implements QueryLocatorInterface
         if ($query->getType() == QueryInterface::TYPE_BOOL) {
             $queries = array_merge($query->getMust(), $query->getShould());
             $searchQuery = current(array_filter(array_map([$this, 'extractQuery'], $queries))) ?: null;
-        } elseif ($query->getType() == QueryInterface::TYPE_MATCH && $query->getName() == self::FULLTEXT_QUERY_NAME) {
+        } elseif ($query->getName() == $this->queryName) {
             $searchQuery = $query;
         }
 

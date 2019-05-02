@@ -11,6 +11,7 @@
 namespace Elastic\AppSearch\SearchAdapter\Request\Fulltext;
 
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface;
 
 /**
  * Query text resolver implementation.

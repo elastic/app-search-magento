@@ -42,52 +42,8 @@ class SearchParamsProvider implements SearchParamsProviderInterface
      */
     public function getParams(RequestInterface $request): array
     {
-        $searchParams = [];
+        $filters = $request->getQuery() ? $this->queryFilterBuilder->getFilter($request->getQuery()) : [];
 
-        $defaultFilters = ['all' => $this->getDefaultFilters()];
-        $filters        = $request->getQuery() ? $this->queryFilterBuilder->getFilter($request->getQuery()) : [];
-
-        if (!empty($filters) && empty(array_intersect(array_keys($filters), ["all", "any", "not"]))) {
-            $filters = ["all" => $filters];
-        }
-
-        $searchParams['filters'] = array_merge_recursive($defaultFilters, $filters);
-
-        return $searchParams;
-    }
-
-    /**
-     * Return default filters used to unslice the catalog.
-     *
-     * @deprecated
-     *
-     * @return array
-     */
-    private function getDefaultFilters(): array
-    {
-        return [
-            ['customer_group_id' => (string) $this->getCustomerGroupId()],
-            ['category_id'       => (string) $this->getCategoryId()],
-        ];
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return int
-     */
-    private function getCategoryId(): string
-    {
-        return 2;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return int
-     */
-    private function getCustomerGroupId(): int
-    {
-        return 0;
+        return !empty($filters) ? ['filters' => $filters] : [];
     }
 }

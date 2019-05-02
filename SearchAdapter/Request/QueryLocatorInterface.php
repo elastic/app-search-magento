@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\SearchAdapter\Request\Fulltext;
+namespace Elastic\AppSearch\SearchAdapter\Request;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
@@ -16,7 +16,7 @@ use Magento\Framework\Search\Request\QueryInterface;
 /**
  * Extract the fulltext match query from the request query.
  *
- * @package   Elastic\AppSearch\SearchAdapter\Request\Fulltext
+ * @package   Elastic\AppSearch\SearchAdapter\Request
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
