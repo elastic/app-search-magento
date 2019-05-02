@@ -60,13 +60,17 @@ class SearchParamsProvider implements SearchParamsProviderInterface
      */
     public function getParams(RequestInterface $request): array
     {
-        $sorts = null;
+        $sorts = [];
 
         if ($this->canSort($request)) {
             foreach ($request->getSort() as $sortOrder) {
-                $fieldName = $this->getFieldName($sortOrder->getField());
-                $sorts[] = [$fieldName => strtolower($sortOrder->getDirection())];
+                $fieldName = $this->getFieldName($sortOrder->getField() ?? '_score');
+                $sorts[] = [$fieldName => strtolower($sortOrder->getDirection() ?: 'desc')];
             }
+        }
+
+        if (count($sorts) == 1 && isset(current($sorts)['_score']) && current($sorts)['_score'] == 'desc') {
+            $sorts = [];
         }
 
         return !empty($sorts) ? [self::SORT_PARAM_NAME => $sorts] : [];
