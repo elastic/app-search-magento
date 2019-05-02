@@ -37,6 +37,7 @@
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilder" />
+    <preference for="Elastic\AppSearch\SearchAdapter\Request\RescorerResolverInterface" type="Elastic\AppSearch\SearchAdapter\Request\RescorerResolver" />
 
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Model\Search" />
 
@@ -134,6 +135,27 @@
                 <item name="categoryData" xsi:type="object">Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product\CategoryDataProvider</item>
                 <item name="priceData" xsi:type="object">Elastic\AppSearch\Model\Adapter\Document\BatchDataMapper\Product\PriceDataProvider</item>
             </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\SearchAdapter\Request\RescorerResolver">
+        <arguments>
+            <argument name="rescorers" xsi:type="array">
+                <item name="default" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Rescorer\DefaultRescorer</item>
+                <item name="catalog_view_container" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Rescorer\Product\CategoryPositionRescorer</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Elastic\AppSearch\SearchAdapter\Request\QueryLocator\CategoryFilter" type="Elastic\AppSearch\SearchAdapter\Request\QueryLocator">
+        <arguments>
+          <argument name="queryName" xsi:type="string">category</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Elastic\AppSearch\SearchAdapter\Request\Rescorer\Product\CategoryPositionProvider">
+        <arguments>
+          <argument name="queryLocator" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\QueryLocator\CategoryFilter</argument>
         </arguments>
     </type>
 
