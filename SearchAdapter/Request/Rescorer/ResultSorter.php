@@ -78,6 +78,6 @@ class ResultSorter
      */
     private function getDocId(array $doc): string
     {
-        return (string) $doc['id']['raw'];
+        return (string) $doc['entity_id']['raw'];
     }
 }
