@@ -18,6 +18,7 @@ use Elastic\AppSearch\Model\Adapter\EngineInterface;
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Elastic\AppSearch\SearchAdapter\Request\RescorerResolverInterface;
 
 /**
  * Run the search request against the engine.
@@ -59,6 +60,11 @@ class RequestExecutor
     private $storeManager;
 
     /**
+     * @var RescorerResolverInterface
+     */
+    private $rescorerResolver;
+
+    /**
      * Constructor.
      *
      * @param ConnectionManager             $connectionManager
@@ -67,6 +73,7 @@ class RequestExecutor
      * @param QueryTextResolverInterface    $queryTextResolver
      * @param ScopeResolverInterface        $scopeResolver
      * @param StoreManagerInterface         $storeManager
+     * @param RescorerResolverInterface     $rescorerResolver
      */
     public function __construct(
         ConnectionManager $connectionManager,
@@ -74,7 +81,8 @@ class RequestExecutor
         SearchParamsProviderInterface $searchParamsProvider,
         QueryTextResolverInterface $queryTextResolver,
         ScopeResolverInterface $scopeResolver,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        RescorerResolverInterface $rescorerResolver
     ) {
         $this->client               = $connectionManager->getClient();
         $this->engineResolver       = $engineResolver;
@@ -82,6 +90,7 @@ class RequestExecutor
         $this->queryTextResolver    = $queryTextResolver;
         $this->scopeResolver        = $scopeResolver;
         $this->storeManager         = $storeManager;
+        $this->rescorerResolver     = $rescorerResolver;
     }
 
     /**
@@ -97,14 +106,18 @@ class RequestExecutor
         $engine       = $this->getEngine($request);
         $queryText    = $this->queryTextResolver->getText($request);
 
+        $rescorer = $this->rescorerResolver->getRescorer($request);
+
+        $searchParams = $rescorer->prepareSearchParams($request, $searchParams);
+
         try {
             $response = $this->client->search($engine->getName(), $queryText, $searchParams);
         } catch (\Exception $e) {
             $response = ['results' => [], 'facets' => [], 'meta' => ['page' => ['total_results' => 0]]];
         }
 
-        $response['facets'] = $this->parseFacets($request, $response);
-        $response['results'] = $this->recomputeScores($response);
+        $response['facets']  = $this->parseFacets($request, $response);
+        $response['results'] = $rescorer->rescoreResults($request, $response['results']);
 
         return $response;
     }
@@ -135,48 +148,6 @@ class RequestExecutor
         }
 
         return $facets;
-    }
-
-    /**
-     * Fix doc score to ensure that positionned docs have the higher scores.
-     *
-     * @param array $response
-     *
-     * @return array
-     */
-    private function recomputeScores($response): array
-    {
-        $results   = $response['results'];
-
-        $docScores = array_map([$this, 'getDocScore'], $results);
-        if (!empty($docScores)) {
-            $maxScore  = max(...$docScores);
-
-            if ($maxScore > 0 && $this->getDocScore(current($results)) < $maxScore) {
-                $currentScore = count($results) + max(...$docScores);
-                $docIndex     = 0;
-
-                while (isset($results[$docIndex]) && $this->getDocScore($results[$docIndex]) < $maxScore) {
-                    $results[$docIndex]['_meta']['score'] = $currentScore;
-                    $currentScore--;
-                    $docIndex++;
-                }
-            }
-        }
-
-        return $results;
-    }
-
-    /**
-     * Return score for a doc.
-     *
-     * @param array $doc
-     *
-     * @return int
-     */
-    private function getDocScore($doc): int
-    {
-        return (int) $doc['_meta']['score'];
     }
 
     /**
