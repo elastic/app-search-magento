@@ -65,7 +65,9 @@ class Builder extends \Magento\Framework\Search\Request\Builder
     */
     public function setSort($sort)
     {
-        $this->sort = $sort;
+        $this->sort = array_filter($sort, function ($sortOrder) {
+            return $sortOrder->getField() && $sortOrder->getDirection();
+        });
 
         return $this;
     }
