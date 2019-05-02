@@ -28,6 +28,11 @@ use Magento\Framework\DB\Select;
 class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection
 {
     /**
+     * @var string||NULL
+     */
+    private $relevanceOrderDirection;
+
+    /**
      * {@inheritDoc}
      */
     public function getSize()
@@ -36,6 +41,38 @@ class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Col
             $this->_totalRecords = current($this->getFacetedData('_meta'))['count'];
         }
         return $this->_totalRecords;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOrder($attribute, $dir = Select::SQL_DESC)
+    {
+        if ($attribute === 'price') {
+            $this->_orders[$attribute] = $dir;
+            return $this;
+        }
+
+        if ($attribute === 'relevance') {
+            $this->relevanceOrderDirection = $dir;
+        }
+
+        return parent::setOrder($attribute, $dir);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addAttributeToSort($attribute, $dir = self::SORT_ORDER_ASC)
+    {
+        $dir = strtoupper($dir);
+
+        if ($attribute == 'position') {
+            $dir = $dir == self::SORT_ORDER_ASC ? self::SORT_ORDER_DESC : self::SORT_ORDER_ASC;
+            return $this->setOrder('relevance', $dir);
+        }
+
+        return parent::addAttributeToSort($attribute, $dir);
     }
 
     // phpcs:disable
@@ -48,7 +85,9 @@ class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Col
     {
         $searchCriteriaBuilder = ObjectManager::getInstance()->get(SearchCriteriaBuilder::class);
 
-        if ($this->_orders) {
+        if ($this->relevanceOrderDirection) {
+            $searchCriteriaBuilder->addSortOrder('_score', $this->relevanceOrderDirection);
+        } elseif ($this->_orders) {
             $searchCriteriaBuilder->addSortOrder(current(array_keys($this->_orders)), current($this->_orders));
         }
 
@@ -66,9 +105,10 @@ class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Col
      */
     protected function _beforeLoad()
     {
-        if (empty($this->_orders)) {
-            $this->setOrder('_score', Select::SQL_DESC);
+        if (empty($this->_orders) && !$this->relevanceOrderDirection) {
+            $this->relevanceOrderDirection = self::SORT_ORDER_DESC;
         }
+
         return parent::_beforeLoad();
     }
     // phpcs:enable
