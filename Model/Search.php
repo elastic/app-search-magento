@@ -64,10 +64,10 @@ class Search implements SearchInterface
         SearchEngineInterface $searchEngine,
         SearchResponseBuilder $searchResponseBuilder
     ) {
-            $this->requestBuilder = $requestBuilder;
-            $this->scopeResolver = $scopeResolver;
-            $this->searchEngine = $searchEngine;
-            $this->searchResponseBuilder = $searchResponseBuilder;
+        $this->requestBuilder = $requestBuilder;
+        $this->scopeResolver = $scopeResolver;
+        $this->searchEngine = $searchEngine;
+        $this->searchResponseBuilder = $searchResponseBuilder;
     }
 
     /**
@@ -86,7 +86,7 @@ class Search implements SearchInterface
             }
         }
 
-        $this->requestBuilder->setFrom($searchCriteria->getCurrentPage() * $searchCriteria->getPageSize());
+        $this->requestBuilder->setFrom(($searchCriteria->getCurrentPage() - 1) * $searchCriteria->getPageSize());
         $this->requestBuilder->setSize($searchCriteria->getPageSize());
 
         if ($searchCriteria->getSortOrders()) {
