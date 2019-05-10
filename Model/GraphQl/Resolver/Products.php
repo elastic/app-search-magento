@@ -32,6 +32,26 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 class Products implements ResolverInterface
 {
     /**
+     * @var SearchQuery
+     */
+    private $searchQuery;
+
+    /**
+     * @var SearchFilter
+     */
+    private $searchFilter;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    private $searchCriteriaBuilder;
+
+    /**
+     * @var LayerResolver
+     */
+    private $layerResolver;
+
+    /**
      * Constructor.
      *
      * @SuppressWarnings(PHPMD.LongVariable)
@@ -39,15 +59,18 @@ class Products implements ResolverInterface
      * @param SearchQuery           $searchQuery
      * @param SearchFilter          $searchFilter
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param LayerResolver         $layerResolver
      */
     public function __construct(
         SearchQuery $searchQuery,
         SearchFilter $searchFilter,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        LayerResolver $layerResolver
     ) {
         $this->searchQuery           = $searchQuery;
         $this->searchFilter          = $searchFilter;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->layerResolver         = $layerResolver;
     }
 
     /**
@@ -103,6 +126,8 @@ class Products implements ResolverInterface
             $this->searchFilter->add($args['search'], $searchCriteria);
         }
 
+        $this->prepareLayer($args);
+
         return $searchCriteria;
     }
 
@@ -130,7 +155,6 @@ class Products implements ResolverInterface
         return isset($args['search']) ? LayerResolver::CATALOG_LAYER_SEARCH : LayerResolver::CATALOG_LAYER_CATEGORY;
     }
 
-
     /**
      * Read page info from the search criteria.
      *
@@ -138,8 +162,22 @@ class Products implements ResolverInterface
      *
      * @return int[]
      */
-    private function getPageInfo(SearchCriteriaInterface $searchCriteria)
+    private function getPageInfo(SearchCriteriaInterface $searchCriteria): array
     {
         return ['page_size' => $searchCriteria->getPageSize(), 'current_page' => $searchCriteria->getCurrentPage()];
+    }
+
+    /**
+     * Prepare the search layer to apply the current search.
+     *
+     * @param array $args
+     */
+    private function prepareLayer(array $args): void
+    {
+        if (isset($args['filter']) && isset($args['filter']['category_id'])) {
+            $categoryId = $args['filter']['category_id']['eq'];
+            $layerType  = $this->getLayerType($args);
+            $this->layerResolver->get($layerType)->setCurrentCategory($categoryId);
+        }
     }
 }

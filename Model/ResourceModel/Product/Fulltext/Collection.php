@@ -22,7 +22,7 @@ use Magento\Framework\Search\EngineResolverInterface;
  *
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)
  *
- * @package   Elastic\AppSearch\Model
+ * @package   Elastic\AppSearch\Model\ResourceModel\Product\Fulltext
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

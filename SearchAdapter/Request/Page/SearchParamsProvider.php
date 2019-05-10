@@ -76,6 +76,6 @@ class SearchParamsProvider implements SearchParamsProviderInterface
      */
     private function getCurrentPage(RequestInterface $request)
     {
-        return (int) floor(($request->getFrom() ?? 0) / $this->getPageSize($request)) + 1;
+        return (int) floor(($request->getFrom() ?? 0) / max(1, $this->getPageSize($request))) + 1;
     }
 }

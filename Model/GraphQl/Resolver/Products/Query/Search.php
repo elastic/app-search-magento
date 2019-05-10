@@ -18,6 +18,8 @@ use Magento\CatalogGraphQl\Model\Resolver\Products\SearchCriteria\Helper\Filter 
 use Magento\CatalogGraphQl\Model\Resolver\Products\Query\Filter;
 use Magento\CatalogGraphQl\Model\Resolver\Products\SearchResultFactory;
 use Magento\Framework\EntityManager\MetadataPool;
+use Magento\CatalogGraphQl\Model\Layer\Context as LayerContext;
+use Elastic\AppSearch\Model\GraphQl\Layer\CollectionProvider;
 
 /**
  * Run search for the products resolver.
@@ -31,6 +33,36 @@ use Magento\Framework\EntityManager\MetadataPool;
 class Search
 {
     /**
+     * @var SearchInterface
+     */
+    private $search;
+
+    /**
+     * @var Filter
+     */
+    private $filterQuery;
+
+    /**
+     * @var FilterHelper
+     */
+    private $filterHelper;
+
+    /**
+     * @var MetadataPool
+     */
+    private $metadataPool;
+
+    /**
+     * @var SearchResultFactory
+     */
+    private $searchResultFactory;
+
+    /**
+     * @var CollectionProvider
+     */
+    private $productCollectionProvider;
+
+    /**
      * Constructor.
      *
      * @param SearchInterface     $search
@@ -41,16 +73,18 @@ class Search
      */
     public function __construct(
         SearchInterface $search,
-        FilterHelper $filterHelper,
         Filter $filterQuery,
+        FilterHelper $filterHelper,
         MetadataPool $metadataPool,
-        SearchResultFactory $searchResultFactory
+        SearchResultFactory $searchResultFactory,
+        LayerContext $layerContext
     ) {
-        $this->search              = $search;
-        $this->filterQuery         = $filterQuery;
-        $this->filterHelper        = $filterHelper;
-        $this->metadataPool        = $metadataPool;
-        $this->searchResultFactory = $searchResultFactory;
+        $this->search                    = $search;
+        $this->filterQuery               = $filterQuery;
+        $this->filterHelper              = $filterHelper;
+        $this->metadataPool              = $metadataPool;
+        $this->searchResultFactory       = $searchResultFactory;
+        $this->productCollectionProvider = $layerContext->getCollectionProvider();
     }
 
     /**
@@ -64,6 +98,7 @@ class Search
     public function getResult(SearchCriteriaInterface $searchCriteria, ResolveInfo $info): SearchResult
     {
         $searchResponse = $this->search->search($searchCriteria);
+        $this->productCollectionProvider->setSearchResult($searchResponse);
 
         $sortedProducts = [];
         $productsIds    = [];
