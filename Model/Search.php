@@ -12,8 +12,7 @@ namespace Elastic\AppSearch\Model;
 
 use Magento\Search\Api\SearchInterface;
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
-use Magento\Framework\App\ScopeResolverInterface;
-use Elastic\AppSearch\Search\Request\Builder;
+use Elastic\AppSearch\Model\Search\RequestBuilder;
 use Magento\Framework\Search\SearchResponseBuilder;
 use Magento\Framework\Search\SearchEngineInterface;
 
@@ -29,14 +28,9 @@ use Magento\Framework\Search\SearchEngineInterface;
 class Search implements SearchInterface
 {
     /**
-     * @var Builder
+     * @var RequestBuilder
      */
     private $requestBuilder;
-
-    /**
-     * @var ScopeResolverInterface
-     */
-    private $scopeResolver;
 
     /**
      * @var SearchEngineInterface
@@ -53,19 +47,16 @@ class Search implements SearchInterface
      *
      * @SuppressWarnings(PHPMD.LongVariable)
      *
-     * @param Builder                $requestBuilder
-     * @param ScopeResolverInterface $scopeResolver
-     * @param SearchEngineInterface  $searchEngine
-     * @param SearchResponseBuilder  $searchResponseBuilder
+     * @param RequestBuilder        $requestBuilder
+     * @param SearchEngineInterface $searchEngine
+     * @param SearchResponseBuilder $searchResponseBuilder
      */
     public function __construct(
-        Builder $requestBuilder,
-        ScopeResolverInterface $scopeResolver,
+        RequestBuilder $requestBuilder,
         SearchEngineInterface $searchEngine,
         SearchResponseBuilder $searchResponseBuilder
     ) {
         $this->requestBuilder = $requestBuilder;
-        $this->scopeResolver = $scopeResolver;
         $this->searchEngine = $searchEngine;
         $this->searchResponseBuilder = $searchResponseBuilder;
     }
@@ -75,51 +66,9 @@ class Search implements SearchInterface
      */
     public function search(SearchCriteriaInterface $searchCriteria)
     {
-        $this->requestBuilder->setRequestName($searchCriteria->getRequestName());
-
-        $scope = $this->scopeResolver->getScope()->getId();
-        $this->requestBuilder->bindDimension('scope', $scope);
-
-        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
-            foreach ($filterGroup->getFilters() as $filter) {
-                $this->addFieldToFilter($filter->getField(), $filter->getValue());
-            }
-        }
-
-        $this->requestBuilder->setFrom(($searchCriteria->getCurrentPage() - 1) * $searchCriteria->getPageSize());
-        $this->requestBuilder->setSize($searchCriteria->getPageSize());
-
-        if ($searchCriteria->getSortOrders()) {
-            $this->requestBuilder->setSort($searchCriteria->getSortOrders());
-        }
-
-        $request = $this->requestBuilder->create();
+        $request = $this->requestBuilder->create($searchCriteria);
         $searchResponse = $this->searchEngine->search($request);
 
         return $this->searchResponseBuilder->build($searchResponse)->setSearchCriteria($searchCriteria);
-    }
-
-    /**
-     * Apply attribute filter to facet collection.
-     *
-     * @param string            $field
-     * @param string|array|null $condition
-     *
-     * @return $this
-     */
-    private function addFieldToFilter($field, $condition = null)
-    {
-        if (!is_array($condition) || !in_array(key($condition), ['from', 'to'], true)) {
-            $this->requestBuilder->bind($field, $condition);
-        } elseif (is_array($condition)) {
-            if (!empty($condition['from'])) {
-                $this->requestBuilder->bind("{$field}.from", $condition['from']);
-            }
-            if (!empty($condition['to'])) {
-                $this->requestBuilder->bind("{$field}.to", $condition['to']);
-            }
-        }
-
-        return $this;
     }
 }
