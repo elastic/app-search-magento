@@ -60,7 +60,7 @@ class RangeFilterBuilder implements FilterBuilderInterface
             ['from' => $filter->getFrom(), 'to' => $filter->getTo()]
         ));
 
-        return !empty($range) ? [$fieldName => $range] : [];
+        return !empty($range) ? [$fieldName => array_filter($range)] : [];
     }
 
     /**
