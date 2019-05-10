@@ -219,4 +219,12 @@
         </arguments>
     </virtualType>
 
+    <type name="Magento\AdvancedSearch\Model\SuggestedQueries">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Magento\AdvancedSearch\Model\DataProvider\Suggestions</item>
+            </argument>
+        </arguments>
+    </type>
+
 </config>
