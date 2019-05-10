@@ -23,10 +23,31 @@ use Magento\Framework\Search\RequestInterface;
 class SearchParamsProvider implements SearchParamsProviderInterface
 {
     /**
+     * @var FacetBuilderInterface
+     */
+    private $facetBuilder;
+
+    /**
+     * Constructor.
+     *
+     * @param FacetBuilderInterface $facetBuilder
+     */
+    public function __construct(FacetBuilderInterface $facetBuilder)
+    {
+        $this->facetBuilder = $facetBuilder;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getParams(RequestInterface $request): array
     {
-        return [];
+        $facets = [];
+
+        foreach ($request->getAggregation() as $aggregation) {
+            $facets = array_merge_recursive($facets, $this->facetBuilder->getFacet($aggregation));
+        }
+
+        return !empty($facets) ? ['facets' => $facets] : [];
     }
 }
