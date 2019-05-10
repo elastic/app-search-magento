@@ -83,6 +83,18 @@ class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Col
         return parent::addAttributeToSort($attribute, $dir);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getFacetedData($field)
+    {
+        try {
+            return parent::getFacetedData($field);
+        } catch (\Magento\Framework\Exception\StateException $e) {
+            return [];
+        }
+    }
+
     // phpcs:disable
     /**
      * @SuppressWarnings(PHPMD.LongVariable)
