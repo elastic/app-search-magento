@@ -1,4 +1,3 @@
-
 <?php
 /*
  * This file is part of the App Search Magento module.

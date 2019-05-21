@@ -48,7 +48,7 @@ class CategoryPositionRescorer implements RescorerInterface
     /**
      * {@inheritDoc}
      */
-    public function prepareSearchParams(RequestInterface $request, array $searchParams): array
+    public function prepareSearchParams(RequestInterface $request, string $queryText, array $searchParams): array
     {
         if ($this->canRescore($request)) {
             $positionSlots = $this->getPositionSlots($request);
