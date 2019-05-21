@@ -1,3 +1,4 @@
+
 <?php
 /*
  * This file is part of the App Search Magento module.
@@ -30,11 +31,12 @@ interface RescorerInterface
      * Prepare search params for rescoring.
      *
      * @param RequestInterface $request
+     * @param string           $queryText
      * @param array            $searchParams
      *
      * @return array
      */
-    public function prepareSearchParams(RequestInterface $request, array $searchParams): array;
+    public function prepareSearchParams(RequestInterface $request, string $queryText, array $searchParams): array;
 
     /**
      * Apply rescoring to the result set.

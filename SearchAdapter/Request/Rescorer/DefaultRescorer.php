@@ -12,6 +12,8 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Rescorer;
 
 use Elastic\AppSearch\SearchAdapter\Request\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\Client\ConnectionManager;
+use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
 
 /**
  * Ensure score is consistent with the document positions.
@@ -38,9 +40,11 @@ class DefaultRescorer implements RescorerInterface
      *
      * @param ResultSorter $resultSorter
      */
-    public function __construct(ResultSorter $resultSorter)
+    public function __construct(ResultSorter $resultSorter, ConnectionManager $connectionManager, EngineResolver $engineResolver)
     {
-        $this->resultSorter = $resultSorter;
+        $this->client         = $connectionManager->getClient();
+        $this->resultSorter   = $resultSorter;
+        $this->engineResolver = $engineResolver;
     }
 
     /**
@@ -69,8 +73,20 @@ class DefaultRescorer implements RescorerInterface
     /**
      * {@inheritDoc}
      */
-    public function prepareSearchParams(RequestInterface $request, array $searchParams): array
+    public function prepareSearchParams(RequestInterface $request, string $queryText, array $searchParams): array
     {
+        $engineName = $this->engineResolver->getEngine($request)->getName();
+        $testSearch = $this->client->search($engineName, $queryText, ['page' => ['size' => 100]]);
+
+        $fetchedResults = count($testSearch['results']);
+        $filteredResults = array_filter($testSearch['results'], function ($doc) { return $doc['_meta']['score'] > 0.1; });
+
+        if (count($filteredResults) && $fetchedResults > count($filteredResults)) {
+            $ids = array_map(function ($doc) { return $doc['entity_id']['raw']; }, $filteredResults);
+            $idFilter = ['entity_id' => $ids];
+            $searchParams['filters'] = isset($searchParams['filters']) ? ['all' => [$searchParams['filters'], $idFilter]] : $idFilter;
+        }
+
         return $searchParams;
     }
 
