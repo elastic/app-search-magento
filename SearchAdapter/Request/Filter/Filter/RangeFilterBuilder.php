@@ -12,9 +12,8 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Filter\Filter;
 
 use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
 use Magento\Framework\Search\Request\FilterInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Extract and build filters from the search request.
@@ -26,27 +25,18 @@ use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
 class RangeFilterBuilder implements FilterBuilderInterface
 {
     /**
-     * @var FieldNameResolverInterface
+     * @var FieldMapperInterface
      */
-    private $fieldNameResolver;
-
-    /**
-     * @var AttributeAdapterProvider
-     */
-    private $attributeProvider;
+    private $fieldMapper;
 
     /**
      * Constructor.
      *
-     * @param AttributeAdapterProvider   $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
+     * @param FieldMapperInterface $fieldMapper
      */
-    public function __construct(
-        AttributeAdapterProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver
-    ) {
-            $this->attributeProvider = $attributeProvider;
-            $this->fieldNameResolver = $fieldNameResolver;
+    public function __construct(FieldMapperInterface $fieldMapper)
+    {
+        $this->fieldMapper = $fieldMapper;
     }
 
     /**
@@ -72,8 +62,6 @@ class RangeFilterBuilder implements FilterBuilderInterface
      */
     private function getFieldName(string $requestFieldName)
     {
-        $attribute = $this->attributeProvider->getAttributeAdapter($requestFieldName);
-
-        return $this->fieldNameResolver->getFieldName($attribute, ['type' => SchemaInterface::CONTEXT_FILTER]);
+        return $this->fieldMapper->getFieldName($requestFieldName, ['type' => SchemaInterface::CONTEXT_FILTER]);
     }
 }

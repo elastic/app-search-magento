@@ -12,11 +12,8 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Filter\Filter;
 
 use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
 use Magento\Framework\Search\Request\FilterInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Implementation of the term filter builder.
@@ -28,35 +25,18 @@ use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
 class TermFilterBuilder implements FilterBuilderInterface
 {
     /**
-     * @var FieldNameResolverInterface
+     * @var FieldMapperInterface
      */
-    private $fieldNameResolver;
-
-    /**
-     * @var FieldTypeResolverInterface
-     */
-    private $fieldTypeResolver;
-
-    /**
-     * @var AttributeAdapterProvider
-     */
-    private $attributeProvider;
+    private $fieldMapper;
 
     /**
      * Constructor.
      *
-     * @param AttributeAdapterProvider   $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
-     * @param FieldTypeResolverInterface $fieldTypeResolver
+     * @param FieldMapperInterface $fieldMapper
      */
-    public function __construct(
-        AttributeAdapterProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver,
-        FieldTypeResolverInterface $fieldTypeResolver
-    ) {
-        $this->attributeProvider = $attributeProvider;
-        $this->fieldNameResolver = $fieldNameResolver;
-        $this->fieldTypeResolver = $fieldTypeResolver;
+    public function __construct(FieldMapperInterface $fieldMapper)
+    {
+        $this->fieldMapper = $fieldMapper;
     }
 
     /**
@@ -79,9 +59,7 @@ class TermFilterBuilder implements FilterBuilderInterface
      */
     private function getFieldName(string $requestFieldName): string
     {
-        $attribute = $this->getAttribute($requestFieldName);
-
-        return $this->fieldNameResolver->getFieldName($attribute, ['type' => SchemaInterface::CONTEXT_FILTER]);
+        return $this->fieldMapper->getFieldName($requestFieldName, ['type' => SchemaInterface::CONTEXT_FILTER]);
     }
 
     /**
@@ -93,21 +71,7 @@ class TermFilterBuilder implements FilterBuilderInterface
      */
     private function getFieldType(string $requestFieldName): string
     {
-        $attribute = $this->getAttribute($requestFieldName);
-
-        return $this->fieldTypeResolver->getFieldType($attribute);
-    }
-
-    /**
-     * Request request attribute.
-     *
-     * @param string $requestFieldName
-     *
-     * @return AttributeAdapter
-     */
-    private function getAttribute(string $requestFieldName): AttributeAdapter
-    {
-        return $this->attributeProvider->getAttributeAdapter($requestFieldName);
+        return $this->fieldMapper->getFieldType($requestFieldName);
     }
 
     /**

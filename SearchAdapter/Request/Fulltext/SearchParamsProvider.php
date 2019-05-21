@@ -12,10 +12,9 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Fulltext;
 
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
 use Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
 
 /**
  * Extract search fields from the search request.
@@ -47,30 +46,20 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     private $queryLocator;
 
     /**
-     * @var FieldNameResolverInterface
+     * @var FieldMapperResolverInterface
      */
-    private $fieldNameResolver;
-
-    /**
-     * @var AttributeProvider
-     */
-    private $attributeProvider;
+    private $fieldMapperResolver;
 
     /**
      * Constructor.
      *
-     * @param QueryLocatorInterface      $queryLocator
-     * @param AttributeProvider          $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
+     * @param QueryLocatorInterface        $queryLocator
+     * @param FieldMapperResolverInterface $fieldMapperResolver
      */
-    public function __construct(
-        QueryLocatorInterface $queryLocator,
-        AttributeProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver
-    ) {
-        $this->queryLocator      = $queryLocator;
-        $this->attributeProvider = $attributeProvider;
-        $this->fieldNameResolver = $fieldNameResolver;
+    public function __construct(QueryLocatorInterface $queryLocator, FieldMapperResolverInterface $fieldMapperResolver)
+    {
+        $this->queryLocator        = $queryLocator;
+        $this->fieldMapperResolver = $fieldMapperResolver;
     }
 
     /**
@@ -84,7 +73,7 @@ class SearchParamsProvider implements SearchParamsProviderInterface
         if ($query !== null && $query->getValue()) {
             foreach ($query->getMatches() ?? [] as $fieldConfig) {
                 if ($fieldConfig['field'] != '*' && isset($fieldConfig['boost']) && $fieldConfig['boost'] > 0) {
-                    $fieldName = $this->getSearchFieldName($fieldConfig['field']);
+                    $fieldName = $this->getSearchFieldName($request->getIndex(), $fieldConfig['field']);
                     $weight    = $this->getWeight($fieldConfig['boost']);
                     $searchParams[self::SEARCH_FIELDS_KEY][$fieldName] = [self::WEIGHT_KEY => $weight];
                 }
@@ -96,16 +85,17 @@ class SearchParamsProvider implements SearchParamsProviderInterface
 
     /**
      * Convert field name into the index format.
-     *
+
+     * @param string $index
      * @param string $fieldName
      *
      * @return string
      */
-    private function getSearchFieldName(string $fieldName): string
+    private function getSearchFieldName(string $index, string $fieldName): string
     {
-        $attribute = $this->attributeProvider->getAttributeAdapter($fieldName);
+        $fieldMapper = $this->fieldMapperResolver->getFieldMapper($index);
 
-        return $this->fieldNameResolver->getFieldName($attribute, ['type' => SchemaInterface::CONTEXT_SEARCH]);
+        return $fieldMapper->getFieldName($fieldName, ['type' => SchemaInterface::CONTEXT_SEARCH]);
     }
 
     /**

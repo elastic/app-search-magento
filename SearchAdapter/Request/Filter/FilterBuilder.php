@@ -12,6 +12,8 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Filter;
 
 use Magento\Framework\Search\Request\FilterInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Validator\UniversalFactory;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Implementation of the FilterBuilderInterface.
@@ -30,11 +32,17 @@ class FilterBuilder implements FilterBuilderInterface
     /**
      * Constructor.
      *
-     * @param QueryFilterBuilderInterface[] $builders
+     * @param FieldMapperInterface $fieldMapper
+     * @param UniversalFactory[]   $builderFactories
      */
-    public function __construct(array $builders = [])
+    public function __construct(FieldMapperInterface $fieldMapper, array $builderFactories = [])
     {
-        $this->builders = $builders;
+        $this->builders = array_map(
+            function ($factory) use ($fieldMapper) {
+                return $this->createBuilder($factory, $fieldMapper);
+            },
+            $builderFactories
+        );
     }
 
     /**
@@ -49,5 +57,18 @@ class FilterBuilder implements FilterBuilderInterface
         }
 
         return $this->builders[$filter->getType()]->getFilter($filter);
+    }
+
+    /**
+     * Create a filter builder instance.
+     *
+     * @param UniversalFactory     $factory
+     * @param FieldMapperInterface fieldMapper
+     *
+     * @return FilterBuilderInterface
+     */
+    private function createBuilder($factory, $fieldMapper): FilterBuilderInterface
+    {
+        return $factory->create(['fieldMapper' => $fieldMapper, 'filterBuilder' => $this]);
     }
 }

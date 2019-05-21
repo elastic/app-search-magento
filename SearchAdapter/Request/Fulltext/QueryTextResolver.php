@@ -44,6 +44,6 @@ class QueryTextResolver implements QueryTextResolverInterface
     {
         $query = $this->queryLocator->getQuery($request);
 
-        return $query ? (string) $query->getValue() : "";
+        return $query ? (string) $query->getValue() : '';
     }
 }

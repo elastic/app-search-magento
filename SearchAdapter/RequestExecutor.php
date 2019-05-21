@@ -12,13 +12,11 @@ namespace Elastic\AppSearch\SearchAdapter;
 
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Client\ConnectionManager;
-use Elastic\AppSearch\Model\Adapter\EngineResolverInterface;
 use Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
 use Elastic\AppSearch\Model\Adapter\EngineInterface;
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
-use Magento\Framework\App\ScopeResolverInterface;
-use Magento\Store\Model\StoreManagerInterface;
 use Elastic\AppSearch\SearchAdapter\Request\RescorerResolverInterface;
+use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
 
 /**
  * Run the search request against the engine.
@@ -35,7 +33,7 @@ class RequestExecutor
     private $client;
 
     /**
-     * @var EngineResolverInterface
+     * @var EngineResolver
      */
     private $engineResolver;
 
@@ -50,16 +48,6 @@ class RequestExecutor
     private $queryTextResolver;
 
     /**
-     * @var ScopeResolverInterface
-     */
-    private $scopeResolver;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    private $storeManager;
-
-    /**
      * @var RescorerResolverInterface
      */
     private $rescorerResolver;
@@ -68,28 +56,22 @@ class RequestExecutor
      * Constructor.
      *
      * @param ConnectionManager             $connectionManager
-     * @param EngineResolverInterface       $engineResolver
+     * @param EngineResolver                $engineResolver
      * @param SearchParamsProviderInterface $searchParamsProvider
      * @param QueryTextResolverInterface    $queryTextResolver
-     * @param ScopeResolverInterface        $scopeResolver
-     * @param StoreManagerInterface         $storeManager
      * @param RescorerResolverInterface     $rescorerResolver
      */
     public function __construct(
         ConnectionManager $connectionManager,
-        EngineResolverInterface $engineResolver,
+        EngineResolver $engineResolver,
         SearchParamsProviderInterface $searchParamsProvider,
         QueryTextResolverInterface $queryTextResolver,
-        ScopeResolverInterface $scopeResolver,
-        StoreManagerInterface $storeManager,
         RescorerResolverInterface $rescorerResolver
     ) {
         $this->client               = $connectionManager->getClient();
         $this->engineResolver       = $engineResolver;
         $this->searchParamsProvider = $searchParamsProvider;
         $this->queryTextResolver    = $queryTextResolver;
-        $this->scopeResolver        = $scopeResolver;
-        $this->storeManager         = $storeManager;
         $this->rescorerResolver     = $rescorerResolver;
     }
 
@@ -159,25 +141,6 @@ class RequestExecutor
      */
     private function getEngine(RequestInterface $request): EngineInterface
     {
-        return $this->engineResolver->getEngine($request->getIndex(), $this->getStoreId($request));
-    }
-
-    /**
-     * Resolve store id from the search request.
-     *
-     * @param RequestInterface $request
-     *
-     * @return int
-     */
-    private function getStoreId(RequestInterface $request): int
-    {
-        $dimension = current($request->getDimensions());
-        $storeId   = $this->scopeResolver->getScope($dimension->getValue())->getId();
-
-        if ($storeId == 0) {
-            $storeId = $this->storeManager->getDefaultStoreView()->getId();
-        }
-
-        return $storeId;
+        return $this->engineResolver->getEngine($request);
     }
 }

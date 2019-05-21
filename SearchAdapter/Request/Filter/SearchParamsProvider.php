@@ -12,6 +12,7 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Filter;
 
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
 
 /**
  * Extract and build filters from the search request.
@@ -23,18 +24,34 @@ use Magento\Framework\Search\RequestInterface;
 class SearchParamsProvider implements SearchParamsProviderInterface
 {
     /**
-     * @var QueryFilterBuilderInterface
+     * @var QueryFilterBuilderInterfaceFactory
      */
-    private $queryFilterBuilder;
+    private $queryFilterBuilderFactory;
+
+    /**
+     * @var array
+     */
+    private $queryFilterBuilders = [];
+
+    /**
+     * @var FieldMapperResolverInterface
+     */
+    private $fieldMapperResolver;
 
     /**
      * Constructor.
      *
-     * @param QueryFilterBuilderInterface $queryFilterBuilder
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
+     * @param QueryFilterBuilderInterfaceFactory $queryFilterBuilderFactory
+     * @param FieldMapperResolverInterface       $fieldMapperResolver
      */
-    public function __construct(QueryFilterBuilderInterface $queryFilterBuilder)
-    {
-        $this->queryFilterBuilder = $queryFilterBuilder;
+    public function __construct(
+        QueryFilterBuilderInterfaceFactory $queryFilterBuilderFactory,
+        FieldMapperResolverInterface $fieldMapperResolver
+    ) {
+        $this->queryFilterBuilderFactory = $queryFilterBuilderFactory;
+        $this->fieldMapperResolver       = $fieldMapperResolver;
     }
 
     /**
@@ -42,8 +59,28 @@ class SearchParamsProvider implements SearchParamsProviderInterface
      */
     public function getParams(RequestInterface $request): array
     {
-        $filters = $request->getQuery() ? $this->queryFilterBuilder->getFilter($request->getQuery()) : [];
+        $filters = $request->getQuery() ? $this->getQueryFilterBuilder($request)->getFilter($request->getQuery()) : [];
 
         return !empty($filters) ? ['filters' => $filters] : [];
+    }
+
+    /**
+     * Return query filter builder for the current request.
+     *
+     * @param RequestInterface $request
+     *
+     * @return QueryFilterBuilderInterface
+     */
+    private function getQueryFilterBuilder(RequestInterface $request): QueryFilterBuilderInterface
+    {
+        $indexIdentifier = $request->getIndex();
+
+        if (!isset($this->queryFilterBuilders[$indexIdentifier])) {
+            $fieldMapper = $this->fieldMapperResolver->getFieldMapper($indexIdentifier);
+            $queryFilterBuilder = $this->queryFilterBuilderFactory->create(['fieldMapper' => $fieldMapper]);
+            $this->queryFilterBuilders[$indexIdentifier] = $queryFilterBuilder;
+        }
+
+        return $this->queryFilterBuilders[$indexIdentifier];
     }
 }
