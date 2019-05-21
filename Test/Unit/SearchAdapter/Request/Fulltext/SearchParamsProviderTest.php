@@ -13,10 +13,9 @@ namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Fulltext;
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
 use Elastic\AppSearch\SearchAdapter\Request\QueryLocatorInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider class.
@@ -121,24 +120,14 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
             }
         );
 
-        $fieldNameResolver = $this->createMock(FieldNameResolverInterface::class);
-        $fieldNameResolver->method('getFieldName')->willReturnCallback(
-            function ($attributeAdapter) {
-                return $attributeAdapter->getAttributeCode();
-            }
-        );
+        $fieldMapper = $this->createMock(FieldMapperInterface::class);
+        $fieldMapper->method('getFieldName')->will($this->returnArgument(0));
 
-        $attributeProvider = $this->createMock(AttributeAdapterProvider::class);
-        $attributeProvider->method('getAttributeAdapter')->willReturnCallback(
-            function ($attributeCode) {
-                $attributeAdapter  = $this->createMock(AttributeAdapter::class);
-                $attributeAdapter->method('getAttributeCode')->willReturn($attributeCode);
 
-                return $attributeAdapter;
-            }
-        );
+        $fieldMapperResolver = $this->createMock(FieldMapperResolverInterface::class);
+        $fieldMapperResolver->method('getFieldMapper')->willReturn($fieldMapper);
 
-        return new SearchParamsProvider($queryLocator, $attributeProvider, $fieldNameResolver);
+        return new SearchParamsProvider($queryLocator, $fieldMapperResolver);
     }
 
     /**
@@ -159,6 +148,7 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request->method('getQuery')->willReturn($query);
+        $request->method('getIndex')->willReturn('catalogsearch_fulltext');
 
         return $request;
     }

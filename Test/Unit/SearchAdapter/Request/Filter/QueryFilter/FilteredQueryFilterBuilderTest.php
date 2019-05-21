@@ -12,8 +12,10 @@ namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Filter;
 
 use Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\FilteredQueryFilterBuilder;
 use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
+use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterfaceFactory;
 use Magento\Framework\Search\Request\FilterInterface;
 use Magento\Framework\Search\Request\Query\Filter as FilteredQuery;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\BoolQueryFilterBuilder class.
@@ -56,13 +58,17 @@ class FilteredQueryFilterBuilderTest extends \PHPUnit\Framework\TestCase
     private function getQueryBuilder()
     {
         $filterBuilder = $this->createMock(FilterBuilderInterface::class);
-
         $filterBuilder->method('getFilter')->willReturnCallback(
             function ($filter) {
                 return [$filter->getName()];
             }
         );
 
-        return new FilteredQueryFilterBuilder($filterBuilder);
+        $filterBuilderFactory = $this->createMock(FilterBuilderInterfaceFactory::class);
+        $filterBuilderFactory->method('create')->willReturn($filterBuilder);
+
+        $filterMapper = $this->createMock(FieldMapperInterface::class);
+
+        return new FilteredQueryFilterBuilder($filterBuilderFactory, $filterMapper);
     }
 }

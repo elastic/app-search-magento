@@ -12,10 +12,9 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Sort;
 
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Sort order search params.
@@ -32,27 +31,18 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     private const SORT_PARAM_NAME = 'sort';
 
     /**
-     * @var FieldNameResolverInterface
+     * @var FieldMapperResolverInterface
      */
-    private $fieldNameResolver;
-
-    /**
-     * @var AttributeAdapterProvider
-     */
-    private $attributeProvider;
+    private $fieldMapperResolver;
 
     /**
      * Constructor.
      *
-     * @param AttributeAdapterProvider   $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
+     * @param FieldMapperResolverInterface $fieldMapperResolver
      */
-    public function __construct(
-        AttributeAdapterProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver
-    ) {
-        $this->attributeProvider = $attributeProvider;
-        $this->fieldNameResolver = $fieldNameResolver;
+    public function __construct(FieldMapperResolverInterface $fieldMapperResolver)
+    {
+        $this->fieldMapperResolver = $fieldMapperResolver;
     }
 
     /**
@@ -64,7 +54,7 @@ class SearchParamsProvider implements SearchParamsProviderInterface
 
         if ($this->canSort($request)) {
             foreach ($request->getSort() as $sortOrder) {
-                $fieldName = $this->getFieldName($sortOrder->getField() ?? '_score');
+                $fieldName = $this->getFieldName($request->getIndex(), $sortOrder->getField() ?? '_score');
                 $sorts[] = [$fieldName => strtolower($sortOrder->getDirection() ?: 'desc')];
             }
         }
@@ -95,25 +85,23 @@ class SearchParamsProvider implements SearchParamsProviderInterface
      *
      * @return string
      */
-    private function getFieldName(string $requestFieldName): string
+    private function getFieldName(string $indexIdentifier, string $requestFieldName): string
     {
-        $fieldName = $this->fieldNameResolver->getFieldName(
-            $this->getAttribute($requestFieldName),
-            ['type' => SchemaInterface::CONTEXT_SORT]
-        );
+        $context   = ['type' => SchemaInterface::CONTEXT_SORT];
+        $fieldName = $this->getFieldMapper($indexIdentifier)->getFieldName($requestFieldName, $context);
 
         return $fieldName === 'score' ? '_score' : $fieldName;
     }
 
     /**
-     * Retrieve attribute to be used for sorting.
+     * Retrive field mapper for the current request.
      *
-     * @param string $requestFieldName
+     * @param string $indexIdentifier
      *
-     * @return AttributeAdapter
+     * @return FieldMapperInterface
      */
-    private function getAttribute(string $requestFieldName): AttributeAdapter
+    private function getFieldMapper(string $indexIdentifier): FieldMapperInterface
     {
-        return $this->attributeProvider->getAttributeAdapter($requestFieldName);
+        return $this->fieldMapperResolver->getFieldMapper($indexIdentifier);
     }
 }

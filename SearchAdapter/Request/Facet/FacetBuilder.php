@@ -11,10 +11,8 @@
 namespace Elastic\AppSearch\SearchAdapter\Request\Facet;
 
 use Magento\Framework\Search\Request\BucketInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Implementation of the default facet builder.
@@ -31,27 +29,18 @@ class FacetBuilder implements FacetBuilderInterface
     const MAX_SIZE = 250;
 
     /**
-     * @var FieldNameResolverInterface
+     * @var FieldMapperInterface
      */
-    private $fieldNameResolver;
-
-    /**
-     * @var AttributeAdapterProvider
-     */
-    private $attributeProvider;
+    private $fieldMapper;
 
     /**
      * Constructor.
      *
-     * @param AttributeAdapterProvider   $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
+     * @param FieldMapperInterface $fieldMapper
      */
-    public function __construct(
-        AttributeAdapterProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver
-    ) {
-        $this->attributeProvider = $attributeProvider;
-        $this->fieldNameResolver = $fieldNameResolver;
+    public function __construct(FieldMapperInterface $fieldMapper)
+    {
+        $this->fieldMapper = $fieldMapper;
     }
 
     /**
@@ -82,20 +71,6 @@ class FacetBuilder implements FacetBuilderInterface
      */
     private function getFieldName(string $requestFieldName): string
     {
-        $attribute = $this->getAttribute($requestFieldName);
-
-        return $this->fieldNameResolver->getFieldName($attribute, ['type' => SchemaInterface::CONTEXT_FILTER]);
-    }
-
-    /**
-     * Request request attribute.
-     *
-     * @param string $requestFieldName
-     *
-     * @return AttributeAdapter
-     */
-    private function getAttribute(string $requestFieldName): AttributeAdapter
-    {
-        return $this->attributeProvider->getAttributeAdapter($requestFieldName);
+        return $this->fieldMapper->getFieldName($requestFieldName, ['type' => SchemaInterface::CONTEXT_FILTER]);
     }
 }

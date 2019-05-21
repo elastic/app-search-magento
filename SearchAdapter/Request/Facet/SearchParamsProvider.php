@@ -12,6 +12,8 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Facet;
 
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilderInterfaceFactory;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
 
 /**
  * Extract and build facets from the search request.
@@ -23,18 +25,32 @@ use Magento\Framework\Search\RequestInterface;
 class SearchParamsProvider implements SearchParamsProviderInterface
 {
     /**
+     * @var FacetBuilderInterfaceFactory
+     */
+    private $facetBuilderFactory;
+
+    /**
+     * @var FieldMapperResolverInterface
+     */
+    private $fieldMapperResolver;
+
+    /**
      * @var FacetBuilderInterface
      */
-    private $facetBuilder;
+    private $builders = [];
 
     /**
      * Constructor.
      *
-     * @param FacetBuilderInterface $facetBuilder
+     * @param FieldMapperResolverInterface $fieldMapperResolver
+     * @param FacetBuilderInterfaceFactory $facetBuilderFactory
      */
-    public function __construct(FacetBuilderInterface $facetBuilder)
-    {
-        $this->facetBuilder = $facetBuilder;
+    public function __construct(
+        FieldMapperResolverInterface $fieldMapperResolver,
+        FacetBuilderInterfaceFactory $facetBuilderFactory
+    ) {
+        $this->fieldMapperResolver = $fieldMapperResolver;
+        $this->facetBuilderFactory = $facetBuilderFactory;
     }
 
     /**
@@ -45,9 +61,20 @@ class SearchParamsProvider implements SearchParamsProviderInterface
         $facets = [];
 
         foreach ($request->getAggregation() as $aggregation) {
-            $facets = array_merge_recursive($facets, $this->facetBuilder->getFacet($aggregation));
+            $index  = $request->getIndex();
+            $facets = array_merge_recursive($facets, $this->getFacetBuilder($index)->getFacet($aggregation));
         }
 
         return !empty($facets) ? ['facets' => $facets] : [];
+    }
+
+    private function getFacetBuilder(string $index)
+    {
+        if (!isset($this->builders[$index])) {
+            $fieldMapper = $this->fieldMapperResolver->getFieldMapper($index);
+            $this->builders[$index] = $this->facetBuilderFactory->create(['fieldMapper' => $fieldMapper]);
+        }
+
+        return $this->builders[$index];
     }
 }

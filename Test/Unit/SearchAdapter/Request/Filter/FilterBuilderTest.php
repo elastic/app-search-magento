@@ -13,6 +13,8 @@ namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request\Filter;
 use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder;
 use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
 use Magento\Framework\Search\Request\FilterInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Magento\Framework\Validator\UniversalFactory;
 
 /**
  * Unit test for the Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder class.
@@ -61,6 +63,11 @@ class FilterBuilderTest extends \PHPUnit\Framework\TestCase
         $builder = $this->createMock(FilterBuilderInterface::class);
         $builder->method('getFilter')->willReturn(['filterContent']);
 
-        return new FilterBuilder(['myFilterType' => $builder]);
+        $builderFactory = $this->createMock(UniversalFactory::class);
+        $builderFactory->method('create')->willReturn($builder);
+
+        $fieldMapper = $this->createMock(FieldMapperInterface::class);
+
+        return new FilterBuilder($fieldMapper, ['myFilterType' => $builderFactory]);
     }
 }

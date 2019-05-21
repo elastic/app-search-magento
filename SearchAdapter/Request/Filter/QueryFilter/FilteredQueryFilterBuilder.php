@@ -13,7 +13,9 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter;
 use Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface;
 use Magento\Framework\Search\Request\QueryInterface;
 use Magento\Framework\Search\Request\FilterInterface;
+use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterfaceFactory;
 use Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
+use Elastic\AppSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 
 /**
  * Implementation of the filtered query filter builder.
@@ -32,11 +34,12 @@ class FilteredQueryFilterBuilder implements QueryFilterBuilderInterface
     /**
      * Constructor.
      *
-     * @param FilterBuilderInterface $filterBuilder
+     * @param FilterBuilderInterfaceFactory $filterBuilderFactory
+     * @param FieldMapperInterface          $fieldMapper
      */
-    public function __construct(FilterBuilderInterface $filterBuilder)
+    public function __construct(FilterBuilderInterfaceFactory $filterBuilderFactory, FieldMapperInterface $fieldMapper)
     {
-        $this->filterBuilder = $filterBuilder;
+        $this->filterBuilder = $filterBuilderFactory->create(['fieldMapper' => $fieldMapper]);
     }
 
     /**
