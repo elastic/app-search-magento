@@ -232,7 +232,7 @@
     </type>
 
     <type name="Magento\Search\Model\ResourceModel\SynonymGroup">
-        <plugin name="synonym_group_indexing" type="Elastic\AppSearch\Model\Synonym\Plugin\SynonymGroupPlugin" />
+        <plugin name="synonym_group_indexing" type="Elastic\AppSearch\Model\Synonym\Indexer\Plugin\SynonymGroupPlugin" />
     </type>
 
     <type name="Elastic\AppSearch\Model\Synonym\Indexer\Synonym">
