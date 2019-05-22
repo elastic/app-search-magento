@@ -26,19 +26,27 @@ interface ClientConfigurationInterface
      *
      * @return string
      */
-    public function getApiEndpoint();
+    public function getApiEndpoint(): ?string;
 
     /**
-     * API Key used to connect to App Search.
+     * Private API Key used to connect to App Search.
      *
      * @return string
      */
-    public function getApiKey();
+    public function getPrivateApiKey(): ?string;
+
+
+    /**
+     * Search API Key used to connect to App Search.
+     *
+     * @return string
+     */
+    public function getSearchApiKey(): ?string;
 
     /**
      * When debug mode is enabled, all request to the App Search service are logged.
      *
      * @return bool
      */
-    public function isDebug();
+    public function isDebug(): bool;
 }

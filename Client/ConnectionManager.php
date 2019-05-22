@@ -79,7 +79,7 @@ class ConnectionManager
     private function createClient($options = [])
     {
         $apiEndpoint = $options['api_endpoint'] ?? $this->clientConfig->getApiEndpoint();
-        $apiKey = $options['api_key'] ?? $this->clientConfig->getApiKey();
+        $apiKey = $options['api_key'] ?? $this->clientConfig->getPrivateApiKey();
 
         $clientBuilder = ClientBuilder::create($apiEndpoint, $apiKey);
 

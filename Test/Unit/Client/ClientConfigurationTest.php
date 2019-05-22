@@ -78,12 +78,14 @@ class ClientConfigurationTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetApiKey($cryptedApiKey)
     {
-        $clientConfiguration = $this->getClientConfiguration($cryptedApiKey);
+        foreach (['getPrivateApiKey', 'getSearchApiKey'] as $method) {
+            $clientConfiguration = $this->getClientConfiguration($cryptedApiKey);
 
-        $apiKey = $clientConfiguration->getApiKey();
+            $apiKey = $clientConfiguration->$method();
 
-        $this->assertInternalType('string', $apiKey);
-        $this->assertEquals($this->decrypt($cryptedApiKey), (string) $apiKey);
+            $this->assertInternalType('string', $apiKey);
+            $this->assertEquals($this->decrypt($cryptedApiKey), (string) $apiKey);
+        }
     }
 
     /**
@@ -97,11 +99,13 @@ class ClientConfigurationTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetEmptyApiKey($cryptedApiKey)
     {
-        $clientConfiguration = $this->getClientConfiguration($cryptedApiKey);
+        foreach (['getPrivateApiKey', 'getSearchApiKey'] as $method) {
+            $clientConfiguration = $this->getClientConfiguration($cryptedApiKey);
 
-        $apiKey = $clientConfiguration->getApiKey();
+            $apiKey = $clientConfiguration->$method();
 
-        $this->assertNull($apiKey);
+            $this->assertNull($apiKey);
+        }
     }
 
     /**

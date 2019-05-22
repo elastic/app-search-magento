@@ -46,7 +46,7 @@ class ClientConfiguration implements ClientConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiEndpoint()
+    public function getApiEndpoint(): ?string
     {
         return (string) $this->scopeConfig->getValue('elastic_appsearch/client/api_endpoint');
     }
@@ -54,24 +54,45 @@ class ClientConfiguration implements ClientConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiKey()
+    public function getPrivateApiKey(): ?string
     {
-        $apiKey = (string) $this->scopeConfig->getValue('elastic_appsearch/client/api_key');
-
-        if (empty($apiKey)) {
-            $apiKey = null;
-        } elseif (substr($apiKey, 0, 7) !== 'private') {
-            $apiKey = (string) $this->encryptor->decrypt($apiKey);
-        }
-
-        return $apiKey;
+        return $this->getApiKey('private');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isDebug()
+    public function getSearchApiKey(): ?string
+    {
+        return $this->getApiKey('search');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isDebug(): bool
     {
         return (bool) $this->scopeConfig->getValue('elastic_appsearch/client/is_debug');
+    }
+
+    /**
+     * Read an API key from the config.
+     *
+     * @param string $keyType
+     *
+     * @return string|NULL
+     */
+    private function getApiKey(string $keyType): ?string
+    {
+        $configPath = sprintf('elastic_appsearch/client/%s_api_key', $keyType);
+        $apiKey     = (string) $this->scopeConfig->getValue($configPath);
+
+        if (empty($apiKey)) {
+            $apiKey = null;
+        } elseif(substr($apiKey, 0, strlen($keyType)) !== $keyType) {
+            $apiKey = (string) $this->encryptor->decrypt($apiKey);
+        }
+
+        return $apiKey;
     }
 }

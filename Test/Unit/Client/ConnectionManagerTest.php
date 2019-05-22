@@ -93,7 +93,7 @@ class ConnectionManagerTest extends \PHPUnit\Framework\TestCase
         $clientConfig = $this->createMock(ClientConfigurationInterface::class);
 
         $clientConfig->expects($this->any())->method('getApiEndpoint')->willReturn($apiEndpoint);
-        $clientConfig->expects($this->any())->method('getApiKey')->willReturn($apiKey);
+        $clientConfig->expects($this->any())->method('getPrivateApiKey')->willReturn($apiKey);
         $clientConfig->expects($this->any())->method('isDebug')->willReturn(true);
 
         return $clientConfig;
