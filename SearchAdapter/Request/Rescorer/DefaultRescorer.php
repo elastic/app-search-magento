@@ -12,10 +12,14 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Rescorer;
 
 use Elastic\AppSearch\SearchAdapter\Request\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\Client\ConnectionManager;
+use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
 
 /**
  * Ensure score is consistent with the document positions.
  * Mostly intended to fix curated search results scores.
+ *
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
  * @package   Elastic\AppSearch\SearchAdapter\Request\Rescorer
  * @copyright 2019 Elastic
@@ -36,11 +40,38 @@ class DefaultRescorer implements RescorerInterface
     /**
      * Constructor.
      *
-     * @param ResultSorter $resultSorter
+     * @param ResultSorter      $resultSorter
+     * @param ConnectionManager $connectionManager
+     * @param EngineResolver    $engineResolver
      */
-    public function __construct(ResultSorter $resultSorter)
+    public function __construct(
+        ResultSorter $resultSorter,
+        ConnectionManager $connectionManager,
+        EngineResolver $engineResolver
+    ) {
+        $this->client         = $connectionManager->getClient();
+        $this->resultSorter   = $resultSorter;
+        $this->engineResolver = $engineResolver;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepareSearchParams(RequestInterface $request, string $queryText, array $searchParams): array
     {
-        $this->resultSorter = $resultSorter;
+        $exactMatchIds = $this->getExactMatchIds($request, $queryText);
+
+        if (count($exactMatchIds)) {
+            $filter = ['entity_id' => $exactMatchIds];
+
+            if (isset($searchParams['filters'])) {
+                $filter = ['all' => [$searchParams['filters'], $filter]];
+            }
+
+            $searchParams['filters'] = $filter;
+        }
+
+        return $searchParams;
     }
 
     /**
@@ -64,14 +95,6 @@ class DefaultRescorer implements RescorerInterface
         }
 
         return $results;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function prepareSearchParams(RequestInterface $request, array $searchParams): array
-    {
-        return $searchParams;
     }
 
     /**
@@ -108,5 +131,52 @@ class DefaultRescorer implements RescorerInterface
     private function getSortDirection(RequestInterface $request): string
     {
         return count($request->getSort()) < 1 ? 'DESC' : current($request->getSort())->getDirection();
+    }
+
+    /**
+     * Try to detect if fuzzy search result are present in the first 100 results.
+     * If so, return only non fuzzy results.
+     *
+     * @param RequestInterface $request
+     * @param string           $queryText
+     * @param array            $searchParams
+     *
+     * @return string[]
+     */
+    private function getExactMatchIds(RequestInterface $request, string $queryText)
+    {
+        $engineName     = $this->engineResolver->getEngine($request)->getName();
+        $searchResponse = $this->client->search($engineName, $queryText, ['page' => ['size' => 100]]);
+
+        $totalResult       = count($searchResponse['results']);
+        $exactMatchResults = array_filter($searchResponse['results'], [$this, 'isExactMatch']);
+
+        $useMatchedDocIds = count($exactMatchResults) && $totalResult > count($exactMatchResults);
+
+        return $useMatchedDocIds ? array_map([$this, 'getDocId'], $exactMatchResults) : [];
+    }
+
+    /**
+     * Indicate if a search result is fuzzy.
+     *
+     * @param array $doc
+     *
+     * @return boolean
+     */
+    private function isExactMatch(array $doc)
+    {
+        return $doc['_meta']['score'] > 0.1;
+    }
+
+    /**
+     * Retrive id of a document.
+     *
+     * @param array $doc
+     *
+     * @return string
+     */
+    private function getDocId(array $doc)
+    {
+        return $doc['entity_id']['raw'];
     }
 }

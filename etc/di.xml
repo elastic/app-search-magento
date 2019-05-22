@@ -226,5 +226,9 @@
             </argument>
         </arguments>
     </type>
+    
+    <type name="Magento\CatalogSearch\Model\Search\RequestGenerator">
+        <plugin name="elastic_app_search_custom_request" type="Elastic\AppSearch\Plugin\Model\Search\RequestGeneratorPlugin" />
+    </type>
 
 </config>

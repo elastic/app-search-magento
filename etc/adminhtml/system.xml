@@ -16,6 +16,24 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
+        <section id="catalog">
+            <group id="search">
+                <field id="search_in_category_name" translate="label" type="select" sortOrder="61" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Search in category names</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="engine">elastic_appsearch</field>
+                    </depends>
+                </field>
+                <field id="category_name_weight" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Category names weight</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="search_in_category_name">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
         <section id="elastic_appsearch" translate="label" type="text" sortOrder="1100" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Elastic App Search</label>
             <tab>general</tab>

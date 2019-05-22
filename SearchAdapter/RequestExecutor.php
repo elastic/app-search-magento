@@ -90,7 +90,7 @@ class RequestExecutor
 
         $rescorer = $this->rescorerResolver->getRescorer($request);
 
-        $searchParams = $rescorer->prepareSearchParams($request, $searchParams);
+        $searchParams = $rescorer->prepareSearchParams($request, $queryText, $searchParams);
 
         try {
             $response = $this->client->search($engine->getName(), $queryText, $searchParams);
