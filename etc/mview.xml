@@ -15,7 +15,7 @@
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
-    <view id="search_synonym" class="\Elastic\AppSearch\Model\Synonym\Indexer\Mview\Action" group="indexer">
+    <view id="search_synonym" class="\Elastic\AppSearch\Model\Indexer\Synonym\Mview\Action" group="indexer">
         <subscriptions>
             <table name="search_synonyms" entity_column="group_id" />
         </subscriptions>

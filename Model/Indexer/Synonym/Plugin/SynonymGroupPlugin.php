@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Model\Synonym\Indexer\Plugin;
+namespace Elastic\AppSearch\Model\Indexer\Synonym\Plugin;
 
 use Magento\Search\Model\ResourceModel\SynonymGroup as SynonymGroupResourceModel;
 use Magento\Framework\Indexer\IndexerRegistry;
@@ -72,7 +72,7 @@ class SynonymGroupPlugin
      */
     private function invalidateIndex()
     {
-        $indexer = $this->indexerRegistry->get(\Elastic\AppSearch\Model\Synonym\Indexer\Synonym::INDEXER_ID);
+        $indexer = $this->indexerRegistry->get(\Elastic\AppSearch\Model\Indexer\Synonym\Indexer::INDEXER_ID);
         $indexer->invalidate();
     }
 }

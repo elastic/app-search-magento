@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Model\Synonym\Indexer;
+namespace Elastic\AppSearch\Model\Indexer\Synonym;
 
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Search\EngineResolverInterface;

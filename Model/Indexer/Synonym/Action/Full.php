@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Model\Synonym\Indexer\Action;
+namespace Elastic\AppSearch\Model\Indexer\Synonym\Action;
 
 use Magento\Search\Model\ResourceModel\SynonymGroup;
 use Magento\Store\Model\StoreManagerInterface;

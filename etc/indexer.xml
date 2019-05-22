@@ -15,7 +15,7 @@
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
-    <indexer id="search_synonym" view_id="search_synonym" class="Elastic\AppSearch\Model\Synonym\Indexer\Synonym">
+    <indexer id="search_synonym" view_id="search_synonym" class="Elastic\AppSearch\Model\Indexer\Synonym\Indexer">
         <title translate="true">Search Synonyms</title>
         <description translate="true">Rebuild search engine synonyms</description>
     </indexer>

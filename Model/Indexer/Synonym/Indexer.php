@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Model\Synonym\Indexer;
+namespace Elastic\AppSearch\Model\Indexer\Synonym;
 
 use Magento\Framework\Indexer\DimensionProviderInterface;
 use Magento\Indexer\Model\ProcessManager;
 use Magento\Store\Model\StoreDimensionProvider;
-use Elastic\AppSearch\Model\Synonym\Indexer\Action\Full as FullAction;
+use Elastic\AppSearch\Model\Indexer\Synonym\Action\Full as FullAction;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 
 /**
@@ -23,7 +23,7 @@ use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class Synonym implements
+class Indexer implements
     \Magento\Framework\Indexer\ActionInterface,
     \Magento\Framework\Mview\ActionInterface,
     \Magento\Framework\Indexer\DimensionalIndexerInterface

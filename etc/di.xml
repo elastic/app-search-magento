@@ -232,24 +232,24 @@
     </type>
 
     <type name="Magento\Search\Model\ResourceModel\SynonymGroup">
-        <plugin name="synonym_group_indexing" type="Elastic\AppSearch\Model\Synonym\Indexer\Plugin\SynonymGroupPlugin" />
+        <plugin name="synonym_group_indexing" type="Elastic\AppSearch\Model\Indexer\Synonym\Plugin\SynonymGroupPlugin" />
     </type>
 
-    <type name="Elastic\AppSearch\Model\Synonym\Indexer\Synonym">
+    <type name="Elastic\AppSearch\Model\Indexer\Synonym\Indexer">
         <arguments>
             <argument name="dimensionProvider" xsi:type="object" shared="false">Magento\Store\Model\StoreDimensionProvider</argument>
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\Model\Synonym\Indexer\IndexerHandlerFactory">
+    <type name="Elastic\AppSearch\Model\Indexer\Synonym\IndexerHandlerFactory">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\Model\Synonym\Indexer\IndexerHandler</item>
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\Model\Indexer\Synonym\IndexerHandler</item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\Model\Synonym\Indexer\IndexerHandler">
+    <type name="Elastic\AppSearch\Model\Indexer\Synonym\IndexerHandler">
         <arguments>
             <argument name="engines" xsi:type="array">
                 <item name="catalogsearch_fulltext" xsi:type="string">catalogsearch_fulltext</item>
