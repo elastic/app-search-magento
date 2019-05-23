@@ -81,6 +81,7 @@ You can proceed from the Magento Admin by by browsing the **Stores > Configurati
 ![Engine configuration](docs/assets/config-engine.png)
 
 As an alternative, you can use the Magento CLI to change the default engine:
+
 ```bash
 bin/magento config:set catalog/search/engine "elastic_appsearch"
 ```
