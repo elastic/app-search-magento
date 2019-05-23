@@ -47,7 +47,7 @@ Self-managed users should connect to their App Search instance to retrieve their
 
 #### From Magento Admin
 
-You can provide your credentials from Magento Admin by browsing the **Stores > Configuration > General > Elastic App Search** section:
+You can provide your App Search credentials within Magento Admin by browsing to the **Stores > Configuration > General > Elastic App Search** section:
 
 ![App Search Credentials Config](docs/assets/config-credentials.png)
 
