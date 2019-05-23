@@ -43,7 +43,7 @@ To configure your credentials, you will need to collect the following informatio
 
 If using a swiftype.com account, you will be able to access this information at [https://app.swiftype.com/as/credentials](https://app.swiftype.com/as/credentials).
 
-On-premises user should connect to their App Search instance to retrieve their credentials.
+Self-managed users should connect to their App Search instance to retrieve their credentials.
 
 #### From Magento Admin
 
