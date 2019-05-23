@@ -11,7 +11,7 @@
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  *
- * @var Elastic\AppSearch\Block\Tracking $block
+ * @var \Elastic\AppSearch\Block\LogClickthrough $block
  */
 ?>
 
@@ -19,7 +19,7 @@
 <script type="text/x-magento-init">
 {
     "*": {
-        "Elastic_AppSearch/js/elastic-appsearch-tracking": {
+        "Elastic_AppSearch/js/log-clicktrough": {
             "engineName"             : "<?php echo $block->escapeJs($block->getEngineName()); ?>",
             "apiEndpoint"            : "<?php echo $block->escapeJs($block->getApiEndpoint()); ?>",
             "apiKey"                 : "<?php echo $block->escapeJs($block->getApiKey()); ?>",
@@ -27,7 +27,8 @@
             "itemsSelector"          : "<?php echo $block->escapeJs($block->getItemsSelector()); ?>",
             "linksSelector"          : "<?php echo $block->escapeJs($block->getLinksSelector()); ?>",
             "documentIdNodeSelector" : "<?php echo $block->escapeJs($block->getDocumentIdNodeSelector()); ?>",
-            "documentIdAttribute"    : "<?php echo $block->escapeJs($block->getDocumentIdAttribute()); ?>"
+            "documentIdAttribute"    : "<?php echo $block->escapeJs($block->getDocumentIdAttribute()); ?>",
+            "doSearch"               : <?php echo $block->escapeJs($block->doSearch() ? "true" : "false"); ?>
         }
     }
 }

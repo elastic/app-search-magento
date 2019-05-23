@@ -13,24 +13,58 @@
 
 define(['jquery'], function ($) {
 
-  class Tracker {
+  class Headers {
     constructor(config) {
-      this.config = config;
-      this.installCallbacks();
-    }
-    getUrl() {
-      return this.config.apiEndpoint + '/api/as/v1/engines/' + this.config.engineName + '/click';
+      this.config = Object.assign({}, config);
     }
     getHeaders() {
       return {"Authorization": "Bearer " + this.config.apiKey};
+    }
+  }
+  
+  class Url { 
+    constructor(config, endpoint) {
+      this.config = Object.assign({}, config);
+      this.config.endpoint = endpoint;
+    }
+    getUrl() {
+      return this.config.apiEndpoint + '/api/as/v1/engines/' + this.config.engineName + '/' + this.config.endpoint;
+    }
+  }
+
+  class SearchQuery {
+      constructor(config) {
+        this.config  = Object.assign({}, config);
+        this.headers = new Headers(config);
+        this.url     = new Url(config, 'search');
+      }
+      run() {
+        var postData = {'query': this.config.query};
+        var url      = this.url.getUrl();
+        var headers  = this.headers.getHeaders();
+        
+        $.ajax({'type': 'POST', 'url': url, 'data': postData, 'headers': headers});
+      }
+  }
+
+  class Tracker {
+    constructor(config) {
+      this.config  = Object.assign({}, config);
+      this.headers = new Headers(config);
+      this.url     = new Url(config, 'click');
+      
+      this.installCallbacks();
+      if (this.config.doSearch) {
+        new SearchQuery(config).run();
+      }
     }
     getPostData(documentId) {
       return {'query': this.config.query, 'document_id': documentId};
     }
     sendClick(documentId) {
       var postData = this.getPostData(documentId);
-      var url      = this.getUrl();
-      var headers  = this.getHeaders();
+      var url      = this.url.getUrl();
+      var headers  = this.headers.getHeaders();
 
       $.ajax({'type': 'POST', 'url': url, 'data': postData, 'headers': headers});
     }

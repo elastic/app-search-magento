@@ -15,6 +15,7 @@ use Magento\Framework\View\Element\Template\Context;
 use Elastic\AppSearch\Model\Adapter\EngineResolverInterface;
 use Elastic\AppSearch\Client\ClientConfigurationInterface;
 use Magento\Search\Helper\Data as SearchHelper;
+use Magento\CatalogSearch\Block\SearchTermsLog;
 
 /**
  * Block used to add JS clicktrough tracking to a search result page.
@@ -41,12 +42,18 @@ class LogClickthrough extends Template
     private $searchHelper;
 
     /**
+     * @var SearchTermsLog
+     */
+    private $searchTermsLog;
+
+    /**
      * Constructor.
      *
      * @param Context                      $context
      * @param ClientConfigurationInterface $clientConfiguration
      * @param EngineResolverInterface      $engineResolver
      * @param SearchHelper                 $searchHelper
+     * @param SearchTermsLog               $searchTermsLog
      * @param array                        $data
      */
     public function __construct(
@@ -54,6 +61,7 @@ class LogClickthrough extends Template
         ClientConfigurationInterface $clientConfiguration,
         EngineResolverInterface $engineResolver,
         SearchHelper $searchHelper,
+        SearchTermsLog $searchTermsLog,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -61,6 +69,7 @@ class LogClickthrough extends Template
         $this->engineResolver      = $engineResolver;
         $this->clientConfiguration = $clientConfiguration;
         $this->searchHelper        = $searchHelper;
+        $this->searchTermsLog      = $searchTermsLog;
     }
 
     /**
@@ -108,5 +117,16 @@ class LogClickthrough extends Template
     public function getQueryText(): string
     {
         return $this->searchHelper->getEscapedQueryText();
+    }
+
+    /**
+     * Indicate if the page will be cached and if we should run a search query using the browser
+     * in order to have consistent analytics.
+     *
+     * @return bool
+     */
+    public function doSearch(): bool
+    {
+        return $this->searchTermsLog->isPageCacheable();
     }
 }

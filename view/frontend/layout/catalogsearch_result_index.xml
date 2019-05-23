@@ -17,7 +17,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="head.additional">
-            <block class="Elastic\AppSearch\Block\LogClickthrough" name="elastic_appsearch_tracking" as="elastic_appsearch_tracking" template="Elastic_AppSearch::elastic-appsearch-tracking.phtml">
+            <block class="Elastic\AppSearch\Block\LogClickthrough" name="elastic_appsearch_log_clicktrough" template="Elastic_AppSearch::log-clicktrough.phtml">
                 <arguments>
                     <argument name="engine_identifier" xsi:type="string">catalogsearch_fulltext</argument>
                     <argument name="items_selector" xsi:type="string">.product-item</argument>
