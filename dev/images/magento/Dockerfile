@@ -31,6 +31,9 @@ ARG public_key
 ARG private_key
 ENV COMPOSER_AUTH {\"http-basic\": {\"repo.magento.com\": {\"username\":\"$public_key\", \"password\": \"$private_key\"}}}
 
+# Install prestissimo to speedup install
+RUN composer global require hirak/prestissimo
+
 # Prefetch Magento packages.
 ARG magento_version=2.3.0
 ARG magento_edition=community
@@ -48,7 +51,7 @@ COPY --chown=www-data env.php app/etc/env.php
 ENV HOME /var/www
 
 # Add local repo to work on the extension.
-RUN composer config repositories.app-search '{"type": "path", "url": "../app-search-module"}' \
+RUN composer config repositories.app-search '{"type": "path", "url": "./app-search-module"}' \
  && composer config "minimum-stability" dev
 
 # Revert original user (root) to run Apache.

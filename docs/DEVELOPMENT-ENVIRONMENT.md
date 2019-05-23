@@ -24,7 +24,7 @@ You will need an App Search account. If you do not have one already, you can cre
 
 Once logged, you can find your App Search credentials at: https://app.swiftype.com/as/credentials
 
-To install the dev environment you will need to configure both the API Endpoint and a Private API key.
+To install the dev environment you will need to configure both the API Endpoint a private API key and a search API key.
 
 ## Stack content:
 
@@ -32,7 +32,7 @@ The stack contains:
 * Preconfigured component to store data (MySQL and Redis)
 * A custom Apache PHP image containing all the Magento code (+ sample catalog data)
 
-## Configure ENV file 
+## Configure ENV file
 
 Your App Search credentials are stored into the `dev/magento.env` file.
 

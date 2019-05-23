@@ -13,7 +13,7 @@ services:
   magento:
     build: ./dev/images/magento
     volumes:
-    - .:/var/www/app-search-module
+    - .:/var/www/magento/app-search-module
     env_file:
     - ./dev/magento.env
     ports:
