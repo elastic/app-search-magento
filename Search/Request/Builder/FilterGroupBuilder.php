@@ -15,6 +15,7 @@ use Magento\Framework\Search\Request\FilterInterface;
 use Magento\Framework\Search\Request\Query\FilterFactory as FilteredQueryFactory;
 use Magento\Framework\Search\Request\Filter\BoolExpressionFactory as BoolFilterFactory;
 use Magento\Framework\Api\Search\FilterGroup;
+use Magento\Framework\Search\Request\Query\Filter;
 
 /**
  * Build a query to represent filter groups.
@@ -68,7 +69,7 @@ class FilterGroupBuilder
      */
     public function create(array $filterGroups): QueryInterface
     {
-        $queryParams = ['name' => '', 'boost' => 1, 'referenceType' => ''];
+        $queryParams = ['name' => '', 'boost' => 1, 'referenceType' => Filter::REFERENCE_FILTER];
         $filters     = [];
 
         foreach ($filterGroups as $filterGroup) {
