@@ -1,4 +1,4 @@
-<p align="center">![Elastic App Search Logo](docs/assets/logo-app-search.png)</p>
+![Elastic App Search Logo](docs/assets/logo-app-search.png)
 
 <p align="center"><a href="https://circleci.com/gh/swiftype/swiftype-app-search-magento"><img src="https://circleci.com/gh/swiftype/swiftype-app-search-magento.svg?style=svg&circle-token=f396f44f6e5dbcced1d3d8e3b42bcee791b805a0" alt="CircleCI build"></a></p>
 
@@ -49,7 +49,7 @@ On-premises user should connect to their App Search instance to retrieve their c
 
 You can provide your credentials from Magento Admin by browsing the **Stores > Configuration > General > Elastic App Search** section:
 
-![App Search Credentials Config](docs/assets/credentials.png)
+![App Search Credentials Config](docs/assets/config-credentials.png)
 
 **Note:**
 The module will create one App Search engine per store view.
@@ -74,7 +74,25 @@ bin/magento config:set elastic_appsearch/client/engine_prefix "my-website-stagin
 
 ### Configuring App Search as Magento default search engine
 
+Once your credentials are set in Magento, you need to update Magento configuration to use App Search instead of the out of the box MySQL search engine.
+
+You can proceed from the Magento Admin by by browsing the **Stores > Configuration > Catalog > Catalog Search** section:
+
+![Engine configuration](docs/assets/config-engine.png)
+
+As an alternative, you can use the Magento CLI to change the default engine:
+```bash
+bin/magento config:set catalog/search/engine "elastic_appsearch"
+```
+
 ### Reindexing content
+
+To finish the install, you need to clean your cache and reindex the content to App Search:
+
+```bash
+bin/magento cache:clean
+bin/magento indexer:reindex catalogsearch_fulltext
+```
 
 ## Development
 
