@@ -18,5 +18,8 @@
     <indexer id="search_synonym" view_id="search_synonym" class="Elastic\AppSearch\Model\Indexer\Synonym\Indexer">
         <title translate="true">Search Synonyms</title>
         <description translate="true">Rebuild search engine synonyms</description>
+        <dependencies>
+            <indexer id="catalogsearch_fulltext" />
+        </dependencies>
     </indexer>
 </config>
