@@ -59,7 +59,7 @@ Update this setting (e.g. `my-website-staging`) if you plan to use the same acco
 
 #### From Magento CLI
 
-You can update setting from Magento CLI by using:
+You can update credentials using the Magento CLI:
 
 ```bash
 bin/magento config:set elastic_appsearch/client/api_endpoint "https://host-xxxx.api.swiftype.com"
