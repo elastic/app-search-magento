@@ -90,7 +90,7 @@ class LogClickthrough extends Template
      *
      * @return string
      */
-    public function getApiEndpoint(): string
+    public function getApiEndpoint(): ?string
     {
         $urlComponents = parse_url($this->clientConfiguration->getApiEndpoint());
         $scheme = !empty($urlComponents['scheme']) ? $urlComponents['scheme'] . ':' : '';
@@ -104,7 +104,7 @@ class LogClickthrough extends Template
      *
      * @return string
      */
-    public function getApiKey(): string
+    public function getApiKey(): ?string
     {
         return $this->clientConfiguration->getSearchApiKey();
     }
@@ -128,5 +128,25 @@ class LogClickthrough extends Template
     public function doSearch(): bool
     {
         return $this->searchTermsLog->isPageCacheable();
+    }
+
+    /**
+     * Indicate if tracking should be rendered or not.
+     *
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->isAppSearch() && $this->getApiKey() && $this->getApiEndpoint();
+    }
+
+    /**
+     * Indicate if the current engine is App Search or not.
+     *
+     * @return bool
+     */
+    private function isAppSearch(): bool
+    {
+        return $this->_scopeConfig->getValue('catalog/search/engine') === "elastic_appsearch";
     }
 }
