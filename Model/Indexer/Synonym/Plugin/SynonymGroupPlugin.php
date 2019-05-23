@@ -37,6 +37,8 @@ class SynonymGroupPlugin
     /**
      * Invalidate the index after synonym group have been saved.
      *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param SynonymGroupResourceModel $resourceModel
      * @param SynonymGroupResourceModel $result
      *
@@ -52,6 +54,8 @@ class SynonymGroupPlugin
 
     /**
      * Invalidate the index after synonym group deletion.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param SynonymGroupResourceModel $resourceModel
      * @param SynonymGroupResourceModel $result
