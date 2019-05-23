@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\Model\Indexer\Synonym\Mview;
 
 use Magento\Framework\Indexer\IndexerRegistry;
 use Magento\Framework\Mview\ActionInterface;
-use Elastic\AppSearch\Model\Indexer\Synonym;
+use Elastic\AppSearch\Model\Indexer\Synonym\Indexer;
 
 /**
  * A simple mview action that invalidate the synonyms indexer when something happens in the synonyms table.
