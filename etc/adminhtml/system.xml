@@ -43,11 +43,11 @@
                 <field id="api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>App Search API Endpoint</label>
                 </field>
-                <field id="private api_key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="private_api_key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>App Search Private API Key</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                 </field>
-                <field id="search api_key" translate="label comment" type="obscure" sortOrder="21" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="search_api_key" translate="label comment" type="obscure" sortOrder="21" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>App Search Public Search API Key</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                 </field>
