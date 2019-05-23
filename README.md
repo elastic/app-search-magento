@@ -88,7 +88,7 @@ bin/magento config:set catalog/search/engine "elastic_appsearch"
 
 ### Reindexing content
 
-To finish the install, you need to clean your cache and reindex the content to App Search:
+To finish the install, you need to clean your cache and reindex your content into App Search:
 
 ```bash
 bin/magento cache:clean
