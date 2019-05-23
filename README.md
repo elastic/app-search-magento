@@ -102,7 +102,7 @@ We ❤️ developers and want everyone to be able to contribute to the module.
 
 We have built a fully dockerized development environment using Magento sample data to help you in testing the module and contributing to the code.
 
-Full documentation to septup your environment is available [here](DEVELOPMENT-ENVIRONMENT.md).
+Full documentation to setup your environment is available [here](docs/DEVELOPMENT-ENVIRONMENT.md).
 
 ## FAQ 🔮
 
