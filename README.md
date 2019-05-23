@@ -77,7 +77,7 @@ bin/magento config:set elastic_appsearch/client/engine_prefix "my-website-stagin
 
 Once your credentials are set in Magento, you need to update Magento configuration to use App Search instead of the out of the box MySQL search engine.
 
-You can proceed from the Magento Admin by by browsing the **Stores > Configuration > Catalog > Catalog Search** section:
+Browse to the **Stores > Configuration > Catalog > Catalog Search** section to do so:
 
 ![Engine configuration](docs/assets/config-engine.png)
 
