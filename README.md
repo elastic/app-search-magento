@@ -55,7 +55,7 @@ You can provide your App Search credentials within Magento Admin by browsing to 
 The module will create one App Search Engine per store view.
 New Engines will use a prefix that can be configured within the client: e.g. `magento2-catalogfulltext-search-1`.
 
-If you plan to use the same account for several environment, update this setting (e.g. my-website-staging).
+Update this setting (e.g. `my-website-staging`) if you plan to use the same account for several environment.
 
 #### From Magento CLI
 
