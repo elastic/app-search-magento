@@ -89,7 +89,7 @@ class ClientConfiguration implements ClientConfigurationInterface
 
         if (empty($apiKey)) {
             $apiKey = null;
-        } elseif(substr($apiKey, 0, strlen($keyType)) !== $keyType) {
+        } elseif (substr($apiKey, 0, strlen($keyType)) !== $keyType) {
             $apiKey = (string) $this->encryptor->decrypt($apiKey);
         }
 
