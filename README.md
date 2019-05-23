@@ -67,7 +67,7 @@ bin/magento config:set elastic_appsearch/client/private_api_key "private-XXXXX"
 bin/magento config:set elastic_appsearch/client/search_api_endpoint "search-XXXXX"
 ```
 
-You can additionally set the engine prefix by using:
+You can additionally set the Engine prefix:
 
 ```bash
 bin/magento config:set elastic_appsearch/client/engine_prefix "my-website-staging"
