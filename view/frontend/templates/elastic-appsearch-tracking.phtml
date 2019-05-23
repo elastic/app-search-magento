@@ -1,0 +1,35 @@
+<?php
+/**
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ * @var Elastic\AppSearch\Block\Tracking $block
+ */
+?>
+
+<!-- BEGIN APPSEARCH CLICK TRACKING ANALYTICS CODE -->
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Elastic_AppSearch/js/elastic-appsearch-tracking": {
+            "engineName"             : "<?php echo $block->escapeJs($block->getEngineName()); ?>",
+            "apiEndpoint"            : "<?php echo $block->escapeJs($block->getApiEndpoint()); ?>",
+            "apiKey"                 : "<?php echo $block->escapeJs($block->getApiKey()); ?>",
+            "query"                  : "<?php echo $block->escapeJs($block->getQueryText()); ?>",
+            "itemsSelector"          : "<?php echo $block->escapeJs($block->getItemsSelector()); ?>",
+            "linksSelector"          : "<?php echo $block->escapeJs($block->getLinksSelector()); ?>",
+            "documentIdNodeSelector" : "<?php echo $block->escapeJs($block->getDocumentIdNodeSelector()); ?>",
+            "documentIdAttribute"    : "<?php echo $block->escapeJs($block->getDocumentIdAttribute()); ?>"
+        }
+    }
+}
+</script>
+<!-- END APPSEARCH CLICK TRACKING ANALYTICS CODE -->
