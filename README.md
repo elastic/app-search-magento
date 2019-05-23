@@ -68,6 +68,7 @@ bin/magento config:set elastic_appsearch/client/search_api_endpoint "search-XXXX
 ```
 
 You can additionally set the engine prefix by using:
+
 ```bash
 bin/magento config:set elastic_appsearch/client/engine_prefix "my-website-staging"
 ```
