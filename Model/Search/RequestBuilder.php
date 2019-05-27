@@ -14,6 +14,9 @@ use Magento\Framework\Api\Search\SearchCriteriaInterface;
 use Elastic\AppSearch\Search\Request\Builder;
 use Magento\Framework\App\ScopeResolverInterface;
 use Magento\Framework\Search\RequestInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Catalog\Model\Layer\Filter\Dynamic\AlgorithmFactory;
+use Magento\Store\Model\ScopeInterface;
 
 /**
  * Convert search criteria into search request.
@@ -37,15 +40,25 @@ class RequestBuilder
     private $scopeResolver;
 
     /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
      * Constructor.
      *
      * @param Builder                $requestBuilder
      * @param ScopeResolverInterface $scopeResolver
+     * @param ScopeConfigInterface   $scopeConfig;
      */
-    public function __construct(Builder $requestBuilder, ScopeResolverInterface $scopeResolver)
-    {
+    public function __construct(
+        Builder $requestBuilder,
+        ScopeResolverInterface $scopeResolver,
+        ScopeConfigInterface $scopeConfig
+    ) {
         $this->requestBuilder = $requestBuilder;
         $this->scopeResolver  = $scopeResolver;
+        $this->scopeConfig    = $scopeConfig;
     }
 
     /**
@@ -62,6 +75,7 @@ class RequestBuilder
         $this->addPagination($searchCriteria);
         $this->addFilterGroups($searchCriteria);
         $this->addSortOrders($searchCriteria);
+        $this->addPriceRangeAlgorithm();
 
         return $this->requestBuilder->create();
     }
@@ -121,5 +135,23 @@ class RequestBuilder
         if ($searchCriteria->getSortOrders()) {
             $this->requestBuilder->setSort($searchCriteria->getSortOrders());
         }
+    }
+
+    /**
+     * Add the price range algorithm to the search request.
+     */
+    private function addPriceRangeAlgorithm()
+    {
+        $this->requestBuilder->bind('price_dynamic_algorithm', $this->getPriceRangeAlgorithm());
+    }
+
+    /**
+     * Return currently selected price range algorithm.
+     *
+     * @return string
+     */
+    private function getPriceRangeAlgorithm()
+    {
+        return $this->scopeConfig->getValue(AlgorithmFactory::XML_PATH_RANGE_CALCULATION, ScopeInterface::SCOPE_STORE);
     }
 }

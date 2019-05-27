@@ -10,7 +10,6 @@
 
 namespace Elastic\AppSearch\Search\Request;
 
-use Magento\Framework\App\ObjectManager;
 use Elastic\AppSearch\Search\Request;
 use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\Filter;
@@ -18,6 +17,9 @@ use Magento\Framework\Search\Request\QueryInterface;
 use Elastic\AppSearch\Search\Request\Builder\FilterGroupBuilder;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Search\Request\Query\BoolExpressionFactory as BoolQueryFactory;
+use Magento\Framework\Search\Request\Cleaner;
+use Magento\Framework\Search\Request\Binder;
+use Magento\Framework\Search\Request\Config;
 
 /**
  * AppSearch search request builder: append sort support to the original builder.
@@ -30,6 +32,17 @@ use Magento\Framework\Search\Request\Query\BoolExpressionFactory as BoolQueryFac
  */
 class Builder extends \Magento\Framework\Search\Request\Builder
 {
+
+    /**
+     * @var ObjectManagerInterface
+     */
+    private $objectManager;
+
+    /**
+     * @var Config
+     */
+    private $config;
+
     /**
      * @var \Magento\Framework\Api\SortOrder[]
      */
@@ -41,11 +54,36 @@ class Builder extends \Magento\Framework\Search\Request\Builder
     private $filterGroups = [];
 
     /**
+     * @var string
+     */
+    private $requestName;
+
+    /**
+     * Connstructor.
+     *
+     * @param ObjectManagerInterface $objectManager
+     * @param Config                 $config
+     * @param Binder                 $binder
+     * @param Cleaner                $cleaner
+     */
+    public function __construct(
+        ObjectManagerInterface $objectManager,
+        Config $config,
+        Binder $binder,
+        Cleaner $cleaner
+    ) {
+        parent::__construct($objectManager, $config, $binder, $cleaner);
+
+        $this->objectManager = $objectManager;
+        $this->config        = $config;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function create()
     {
-        $request       = parent::create();
+        $request = parent::create();
 
         $requestData = [
             'name'       => $request->getName(),
@@ -62,7 +100,16 @@ class Builder extends \Magento\Framework\Search\Request\Builder
             $this->sort = [];
         }
 
-        return $this->getObjectManager()->create(Request::class, $requestData);
+        return $this->objectManager->create(Request::class, $requestData);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRequestName($requestName)
+    {
+        $this->requestName = $requestName;
+        return parent::setRequestName($requestName);
     }
 
     /**
@@ -92,10 +139,6 @@ class Builder extends \Magento\Framework\Search\Request\Builder
     {
         $filters = $filterGroup->getFilters();
 
-        if (current($filters)->getField() == "price_dynamic_algorithm") {
-            return $this;
-        }
-
         if (count($filters) == 1 && $this->canBind(current($filters))) {
             $filter = current($filters);
             $this->bind($this->getFieldName($filter), $filter->getValue());
@@ -117,7 +160,7 @@ class Builder extends \Magento\Framework\Search\Request\Builder
      */
     private function canBind(Filter $filter): bool
     {
-        return in_array($this->getFieldName($filter), ['search_term', 'category_ids']);
+        return in_array($this->getFieldName($filter), $this->getPlaceholders($this->requestName));
     }
 
     /**
@@ -153,25 +196,13 @@ class Builder extends \Magento\Framework\Search\Request\Builder
     }
 
     /**
-     * Retrieve the object manager.
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     *
-     * @return ObjectManagerInterface
-     */
-    private function getObjectManager(): ObjectManagerInterface
-    {
-        return ObjectManager::getInstance();
-    }
-
-    /**
      * Retrive filter group query builder.
      *
      * @return FilterGroupBuilder
      */
     private function getFilterGroupBuilder(): FilterGroupBuilder
     {
-        return $this->getObjectManager()->get(FilterGroupBuilder::class);
+        return $this->objectManager->get(FilterGroupBuilder::class);
     }
 
     /**
@@ -181,6 +212,42 @@ class Builder extends \Magento\Framework\Search\Request\Builder
      */
     private function getBoolQueryFactory(): BoolQueryFactory
     {
-        return $this->getObjectManager()->get(BoolQueryFactory::class);
+        return $this->objectManager->get(BoolQueryFactory::class);
+    }
+
+    /**
+     * Return list of placeholders for the current request.
+     *
+     * @param string $requestName
+     *
+     * @return string[]
+     */
+    private function getPlaceholders(string $requestName)
+    {
+        $config = $this->config->get($requestName);
+
+        return $this->extractPlaceholders($config);
+    }
+
+    /**
+     * Extract placeholders from the request config.
+     *
+     * @param array $config
+     *
+     * @return string[]
+     */
+    private function extractPlaceholders(array $config)
+    {
+        $placeholders = [];
+
+        foreach ($config as $configValue) {
+            if (is_array($configValue)) {
+                $placeholders = array_merge($placeholders, $this->extractPlaceholders($configValue));
+            } elseif (preg_match('/[$](.*)[$]$/', $configValue)) {
+                $placeholders[] = trim($configValue, '$');
+            }
+        }
+
+        return $placeholders;
     }
 }
