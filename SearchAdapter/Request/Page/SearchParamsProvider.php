@@ -25,22 +25,22 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     /**
      * @var int
      */
-    private const MAX_PAGE_SIZE = 100;
+    const MAX_PAGE_SIZE = 100;
 
     /**
      * @var string
      */
-    private const PAGE_PARAM_NAME = 'page';
+    const PAGE_PARAM_NAME = 'page';
 
     /**
      * @var string
      */
-    private const CURRENT_PAGE_PARAM_NAME = 'current';
+    const CURRENT_PAGE_PARAM_NAME = 'current';
 
     /**
      * @var string
      */
-    private const PAGE_SIZE_PARAM_NAME = 'size';
+    const PAGE_SIZE_PARAM_NAME = 'size';
 
     /**
      * {@inheritDoc}

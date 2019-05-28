@@ -183,6 +183,7 @@
                 <item name="search_fields" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider</item>
                 <item name="facets" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Facet\SearchParamsProvider</item>
                 <item name="sorts" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Sort\SearchParamsProvider</item>
+                <item name="analytics" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Analytics\SearchParamsProvider</item>
             </argument>
         </arguments>
     </type>
