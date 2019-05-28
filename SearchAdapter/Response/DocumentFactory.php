@@ -58,7 +58,7 @@ class DocumentFactory
     public function create(array $rawDocument): DocumentInterface
     {
         $documentId    = $rawDocument['entity_id']['raw'];
-        $documentScore = $rawDocument['_meta']['score'];
+        $documentScore = (float) $rawDocument['_meta']['score'];
 
         $attributes = [
             'score' => $this->attributeValueFactory->create()->setAttributeCode('score')->setValue($documentScore),
