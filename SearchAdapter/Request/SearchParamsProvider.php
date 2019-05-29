@@ -27,19 +27,38 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     private $providers;
 
     /**
+     * @var RescorerResolverInterface
+     */
+    private $rescorerResolver;
+
+    /**
      * Constructor.
      *
+     * @param RescorerResolverInterface       $rescorerResolver
      * @param SearchParamsProviderInterface[] $providers
      */
-    public function __construct(array $providers)
+    public function __construct(RescorerResolverInterface $rescorerResolver, array $providers = [])
     {
-        $this->providers = $providers;
+        $this->providers        = $providers;
+        $this->rescorerResolver = $rescorerResolver;
     }
 
     /**
      * {@inheritDoc}
      */
     public function getParams(RequestInterface $request): array
+    {
+        return $this->getRescorer($request)->prepareSearchParams($request, $this->collectSearchParams($request));
+    }
+
+    /**
+     * Collect search params from child providers.
+     *
+     * @param RequestInterface $request
+     *
+     * @return array
+     */
+    private function collectSearchParams(RequestInterface $request): array
     {
         $searchParams = array_map(
             function (SearchParamsProviderInterface $provider) use ($request) {
@@ -49,5 +68,17 @@ class SearchParamsProvider implements SearchParamsProviderInterface
         );
 
         return !empty($searchParams) ? array_merge_recursive(...array_values($searchParams)) : [];
+    }
+
+    /**
+     * Get rescorer for the current search request.
+     *
+     * @param RequestInterface $request
+     *
+     * @return RescorerInterface
+     */
+    private function getRescorer(RequestInterface $request): RescorerInterface
+    {
+        return $this->rescorerResolver->getRescorer($request);
     }
 }

@@ -13,6 +13,8 @@ namespace Elastic\AppSearch\Test\Unit\SearchAdapter\Request;
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProvider;
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\SearchAdapter\Request\RescorerInterface;
+use Elastic\AppSearch\SearchAdapter\Request\RescorerResolverInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\SearchAdapter\Request\SearchParamsProvider class.
@@ -85,9 +87,19 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
      *
      * @return SearchParamsProvider
      */
-    private function getProvider()
+    private function getProvider($rescorer = null)
     {
-        return new SearchParamsProvider(array_map([$this, 'createProviderMock'], $this->providersData));
+        if ($rescorer == null) {
+            $rescorer = $this->createMock(RescorerInterface::class);
+            $rescorer->expects($this->once())->method('prepareSearchParams')->will($this->returnArgument(1));
+        }
+
+        $rescorerResolver = $this->createMock(RescorerResolverInterface::class);
+        $rescorerResolver->expects($this->once())->method('getRescorer')->willReturn($rescorer);
+
+        $providers = array_map([$this, 'createProviderMock'], $this->providersData);
+
+        return new SearchParamsProvider($rescorerResolver, $providers);
     }
 
     /**

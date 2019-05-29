@@ -13,9 +13,11 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Rescorer;
 use Elastic\AppSearch\SearchAdapter\Request\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Client\ConnectionManager;
+use Swiftype\AppSearch\Client;
 use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
 use Elastic\AppSearch\SearchAdapter\Request\Analytics\SearchParamsProvider as AnalyticsSearchParams;
 use Elastic\AppSearch\SearchAdapter\Request\Page\SearchParamsProvider as PageSearchParams;
+use Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
 
 /**
  * Ensure score is consistent with the document positions.
@@ -40,42 +42,64 @@ class DefaultRescorer implements RescorerInterface
     private const RESCORE_INCREMENT = 0.01;
 
     /**
+     * @var Client
+     */
+    private $client;
+
+    /**
+     * @var EngineResolver
+     */
+    private $engineResolver;
+
+    /**
      * @var ResultSorter
      */
     private $resultSorter;
 
     /**
+     * @var QueryTextResolverInterface
+     */
+    private $queryTextResolver;
+
+    /**
      * Constructor.
      *
-     * @param ResultSorter      $resultSorter
-     * @param ConnectionManager $connectionManager
-     * @param EngineResolver    $engineResolver
+     * @param QueryTextResolverInterface $queryTextResolver,
+     * @param ResultSorter               $resultSorter
+     * @param ConnectionManager          $connectionManager
+     * @param EngineResolver             $engineResolver
      */
     public function __construct(
+        QueryTextResolverInterface $queryTextResolver,
         ResultSorter $resultSorter,
         ConnectionManager $connectionManager,
         EngineResolver $engineResolver
     ) {
-        $this->client         = $connectionManager->getClient();
-        $this->resultSorter   = $resultSorter;
-        $this->engineResolver = $engineResolver;
+        $this->queryTextResolver = $queryTextResolver;
+        $this->client            = $connectionManager->getClient();
+        $this->resultSorter      = $resultSorter;
+        $this->engineResolver    = $engineResolver;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function prepareSearchParams(RequestInterface $request, string $queryText, array $searchParams): array
+    public function prepareSearchParams(RequestInterface $request, array $searchParams): array
     {
-        $exactMatchIds = $this->getExactMatchIds($request, $queryText);
+        $queryText = $this->queryTextResolver->getText($request);
 
-        if (count($exactMatchIds)) {
-            $filter = ['entity_id' => $exactMatchIds];
+        if (!empty($queryText)) {
+            $exactMatchIds = $this->getExactMatchIds($request, $queryText);
 
-            if (isset($searchParams['filters'])) {
-                $filter = ['all' => [$searchParams['filters'], $filter]];
+            if (count($exactMatchIds)) {
+                $filter = ['entity_id' => $exactMatchIds];
+
+                if (isset($searchParams['filters'])) {
+                    $filter = ['all' => [$searchParams['filters'], $filter]];
+                }
+
+                $searchParams['filters'] = $filter;
             }
-
-            $searchParams['filters'] = $filter;
         }
 
         return $searchParams;

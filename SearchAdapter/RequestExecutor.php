@@ -15,8 +15,8 @@ use Elastic\AppSearch\Client\ConnectionManager;
 use Elastic\AppSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
 use Elastic\AppSearch\Model\Adapter\EngineInterface;
 use Elastic\AppSearch\SearchAdapter\Request\SearchParamsProviderInterface;
-use Elastic\AppSearch\SearchAdapter\Request\RescorerResolverInterface;
 use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
+use Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface;
 
 /**
  * Run the search request against the engine.
@@ -48,9 +48,9 @@ class RequestExecutor
     private $queryTextResolver;
 
     /**
-     * @var RescorerResolverInterface
+     * @var ProcessorInterface
      */
-    private $rescorerResolver;
+    private $responseProcessor;
 
     /**
      * Constructor.
@@ -59,20 +59,20 @@ class RequestExecutor
      * @param EngineResolver                $engineResolver
      * @param SearchParamsProviderInterface $searchParamsProvider
      * @param QueryTextResolverInterface    $queryTextResolver
-     * @param RescorerResolverInterface     $rescorerResolver
+     * @param ProcessorInterface            $responseProcessor
      */
     public function __construct(
         ConnectionManager $connectionManager,
         EngineResolver $engineResolver,
         SearchParamsProviderInterface $searchParamsProvider,
         QueryTextResolverInterface $queryTextResolver,
-        RescorerResolverInterface $rescorerResolver
+        ProcessorInterface $responseProcessor
     ) {
         $this->client               = $connectionManager->getClient();
         $this->engineResolver       = $engineResolver;
         $this->searchParamsProvider = $searchParamsProvider;
         $this->queryTextResolver    = $queryTextResolver;
-        $this->rescorerResolver     = $rescorerResolver;
+        $this->responseProcessor    = $responseProcessor;
     }
 
     /**
@@ -88,48 +88,13 @@ class RequestExecutor
         $engine       = $this->getEngine($request);
         $queryText    = $this->queryTextResolver->getText($request);
 
-        $rescorer = $this->rescorerResolver->getRescorer($request);
-
-        $searchParams = $rescorer->prepareSearchParams($request, $queryText, $searchParams);
-
         try {
             $response = $this->client->search($engine->getName(), $queryText, $searchParams);
         } catch (\Exception $e) {
-            $response = ['results' => [], 'facets' => [], 'meta' => ['page' => ['total_results' => 0]]];
+            $response = ['results' => [], 'meta' => ['page' => ['total_results' => 0]]];
         }
 
-        $response['facets']  = $this->parseFacets($request, $response);
-        $response['results'] = $rescorer->rescoreResults($request, $response['results']);
-
-        return $response;
-    }
-
-    /**
-     * Parse result facets and convert into the format expected by the ResponseFactory.
-     * Add missing facets to the result.
-     *
-     * @param RequestInterface $request
-     * @param array            $response
-     *
-     * @return array
-     */
-    private function parseFacets(RequestInterface $request, array $response): array
-    {
-        $facets = [];
-
-        foreach ($response['facets'] as $fieldFacets) {
-            foreach ($fieldFacets as $facet) {
-                $facets[$facet['name']] = $facet['data'];
-            }
-        }
-
-        foreach ($request->getAggregation() as $bucket) {
-            if (!isset($facets[$bucket->getName()])) {
-                $facets[$bucket->getName()] = [];
-            }
-        }
-
-        return $facets;
+        return $this->responseProcessor->process($request, $response);
     }
 
     /**
