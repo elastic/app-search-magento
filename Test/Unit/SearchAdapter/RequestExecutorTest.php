@@ -73,7 +73,6 @@ class RequestExecutorTest extends \PHPUnit\Framework\TestCase
         $response = $this->getRequestExecutor($client)->execute($request);
 
         $this->assertEmpty($response['results']);
-        $this->assertEmpty($response['facets']);
         $this->assertEquals(0, $response['meta']['page']['total_results']);
     }
 
