@@ -45,6 +45,8 @@ class DynamicRangeProvider
      *
      * TODO: Add support for manual step config.
      *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param BucketInterface $bucket
      *
      * @return Range[]

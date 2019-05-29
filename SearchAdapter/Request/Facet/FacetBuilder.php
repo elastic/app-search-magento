@@ -18,6 +18,8 @@ use Magento\Framework\Search\Request\Aggregation\Range;
 /**
  * Implementation of the default facet builder.
  *
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ *
  * @package   Elastic\AppSearch\SearchAdapter\Request\Facet
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0

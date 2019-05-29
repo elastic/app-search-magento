@@ -15,6 +15,8 @@ use Magento\Framework\Search\RequestInterface;
 /**
  * Process facet from the App Search response.
  *
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ *
  * @package   Elastic\AppSearch\SearchAdapter\RequestExecutor\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -62,7 +64,7 @@ class FacetProcessor implements ProcessorInterface
         if (isset($response['facets'])) {
             foreach ($response['facets'] as $fieldFacets) {
                 foreach ($fieldFacets as $facet) {
-                    $facets[$facet['name']] = $facet['data'];
+                    $facets[$facet['name']] = $this->parseFacetValues($facet['data']);
                 }
             }
         }
@@ -70,5 +72,59 @@ class FacetProcessor implements ProcessorInterface
         $response['facets'] = $facets;
 
         return $response;
+    }
+
+    /**
+     * Parse facet values to match response format.
+     *
+     * @param array $values
+     *
+     * @return array
+     */
+    private function parseFacetValues(array $values): array
+    {
+        return $this->filterFacetValues(array_map([$this, 'parseFacetValue'], $values));
+    }
+
+    /**
+     * Remove facet values when the value is empty or the count is 0.
+     *
+     * @param array $values
+     *
+     * @return array
+     */
+    private function filterFacetValues(array $values): array
+    {
+        return array_filter($values, function ($value) {
+            return !empty($value['value']) && $value['count'] > 0;
+        });
+    }
+
+    /**
+     * Parse facet value (mosty convert range into string).
+     *
+     * @param array $value
+     *
+     * @return array
+     */
+    private function parseFacetValue(array $value)
+    {
+        if (isset($value['from']) || isset($value['to'])) {
+            $value = ['value' => $this->getRangeValueString($value), 'count' => $value['count']];
+        }
+
+        return $value;
+    }
+
+    /**
+     * Get string representation for range facet value.
+     *
+     * @param array $value
+     *
+     * @return string
+     */
+    private function getRangeValueString(array $value): string
+    {
+        return sprintf("%s_%s", $value['from'] ?? '', $value['to'] ?? '');
     }
 }

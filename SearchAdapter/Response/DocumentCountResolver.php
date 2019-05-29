@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\SearchAdapter\Response;
 /**
  * Retrieve document count from the App Search response
  *
- * @package   Elastic\AppSearch\SearchAdapter
+ * @package   Elastic\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

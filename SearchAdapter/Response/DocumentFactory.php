@@ -16,9 +16,9 @@ use Magento\Framework\Api\Search\DocumentInterface;
 use Magento\Framework\Api\CustomAttributesDataInterface;
 
 /**
- * AppSearch search adapter response document factory.
+ * App Search search adapter response document factory.
  *
- * @package   Elastic\AppSearch\SearchAdapter
+ * @package   Elastic\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

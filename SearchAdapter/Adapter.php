@@ -28,20 +28,20 @@ class Adapter implements AdapterInterface
     private $requestExecutor;
 
     /**
-     * @var ResponseFactory
+     * @var ResponseBuilder
      */
-    private $responseFactory;
+    private $responseBuilder;
 
     /**
      * Constructor.
      *
      * @param RequestExecutor $requestExcecutor
-     * @param ResponseFactory $responseFactory
+     * @param ResponseBuilder $responseBuilder
      */
-    public function __construct(RequestExecutor $requestExecutor, ResponseFactory $responseFactory)
+    public function __construct(RequestExecutor $requestExecutor, ResponseBuilder $responseBuilder)
     {
         $this->requestExecutor = $requestExecutor;
-        $this->responseFactory = $responseFactory;
+        $this->responseBuilder = $responseBuilder;
     }
 
     /**
@@ -49,6 +49,6 @@ class Adapter implements AdapterInterface
      */
     public function query(RequestInterface $request)
     {
-        return $this->responseFactory->create($this->requestExecutor->execute($request));
+        return $this->responseBuilder->buildResponse($this->requestExecutor->execute($request));
     }
 }
