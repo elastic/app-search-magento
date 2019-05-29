@@ -28,7 +28,7 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     /**
      * @var string
      */
-    private const SORT_PARAM_NAME = 'sort';
+    const SORT_PARAM_NAME = 'sort';
 
     /**
      * @var FieldMapperResolverInterface

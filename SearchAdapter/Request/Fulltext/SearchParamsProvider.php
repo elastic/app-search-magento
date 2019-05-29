@@ -28,17 +28,17 @@ class SearchParamsProvider implements SearchParamsProviderInterface
     /**
      * @var string
      */
-    private const SEARCH_FIELDS_KEY = 'search_fields';
+    const SEARCH_FIELDS_KEY = 'search_fields';
 
     /**
      * @var string
      */
-    private const WEIGHT_KEY = 'weight';
+    const WEIGHT_KEY = 'weight';
 
     /**
      * @var int
      */
-    private const MAX_WEIGHT = 10;
+    const MAX_WEIGHT = 10;
 
     /**
      * @var QueryLocatorInterface

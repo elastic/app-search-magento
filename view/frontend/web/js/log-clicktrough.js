@@ -21,8 +21,8 @@ define(['jquery'], function ($) {
       return {"Authorization": "Bearer " + this.config.apiKey};
     }
   }
-  
-  class Url { 
+
+  class Url {
     constructor(config, endpoint) {
       this.config = Object.assign({}, config);
       this.config.endpoint = endpoint;
@@ -39,10 +39,9 @@ define(['jquery'], function ($) {
         this.url     = new Url(config, 'search');
       }
       run() {
-        var postData = {'query': this.config.query};
+        var postData = {'query': this.config.query, "analytics": {"tags": [this.config.analyticsTag]}};
         var url      = this.url.getUrl();
         var headers  = this.headers.getHeaders();
-        
         $.ajax({'type': 'POST', 'url': url, 'data': postData, 'headers': headers});
       }
   }
@@ -52,20 +51,19 @@ define(['jquery'], function ($) {
       this.config  = Object.assign({}, config);
       this.headers = new Headers(config);
       this.url     = new Url(config, 'click');
-      
+
       this.installCallbacks();
       if (this.config.doSearch) {
         new SearchQuery(config).run();
       }
     }
     getPostData(documentId) {
-      return {'query': this.config.query, 'document_id': documentId};
+      return {'query': this.config.query, 'document_id': documentId, "tags": [this.config.analyticsTag]};
     }
     sendClick(documentId) {
       var postData = this.getPostData(documentId);
       var url      = this.url.getUrl();
       var headers  = this.headers.getHeaders();
-
       $.ajax({'type': 'POST', 'url': url, 'data': postData, 'headers': headers});
     }
     installCallbacks() {

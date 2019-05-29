@@ -29,7 +29,8 @@
             "linksSelector"          : "<?php echo $block->escapeJs($block->getLinksSelector()); ?>",
             "documentIdNodeSelector" : "<?php echo $block->escapeJs($block->getDocumentIdNodeSelector()); ?>",
             "documentIdAttribute"    : "<?php echo $block->escapeJs($block->getDocumentIdAttribute()); ?>",
-            "doSearch"               : <?php echo $block->escapeJs($block->doSearch() ? "true" : "false"); ?>
+            "doSearch"               : <?php echo $block->escapeJs($block->doSearch() ? "true" : "false"); ?>,
+            "analyticsTag"           : "<?php echo $block->escapeJs($block->getAnalyticsTag()); ?>"
         }
     }
 }

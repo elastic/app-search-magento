@@ -24,6 +24,7 @@
                     <argument name="links_selector" xsi:type="string">a.product-item-link, a.product-item-photo</argument>
                     <argument name="document_id_node_selector" xsi:type="string">.price-box</argument>
                     <argument name="document_id_attribute" xsi:type="string">data-product-id</argument>
+                    <argument name="analytics_tag" xsi:type="string">quick_search_container</argument>
                 </arguments>
             </block>
         </referenceContainer>

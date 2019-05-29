@@ -14,6 +14,8 @@ use Elastic\AppSearch\SearchAdapter\Request\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Client\ConnectionManager;
 use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
+use Elastic\AppSearch\SearchAdapter\Request\Analytics\SearchParamsProvider as AnalyticsSearchParams;
+use Elastic\AppSearch\SearchAdapter\Request\Page\SearchParamsProvider as PageSearchParams;
 
 /**
  * Ensure score is consistent with the document positions.
@@ -27,6 +29,11 @@ use Elastic\AppSearch\SearchAdapter\Request\EngineResolver;
  */
 class DefaultRescorer implements RescorerInterface
 {
+    /**
+     * @var string
+     */
+    private const ANALYTICS_TAG = 'fulltext_rescorer';
+
     /**
      * @var float
      */
@@ -145,8 +152,17 @@ class DefaultRescorer implements RescorerInterface
      */
     private function getExactMatchIds(RequestInterface $request, string $queryText)
     {
-        $engineName     = $this->engineResolver->getEngine($request)->getName();
-        $searchResponse = $this->client->search($engineName, $queryText, ['page' => ['size' => 100]]);
+        $engineName   = $this->engineResolver->getEngine($request)->getName();
+        $searchParams = [
+          PageSearchParams::PAGE_PARAM_NAME => [
+            PageSearchParams::PAGE_SIZE_PARAM_NAME => PageSearchParams::MAX_PAGE_SIZE
+          ],
+          AnalyticsSearchParams::ANALYTICS_PARAM_NAME => [
+            AnalyticsSearchParams::TAGS_PARAM_NAME => [self::ANALYTICS_TAG]
+          ],
+        ];
+
+        $searchResponse = $this->client->search($engineName, $queryText, $searchParams);
 
         $totalResult       = count($searchResponse['results']);
         $exactMatchResults = array_filter($searchResponse['results'], [$this, 'isExactMatch']);
