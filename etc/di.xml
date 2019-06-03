@@ -38,6 +38,7 @@
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilderInterface" type="Elastic\AppSearch\SearchAdapter\Request\Facet\FacetBuilder" />
+    <preference for="Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface" type="Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\Processor" />
     <preference for="Elastic\AppSearch\SearchAdapter\Request\RescorerResolverInterface" type="Elastic\AppSearch\SearchAdapter\Request\RescorerResolver" />
 
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Model\Search" />
@@ -189,24 +190,41 @@
     </type>
 
     <type name="Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilterBuilder">
-      <arguments>
-          <argument name="builderFactories" xsi:type="array">
-              <item name="boolQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\BoolQueryFilterBuilderFactory</item>
-              <item name="matchQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\MatchQueryFilterBuilderFactory</item>
-              <item name="filteredQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\FilteredQueryFilterBuilderFactory</item>
-          </argument>
-      </arguments>
+        <arguments>
+            <argument name="builderFactories" xsi:type="array">
+                <item name="boolQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\BoolQueryFilterBuilderFactory</item>
+                <item name="matchQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\MatchQueryFilterBuilderFactory</item>
+                <item name="filteredQuery" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\QueryFilter\FilteredQueryFilterBuilderFactory</item>
+            </argument>
+        </arguments>
     </type>
 
     <type name="Elastic\AppSearch\SearchAdapter\Request\Filter\FilterBuilder">
-      <arguments>
-          <argument name="builderFactories" xsi:type="array">
-              <item name="boolFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\BoolFilterBuilderFactory</item>
-              <item name="termFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\TermFilterBuilderFactory</item>
-              <item name="rangeFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\RangeFilterBuilderFactory</item>
-              <item name="wildcardFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\WildcardFilterBuilderFactory</item>
-          </argument>
-      </arguments>
+        <arguments>
+            <argument name="builderFactories" xsi:type="array">
+                <item name="boolFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\BoolFilterBuilderFactory</item>
+                <item name="termFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\TermFilterBuilderFactory</item>
+                <item name="rangeFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\RangeFilterBuilderFactory</item>
+                <item name="wildcardFilter" xsi:type="object">Elastic\AppSearch\SearchAdapter\Request\Filter\Filter\WildcardFilterBuilderFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\Processor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="facets" xsi:type="object">Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\FacetProcessor</item>
+                <item name="rescorer" xsi:type="object">Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\RescorerProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\FacetProcessor">
+        <arguments>
+            <argument name="algorithms" xsi:type="array">
+                <item name="auto" xsi:type="object">Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\Facet\Algorithm\Auto</item>
+            </argument>
+        </arguments>
     </type>
 
     <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">

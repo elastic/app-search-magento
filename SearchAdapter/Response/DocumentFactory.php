@@ -16,9 +16,9 @@ use Magento\Framework\Api\Search\DocumentInterface;
 use Magento\Framework\Api\CustomAttributesDataInterface;
 
 /**
- * AppSearch search adapter response document factory.
+ * App Search search adapter response document factory.
  *
- * @package   Elastic\AppSearch\SearchAdapter
+ * @package   Elastic\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -58,7 +58,7 @@ class DocumentFactory
     public function create(array $rawDocument): DocumentInterface
     {
         $documentId    = $rawDocument['entity_id']['raw'];
-        $documentScore = $rawDocument['_meta']['score'];
+        $documentScore = (float) $rawDocument['_meta']['score'];
 
         $attributes = [
             'score' => $this->attributeValueFactory->create()->setAttributeCode('score')->setValue($documentScore),
