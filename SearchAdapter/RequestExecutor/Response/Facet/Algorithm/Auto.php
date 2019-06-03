@@ -70,26 +70,6 @@ class Auto implements AlgorithmInterface
     }
 
     /**
-     * Generate sample values values for an list of interval (used to compute stddev.
-     *
-     * @param array $intervals
-     *
-     * @return array
-     */
-    private function getSamples(array $intervals): array
-    {
-        return array_merge(...array_map(function ($range) {
-            $intervalSize = ($range['to'] ?? 2 * $range['from']) - $range['from'];
-            $prices = [];
-            for ($i = 0; $i < $range['count']; $i++) {
-                $prices[] = $range['from'] + ($i * $intervalSize / $range['count']);
-            }
-
-            return $prices;
-        }, $intervals));
-    }
-
-    /**
      * Compute stats for a list of intervals.
      *
      * @param array $intervals
