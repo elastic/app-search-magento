@@ -219,6 +219,14 @@
         </arguments>
     </type>
 
+    <type name="Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\FacetProcessor">
+        <arguments>
+            <argument name="algorithms" xsi:type="array">
+                <item name="auto" xsi:type="object">Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\Facet\Algorithm\Auto</item>
+            </argument>
+        </arguments>
+    </type>
+
     <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
         <arguments>
             <argument name="instanceName" xsi:type="string">Elastic\AppSearch\Model\ResourceModel\Product\Fulltext\Collection</argument>

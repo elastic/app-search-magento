@@ -13,6 +13,7 @@ namespace Elastic\AppSearch\SearchAdapter\Request\Facet;
 use Magento\Framework\Search\Request\Aggregation\Range;
 use Magento\Framework\Search\Request\Aggregation\RangeFactory;
 use Magento\Framework\Search\Request\BucketInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
  * Build ranges used to build dynamic aggregation facets.
@@ -29,13 +30,25 @@ class DynamicRangeProvider
     private const DEFAULT_MAX_POW = 6;
 
     /**
+     * @var RangeFactory
+     */
+    private $rangeFactory;
+
+    /**
+     * @var int
+     */
+    private $maxPow;
+
+    /**
      * Constructor.
      *
      * @param RangeFactory $rangeFactory
      * @param int          $maxPow
      */
-    public function __construct(RangeFactory $rangeFactory, int $maxPow = self::DEFAULT_MAX_POW)
-    {
+    public function __construct(
+        RangeFactory $rangeFactory,
+        int $maxPow = self::DEFAULT_MAX_POW
+    ) {
         $this->rangeFactory = $rangeFactory;
         $this->maxPow       = $maxPow;
     }

@@ -11,6 +11,8 @@
 namespace Elastic\AppSearch\SearchAdapter\RequestExecutor\Response;
 
 use Magento\Framework\Search\RequestInterface;
+use Magento\Framework\Search\Request\BucketInterface;
+use Elastic\AppSearch\SearchAdapter\RequestExecutor\Response\Facet\AlgorithmInterface;
 
 /**
  * Process facet from the App Search response.
@@ -24,28 +26,26 @@ use Magento\Framework\Search\RequestInterface;
 class FacetProcessor implements ProcessorInterface
 {
     /**
+     * @var AlgorithmInterface[]
+     */
+    private $algorithms;
+
+    /**
+     * Constructor.
+     *
+     * @param AlgorithmInterface[] $algorithms
+     */
+    public function __construct(array $algorithms)
+    {
+        $this->algorithms = $algorithms;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function process(RequestInterface $request, array $response): array
     {
-        return $this->addMissingFacets($request, $this->parseFacets($response));
-    }
-
-    /**
-     * Add missing facet to the response.
-     *
-     * @param RequestInterface $request
-     * @param array            $response
-     *
-     * @return array
-     */
-    private function addMissingFacets(RequestInterface $request, array $response): array
-    {
-        foreach ($request->getAggregation() as $bucket) {
-            if (!isset($response['facets'][$bucket->getName()])) {
-                $response['facets'][$bucket->getName()] = [];
-            }
-        }
+        $response['facets'] = $this->parseFacets($request, $response['facets'] ?? []);
 
         return $response;
     }
@@ -53,25 +53,30 @@ class FacetProcessor implements ProcessorInterface
     /**
      * Parse result facets and convert into the format expected by the ResponseFactory.
      *
-     * @param array $response
+     * @param RequestInterface $request
+     * @param array            $facetData
      *
      * @return array
      */
-    private function parseFacets(array $response): array
+    private function parseFacets(RequestInterface $request, array $facetData): array
     {
         $facets = [];
 
-        if (isset($response['facets'])) {
-            foreach ($response['facets'] as $fieldFacets) {
-                foreach ($fieldFacets as $facet) {
-                    $facets[$facet['name']] = $this->parseFacetValues($facet['data']);
-                }
+        foreach ($facetData as $fieldFacets) {
+            foreach ($fieldFacets as $facet) {
+                $facets[$facet['name']] = $this->filterFacetValues($facet['data']);
             }
         }
 
-        $response['facets'] = $facets;
+        foreach ($request->getAggregation() as $bucket) {
+            if (!isset($facets[$bucket->getName()])) {
+                $facets[$bucket->getName()] = [];
+            } elseif ($bucket->getType() == BucketInterface::TYPE_DYNAMIC) {
+                $facets[$bucket->getName()] = $this->getRanges($bucket, $facets[$bucket->getName()]);
+            }
+        }
 
-        return $response;
+        return array_map([$this, 'parseFacetValues'], $facets);
     }
 
     /**
@@ -83,7 +88,7 @@ class FacetProcessor implements ProcessorInterface
      */
     private function parseFacetValues(array $values): array
     {
-        return $this->filterFacetValues(array_map([$this, 'parseFacetValue'], $values));
+        return array_map([$this, 'parseFacetValue'], $values);
     }
 
     /**
@@ -96,7 +101,7 @@ class FacetProcessor implements ProcessorInterface
     private function filterFacetValues(array $values): array
     {
         return array_filter($values, function ($value) {
-            return !empty($value['value']) && $value['count'] > 0;
+            return $value['count'] > 0;
         });
     }
 
@@ -126,5 +131,22 @@ class FacetProcessor implements ProcessorInterface
     private function getRangeValueString(array $value): string
     {
         return sprintf("%s_%s", $value['from'] ?? '', $value['to'] ?? '');
+    }
+
+    /**
+     * Use algorithm for range facet values post processing.
+     *
+     * @param BucketInterface $bucket
+     * @param array           $data
+     *
+     * @return array
+     */
+    private function getRanges(BucketInterface $bucket, array $data)
+    {
+        if (isset($this->algorithms[$bucket->getMethod()])) {
+            $data = $this->algorithms[$bucket->getMethod()]->getRanges($data);
+        }
+
+        return $data;
     }
 }
