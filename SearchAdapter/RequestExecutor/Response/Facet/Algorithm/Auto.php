@@ -27,6 +27,7 @@ class Auto implements AlgorithmInterface
     public function getRanges(array $data): array
     {
         $stats = $this->getStats($data);
+
         $validIntervals = array_filter($data, function ($range) use ($stats) {
             return ($range["to"] ?? $range["from"]) < $stats['avg'] + 3 * $stats['stdDev'];
         });
@@ -96,9 +97,8 @@ class Auto implements AlgorithmInterface
      */
     private function getStats(array $intervals): array
     {
-        $samples = $this->getSamples($intervals);
-        $avg     = $this->getAvg($samples);
-        $stdDev  = $this->getStdDev($avg, $samples);
+        $avg     = $this->getAvg($intervals);
+        $stdDev  = $this->getStdDev($avg, $intervals);
         $min     = (int) min(array_column($intervals, 'from'));
         $max     = (int) max(array_column($intervals, 'to'));
 
@@ -113,24 +113,29 @@ class Auto implements AlgorithmInterface
      *
      * @return number
      */
-    private function getStdDev(float $avg, array $samples)
+    private function getStdDev(float $avg, array $intervals)
     {
-        $distSum = array_sum(array_map(function ($current) use ($avg) {
-            return pow($current - $avg, 2);
-        }, $samples));
+        $distSum = array_sum(array_map(function ($interval) use ($avg) {
+            $currentValue = (($interval['to'] ?? $interval['from']) + $interval['from']) / 2;
+            return $interval['count'] * pow($currentValue - $avg, 2);
+        }, $intervals));
 
-        return sqrt($distSum / count($samples));
+        return sqrt($distSum / array_sum(array_column($intervals, 'count')));
     }
 
     /**
      * Coupute average for a list if intervals.
      *
-     * @param array $samples`
+     * @param array $intervals
      *
      * @return number
      */
-    private function getAvg(array $samples)
+    private function getAvg(array $intervals)
     {
-        return array_sum($samples) / count($samples);
+        $sum = array_sum(array_map(function ($interval) {
+            return $interval['count'] * (($interval['to'] ?? $interval['from']) + $interval['from']) / 2;
+        }, $intervals));
+
+        return $sum / array_sum(array_column($intervals, 'count'));
     }
 }
