@@ -47,8 +47,8 @@ class ConnectionManager
      */
     public function __construct(ClientConfigurationInterface $clientConfig, LoggerInterface $logger)
     {
-        $this->logger = $logger;
-        $this->clientConfig = $clientConfig;
+        $this->logger        = $logger;
+        $this->clientConfig  = $clientConfig;
     }
 
     /**
@@ -84,6 +84,7 @@ class ConnectionManager
         $clientBuilder = ClientBuilder::create($apiEndpoint, $apiKey);
 
         $clientBuilder->setLogger($this->logger);
+        $clientBuilder->setIntegration($this->clientConfig->getIntegrationName());
 
         if ($this->clientConfig->isDebug()) {
             $clientBuilder->setTracer($this->logger);

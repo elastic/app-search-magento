@@ -28,7 +28,7 @@ Using this client assumes that you have already:
 You can install the module in your project by using this composer command from your Magento project root:
 
 ```bash
-composer require elastic/elastic-app-search-magento
+composer require elastic/elastic-app-search-magento:1.0.0-beta1@beta
 ```
 
 ## Usage

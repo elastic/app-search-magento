@@ -13,6 +13,7 @@ namespace Elastic\AppSearch\Test\Unit\Client;
 use Elastic\AppSearch\Client\ClientConfiguration;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Module\ModuleListInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\Client\ClientConfiguration class.
@@ -109,6 +110,15 @@ class ClientConfigurationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * Test getting the integration name.
+     */
+    public function testGetIntegrationName()
+    {
+        $clientConfiguration = $this->getClientConfiguration('config');
+        $this->assertEquals('magento-module:0.0.1', $clientConfiguration->getIntegrationName());
+    }
+
+    /**
      * Mock implementation the decrypt method used while reading in the config.
      *
      * @param string $value
@@ -135,6 +145,9 @@ class ClientConfigurationTest extends \PHPUnit\Framework\TestCase
         $scopeConfig = $this->createMock(ScopeConfigInterface::class);
         $scopeConfig->expects($this->any())->method('getValue')->willReturn($configValue);
 
-        return new ClientConfiguration($scopeConfig, $encryptor);
+        $moduleList = $this->createMock(ModuleListInterface::class);
+        $moduleList->expects($this->any())->method('getOne')->willReturn(['setup_version' => '0.0.1']);
+
+        return new ClientConfiguration($scopeConfig, $encryptor, $moduleList);
     }
 }

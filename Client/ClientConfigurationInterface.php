@@ -49,4 +49,11 @@ interface ClientConfigurationInterface
      * @return bool
      */
     public function isDebug(): bool;
+
+    /**
+     * Return intgration name for the client.
+     *
+     * @return string
+     */
+    public function getIntegrationName(): string;
 }
