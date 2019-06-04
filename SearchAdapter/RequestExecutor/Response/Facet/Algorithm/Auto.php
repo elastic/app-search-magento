@@ -26,16 +26,20 @@ class Auto implements AlgorithmInterface
      */
     public function getRanges(array $data): array
     {
-        $stats = $this->getStats($data);
+        $intervals = $data;
 
-        $validIntervals = array_filter($data, function ($range) use ($stats) {
-            return ($range["to"] ?? $range["from"]) < $stats['avg'] + 3 * $stats['stdDev'];
-        });
+        if (!empty($data)) {
+            $stats = $this->getStats($data);
 
-        $stats = $this->getStats($validIntervals);
-        $intervalSize = (int) pow(10, max(1, strlen((int) $stats['stdDev']) - 1));
+            $validIntervals = array_filter($data, function ($range) use ($stats) {
+                return ($range["to"] ?? $range["from"]) < $stats['avg'] + 3 * $stats['stdDev'];
+            });
 
-        $intervals = $this->applyIntervalSize($data, $intervalSize, $stats);
+            $stats = $this->getStats($validIntervals);
+            $intervalSize = (int) pow(10, max(1, strlen((int) $stats['stdDev']) - 1));
+
+            $intervals = $this->applyIntervalSize($data, $intervalSize, $stats);
+        }
 
         return $intervals;
     }
@@ -96,8 +100,7 @@ class Auto implements AlgorithmInterface
     private function getStdDev(float $avg, array $intervals)
     {
         $distSum = array_sum(array_map(function ($interval) use ($avg) {
-            $currentValue = (($interval['to'] ?? $interval['from']) + $interval['from']) / 2;
-            return $interval['count'] * pow($currentValue - $avg, 2);
+            return $interval['count'] * pow($interval['from'] - $avg, 2);
         }, $intervals));
 
         return sqrt($distSum / array_sum(array_column($intervals, 'count')));
