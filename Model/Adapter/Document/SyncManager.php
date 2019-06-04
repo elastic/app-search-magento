@@ -120,9 +120,11 @@ class SyncManager implements SyncManagerInterface
     public function sync()
     {
         foreach ($this->docs as $engineName => $docs) {
-            foreach (array_chunk($docs, 100) as $insertDocs) {
+            foreach (array_chunk($docs, $this->batchSize) as $insertDocs) {
                 $this->client->indexDocuments($engineName, $insertDocs);
             }
         }
+
+        $this->docs = [];
     }
 }
