@@ -53,7 +53,7 @@ class ClientConfiguration implements ClientConfigurationInterface
         ScopeConfigInterface $scopeConfig,
         EncryptorInterface $encryptor,
         ModuleListInterface $moduleList
-    )  {
+    ) {
         $this->scopeConfig = $scopeConfig;
         $this->encryptor   = $encryptor;
         $this->moduleList  = $moduleList;
@@ -96,7 +96,18 @@ class ClientConfiguration implements ClientConfigurationInterface
      */
     public function getIntegrationName(): string
     {
-        return sprintf('%s:%s', self::INTEGRATION_NAME, $this->moduleList->getOne('Elastic_AppSearch')['setup_version']);
+        return sprintf('%s:%s', self::INTEGRATION_NAME, $this->getModuleVersion());
+    }
+
+
+    /**
+     * Get current version of the App Search module.
+     * 
+     * @return string
+     */
+    private function getModuleVersion(): string
+    {
+        return $this->moduleList->getOne('Elastic_AppSearch')['setup_version'];
     }
 
     /**
