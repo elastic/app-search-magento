@@ -37,6 +37,16 @@ class EngineManager implements EngineManagerInterface
     private $logger;
 
     /**
+     * @var bool
+     */
+    private $ping;
+
+    /**
+     * @var bool[]
+     */
+    private $engines = [];
+
+    /**
      * Constructor.
      *
      * @param ConnectionManager $connectionManager
@@ -53,14 +63,17 @@ class EngineManager implements EngineManagerInterface
      */
     public function ping(): bool
     {
-        try {
-            $this->client->listEngines();
-        } catch (\Exception $e) {
-            $this->logger->critical($e);
-            return false;
+        if (!isset($this->ping)) {
+            try {
+                $this->client->listEngines();
+                $this->ping = true;
+            } catch (\Exception $e) {
+                $this->logger->critical($e);
+                $this->ping = false;
+            }
         }
 
-        return true;
+        return $this->ping;;
     }
 
     /**
@@ -68,18 +81,20 @@ class EngineManager implements EngineManagerInterface
      */
     public function engineExists(EngineInterface $engine): bool
     {
-        $hasEngine = true;
-
-        try {
-            $this->client->getEngine($engine->getName());
-        } catch (NotFoundException $e) {
-            $hasEngine = false;
-        } catch (\Exception $e) {
-            $this->logger->critical($e);
-            throw new LocalizedException(__('Could not check engine exists: %1', $e->getMessage()), $e);
+        if (!isset($this->engines[$engine->getName()])) {
+            try {
+                $this->client->getEngine($engine->getName());
+                $this->engines[$engine->getName()] = true;
+            } catch (NotFoundException $e) {
+                $this->engines[$engine->getName()] = false;
+            } catch (\Exception $e) {
+                $this->engines[$engine->getName()] = false;
+                $this->logger->critical($e);
+                throw new LocalizedException(__('Could not check engine exists: %1', $e->getMessage()), $e);
+            }
         }
 
-        return $hasEngine;
+        return $this->engines[$engine->getName()];
     }
 
     /**
