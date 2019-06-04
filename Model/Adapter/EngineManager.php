@@ -73,7 +73,7 @@ class EngineManager implements EngineManagerInterface
             }
         }
 
-        return $this->ping;;
+        return $this->ping;
     }
 
     /**
