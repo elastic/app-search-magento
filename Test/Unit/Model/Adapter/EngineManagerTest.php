@@ -37,12 +37,16 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
         $engine = $this->createMock(EngineInterface::class);
 
         $client = $this->createMock(Client::class);
+        $client->expects($this->once())->method('getEngine')->willReturn([]);
 
         $connectionManager = $this->createConnectionManager($client);
 
         $engineManager = new EngineManager($connectionManager, new NullLogger());
 
         $this->assertEquals(true, $engineManager->engineExists($engine));
+
+        // Check the result is cached.
+        $engineManager->engineExists($engine);
     }
 
     /**
@@ -55,7 +59,7 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
         $engine = $this->createMock(EngineInterface::class);
 
         $client = $this->createMock(Client::class);
-        $client->expects($this->any())
+        $client->expects($this->once())
                ->method('getEngine')
                ->will($this->throwException(new NotFoundException("not found")));
 
@@ -64,6 +68,9 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
         $engineManager = new EngineManager($connectionManager, new NullLogger());
 
         $this->assertEquals(false, $engineManager->engineExists($engine));
+
+        // Check the result is cached.
+        $engineManager->engineExists($engine);
     }
 
     /**
@@ -78,7 +85,7 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
         $engine = $this->createMock(EngineInterface::class);
 
         $client = $this->createMock(Client::class);
-        $client->expects($this->any())
+        $client->expects($this->once())
                ->method('getEngine')
                ->will($this->throwException(new ConnectionException("message")));
 
@@ -147,6 +154,7 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
     public function testPing()
     {
         $client = $this->createMock(Client::class);
+        $client->expects($this->once())->method('listEngines')->willReturn([]);
 
         $connectionManager = $this->createConnectionManager($client);
 
@@ -156,6 +164,9 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
 
         $this->assertInternalType('bool', $isAvailable);
         $this->assertEquals(true, $isAvailable);
+
+        // Check the result is cached.
+        $engineManager->ping();
     }
 
     /**
@@ -166,7 +177,7 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
     public function testPingError()
     {
         $client = $this->createMock(Client::class);
-        $client->expects($this->any())
+        $client->expects($this->once())
             ->method('listEngines')
             ->will($this->throwException(new ConnectionException("message")));
 
@@ -178,6 +189,9 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
 
         $this->assertInternalType('bool', $isAvailable);
         $this->assertEquals(false, $isAvailable);
+
+        // Check the result is cached.
+        $engineManager->ping();
     }
 
     /**
