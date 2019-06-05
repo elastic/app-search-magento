@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter;
 
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManager;
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
 use Swiftype\AppSearch\Client;
 use Psr\Log\NullLogger;
@@ -80,7 +80,7 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function testEnginExistsException()
+    public function testEngineExistsException()
     {
         $engine = $this->createMock(EngineInterface::class);
 
@@ -199,11 +199,11 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
      *
      * @param Client $client
      *
-     * @return ConnectionManager
+     * @return ConnectionManagerInterface
      */
     private function createConnectionManager($client)
     {
-        $connectionManager = $this->createMock(ConnectionManager::class);
+        $connectionManager = $this->createMock(ConnectionManagerInterface::class);
         $connectionManager->expects($this->any())->method('getClient')->willReturn($client);
 
         return $connectionManager;

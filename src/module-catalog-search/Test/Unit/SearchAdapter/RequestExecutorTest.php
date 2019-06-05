@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter;
 
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client as AppSearchClient;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
@@ -108,7 +108,7 @@ class RequestExecutorTest extends \PHPUnit\Framework\TestCase
     /**
      * Create connection manager used during tests.
      *
-     * @return ConnectionManager
+     * @return ConnectionManagerInterface
      */
     private function getConnectionManager(AppSearchClient $client = null)
     {
@@ -116,7 +116,7 @@ class RequestExecutorTest extends \PHPUnit\Framework\TestCase
             $client = $this->createMock(AppSearchClient::class);
         }
 
-        $connectionManager = $this->createMock(ConnectionManager::class);
+        $connectionManager = $this->createMock(ConnectionManagerInterface::class);
         $connectionManager->expects($this->once())->method('getClient')->willReturn($client);
 
         return $connectionManager;

@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer;
 
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Analytics\SearchParamsProvider as AnalyticsSearchParams;
@@ -66,13 +66,13 @@ class DefaultRescorer implements RescorerInterface
      *
      * @param QueryTextResolverInterface $queryTextResolver,
      * @param ResultSorter               $resultSorter
-     * @param ConnectionManager          $connectionManager
+     * @param ConnectionManagerInterface $connectionManager
      * @param EngineResolver             $engineResolver
      */
     public function __construct(
         QueryTextResolverInterface $queryTextResolver,
         ResultSorter $resultSorter,
-        ConnectionManager $connectionManager,
+        ConnectionManagerInterface $connectionManager,
         EngineResolver $engineResolver
     ) {
         $this->queryTextResolver = $queryTextResolver;

@@ -12,8 +12,8 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document;
 
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
 use Magento\Framework\Indexer\SaveHandler\Batch;
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
-use Elastic\AppSearch\CatalogSearch\Client;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\Client;
 
 /**
  * Implementation of the sync manager component.
@@ -60,13 +60,13 @@ class SyncManager implements SyncManagerInterface
      * Constructor.
      *
      * @param BatchDataMapperResolverInterface $batchDataMapperResolver
-     * @param ConnectionManager                $connectionManager
+     * @param ConnectionManagerInterface       $connectionManager
      * @param Batch                            $batch
      * @param int                              $batchSize
      */
     public function __construct(
         BatchDataMapperResolverInterface $batchDataMapperResolver,
-        ConnectionManager $connectionManager,
+        ConnectionManagerInterface $connectionManager,
         Batch $batch,
         int $batchSize = self::DEFAULT_BATCH_SIZE
     ) {

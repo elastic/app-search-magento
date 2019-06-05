@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
 
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
@@ -55,14 +55,14 @@ class RequestExecutor
     /**
      * Constructor.
      *
-     * @param ConnectionManager             $connectionManager
+     * @param ConnectionManagerInterface             $connectionManager
      * @param EngineResolver                $engineResolver
      * @param SearchParamsProviderInterface $searchParamsProvider
      * @param QueryTextResolverInterface    $queryTextResolver
      * @param ProcessorInterface            $responseProcessor
      */
     public function __construct(
-        ConnectionManager $connectionManager,
+        ConnectionManagerInterface $connectionManager,
         EngineResolver $engineResolver,
         SearchParamsProviderInterface $searchParamsProvider,
         QueryTextResolverInterface $queryTextResolver,

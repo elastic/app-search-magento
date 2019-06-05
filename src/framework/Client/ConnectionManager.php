@@ -8,21 +8,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Client;
+namespace Elastic\AppSearch\Framework\Client;
 
 use Psr\Log\LoggerInterface;
 use Swiftype\AppSearch\ClientBuilder;
+use Swiftype\AppSearch\Client;
 
 /**
- * Retrieve a configured and ready to go App Search client.
+ * Implementation of the App Search connection manager.
  *
- * @api
- *
- * @package   Elastic\AppSearch\CatalogSearch\Client
+ * @package   Elastic\AppSearch\Framework\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class ConnectionManager
+class ConnectionManager implements ConnectionManagerInterface
 {
     /**
      * @var \Swiftype\AppSearch\Client
@@ -52,13 +51,9 @@ class ConnectionManager
     }
 
     /**
-     * Retrieve the configured App Search client.
-     *
-     * @param array $options
-     *
-     * @return \Swiftype\AppSearch\Client
+     * {@inheritdoc}
      */
-    public function getClient($options = [])
+    public function getClient(array $options = []): Client
     {
         if (null === $this->client) {
             $this->client = $this->createClient($options);

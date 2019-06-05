@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package   Elastic\AppSearch\CatalogSearch
+ * @package   Elastic\AppSearch\Search
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -16,11 +16,10 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-      <catalog>
-          <search>
-              <search_in_category_name>1</search_in_category_name>
-              <category_name_weight>1</category_name_weight>
-          </search>
-      </catalog>
+      <elastic_appsearch>
+        <client>
+          <engine_prefix>magento2</engine_prefix>
+        </client>
+      </elastic_appsearch>
     </default>
 </config>

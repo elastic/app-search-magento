@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\Search
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Elastic\AppSearch\Framework\Client\ClientConfigurationInterface" type="Elastic\AppSearch\Framework\Client\ClientConfiguration" />
+    <preference for="Elastic\AppSearch\Framework\Client\ConnectionManagerInterface" type="Elastic\AppSearch\Framework\Client\ConnectionManager" />
+
+</config>

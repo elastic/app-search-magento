@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
 
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
 use Swiftype\Exception\NotFoundException;
 use Magento\Framework\Exception\LocalizedException;
 use Swiftype\AppSearch\Client;
@@ -49,10 +49,10 @@ class EngineManager implements EngineManagerInterface
     /**
      * Constructor.
      *
-     * @param ConnectionManager $connectionManager
-     * @param LoggerInterface   $logger
+     * @param ConnectionManagerInterface $connectionManager
+     * @param LoggerInterface            $logger
      */
-    public function __construct(ConnectionManager $connectionManager, LoggerInterface $logger)
+    public function __construct(ConnectionManagerInterface $connectionManager, LoggerInterface $logger)
     {
         $this->logger = $logger;
         $this->client = $connectionManager->getClient();

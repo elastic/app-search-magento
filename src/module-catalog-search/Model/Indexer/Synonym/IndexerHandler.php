@@ -15,7 +15,7 @@ use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManagerInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolverInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
-use Elastic\AppSearch\CatalogSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client;
 
 /**
@@ -60,17 +60,18 @@ class IndexerHandler implements IndexerInterface
     /**
      * Constructor.
      *
-     * @param EngineManagerInterface  $engineManager
-     * @param EngineResolverInterface $engineResolver
-     * @param ScopeResolverInterface  $scopeResolver
-     * @param string                  $engineIdentifier
-     * @param array                   $data
+     * @param EngineManagerInterface     $engineManager
+     * @param EngineResolverInterface    $engineResolver
+     * @param ScopeResolverInterface     $scopeResolver
+     * @param ConnectionManagerInterface $connectionManager
+     * @param string                     $engineIdentifier
+     * @param array                      $data
      */
     public function __construct(
         EngineManagerInterface $engineManager,
         EngineResolverInterface $engineResolver,
         ScopeResolverInterface $scopeResolver,
-        ConnectionManager $connectionManager,
+        ConnectionManagerInterface $connectionManager,
         array $engines = [],
         array $data = []
     ) {

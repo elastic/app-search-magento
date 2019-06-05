@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Client;
+namespace Elastic\AppSearch\Framework\Client;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Encryption\EncryptorInterface;
@@ -17,7 +17,7 @@ use Magento\Framework\Module\ModuleListInterface;
 /**
  * Implementation of the App Search client configuration.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Client
+ * @package   Elastic\AppSearch\Framework\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -107,7 +107,7 @@ class ClientConfiguration implements ClientConfigurationInterface
      */
     private function getModuleVersion(): string
     {
-        return $this->moduleList->getOne('ElasticAppSearch_CatalogSearch')['setup_version'];
+        return $this->moduleList->getOne('ElasticAppSearch_Search')['setup_version'];
     }
 
     /**
