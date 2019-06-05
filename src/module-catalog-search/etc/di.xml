@@ -149,7 +149,7 @@
 
     <type name="Elastic\AppSearch\CatalogSearch\Model\Search">
        <arguments>
-            <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\CatalogSearch\Search\SearchResponseBuilder</argument>
+            <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
         </arguments>
     </type>
 

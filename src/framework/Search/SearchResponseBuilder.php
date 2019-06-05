@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Search;
+namespace Elastic\AppSearch\Framework\Search;
 
 use Magento\Framework\Search\ResponseInterface;
 
@@ -17,7 +17,7 @@ use Magento\Framework\Search\ResponseInterface;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Search
+ * @package   Elastic\AppSearch\Framework\Search
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
