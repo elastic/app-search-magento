@@ -102,7 +102,7 @@ class ClientConfiguration implements ClientConfigurationInterface
 
     /**
      * Get current version of the App Search module.
-     * 
+     *
      * @return string
      */
     private function getModuleVersion(): string
