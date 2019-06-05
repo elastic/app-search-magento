@@ -1,5 +1,5 @@
 {
-  "name" : "elastic/elastic-app-search-magento",
+  "name" : "elastic/app-search-magento",
   "description" : "Elastic App Search official integration for Magento 2",
   "homepage": "https://github.com/swiftype/swiftype-app-search-magento",
   "keywords" : [
@@ -26,10 +26,15 @@
   },
   "autoload" : {
     "psr-4" : {
-      "Elastic\\AppSearch\\" : ""
+      "Elastic\\AppSearch\\Framework\\" : "src/framework",
+      "Elastic\\AppSearch\\Search\\" : "src/module-search",
+      "Elastic\\AppSearch\\CatalogSearch\\" : "src/module-catalog-search",
+      "Elastic\\AppSearch\\CatalogGraphQl\\" : "src/module-catalog-graph-ql"
     },
     "files": [
-      "registration.php"
+      "src/module-search/registration.php",
+      "src/module-catalog-search/registration.php",
+      "src/module-catalog-graph-ql/registration.php"
     ]
   }
 }

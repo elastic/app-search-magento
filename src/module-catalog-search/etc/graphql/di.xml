@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\CatalogSearch
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\CatalogGraphQl\Model\Resolver\Products" type="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver\Products" />
+
+    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product\SearchResultCollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product\SearchResultCollection</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\CollectionProvider">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product\SearchResultCollectionFactory</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context" type="Magento\CatalogGraphQl\Model\Layer\Context">
+        <arguments>
+            <argument name="collectionProvider" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\CollectionProvider</argument>
+            <argument name="stateKey" xsi:type="object">Magento\Catalog\Model\Layer\Category\StateKey</argument>
+            <argument name="collectionFilter" xsi:type="object">Magento\Catalog\Model\Layer\Category\CollectionFilter</argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver\Products\Query\Search">
+        <arguments>
+            <argument name="layerContext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+        </arguments>
+    </type>
+    
+    <type name="Magento\Catalog\Model\Layer\Search">
+        <arguments>
+            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+        </arguments>
+    </type>
+    
+    <type name="Magento\Catalog\Model\Layer\Category">
+        <arguments>
+            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+        </arguments>
+    </type>
+    
+    <type name="Magento\Catalog\Model\Layer">
+        <arguments>
+            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+        </arguments>
+    </type>
+    
+    <preference for="Magento\Catalog\Model\Layer\Filter\Attribute" type="Magento\CatalogSearch\Model\Layer\Filter\Attribute" />
+    <preference for="Magento\Catalog\Model\Layer\Filter\Price" type="Magento\CatalogSearch\Model\Layer\Filter\Price" />
+    <preference for="Magento\Catalog\Model\Layer\Filter\Category" type="Magento\CatalogSearch\Model\Layer\Filter\Category" />
+    <preference for="Magento\Catalog\Model\Layer\Filter\Decimal" type="Magento\CatalogSearch\Model\Layer\Filter\Decimal" />
+    
+</config>

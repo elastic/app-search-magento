@@ -8,7 +8,7 @@
          bootstrap="./framework/bootstrap.php"
         >
     <testsuite name="Magento Unit Tests">
-        <directory suffix="Test.php">../../../vendor/elastic/elastic-app-search-magento/Test/Unit</directory>
+        <directory suffix="Test.php">../../../vendor/elastic/app-search-magento/src/*/Test/Unit</directory>
     </testsuite>
     <php>
         <ini name="date.timezone" value="America/Los_Angeles"/>
@@ -16,9 +16,9 @@
     </php>
     <filter>
         <whitelist addUncoveredFilesFromWhiteList="true">
-            <directory suffix=".php">../../../vendor/elastic/elastic-app-search-magento/*</directory>
+            <directory suffix=".php">../../../vendor/elastic/app-search-magento/src/*</directory>
             <exclude>
-                <directory>../../../vendor/elastic/elastic-app-search-magento/Test</directory>
+                <directory>../../../vendor/elastic/app-search-magento/src/*/Test</directory>
             </exclude>
         </whitelist>
     </filter>
