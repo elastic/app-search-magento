@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model;
+namespace Elastic\AppSearch\Search\Model;
 
 use Magento\Search\Api\SearchInterface;
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Search\RequestBuilder;
+use Elastic\AppSearch\Search\Model\Search\RequestBuilder;
 use Magento\Framework\Search\SearchResponseBuilder;
 use Magento\Framework\Search\SearchEngineInterface;
 
@@ -21,7 +21,7 @@ use Magento\Framework\Search\SearchEngineInterface;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Model
+ * @package   Elastic\AppSearch\Search\Model
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

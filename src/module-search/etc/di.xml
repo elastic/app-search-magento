@@ -19,4 +19,12 @@
     <preference for="Elastic\AppSearch\Framework\Client\ClientConfigurationInterface" type="Elastic\AppSearch\Framework\Client\ClientConfiguration" />
     <preference for="Elastic\AppSearch\Framework\Client\ConnectionManagerInterface" type="Elastic\AppSearch\Framework\Client\ConnectionManager" />
 
+    <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
+
+    <type name="Elastic\AppSearch\Search\Model\Search">
+       <arguments>
+            <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
+        </arguments>
+    </type>
+
 </config>

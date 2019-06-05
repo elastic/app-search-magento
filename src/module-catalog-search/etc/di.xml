@@ -39,8 +39,6 @@
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Processor" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolverInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolver" />
 
-    <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\CatalogSearch\Model\Search" />
-
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
             <argument name="sensitive" xsi:type="array">
@@ -144,12 +142,6 @@
                 <item name="categoryData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product\CategoryDataProvider</item>
                 <item name="priceData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product\PriceDataProvider</item>
             </argument>
-        </arguments>
-    </type>
-
-    <type name="Elastic\AppSearch\CatalogSearch\Model\Search">
-       <arguments>
-            <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
         </arguments>
     </type>
 

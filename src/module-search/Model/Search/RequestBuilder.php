@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Search;
+namespace Elastic\AppSearch\Search\Model\Search;
 
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
 use Elastic\AppSearch\Framework\Search\Request\Builder;
@@ -23,7 +23,7 @@ use Magento\Store\Model\ScopeInterface;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Model\Search
+ * @package   Elastic\AppSearch\Search\Model\Search
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -68,7 +68,7 @@ class RequestBuilder
      *
      * @return RequestInterface
      */
-    public function create(SearchCriteriaInterface $searchCriteria)
+    public function create(SearchCriteriaInterface $searchCriteria): RequestInterface
     {
         $this->addRequestName($searchCriteria);
         $this->addDimensions();
@@ -87,7 +87,7 @@ class RequestBuilder
      */
     private function addFilterGroups(SearchCriteriaInterface $searchCriteria)
     {
-        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
+        foreach ($searchCriteria->getFilterGroups() ?? [] as $filterGroup) {
             $this->requestBuilder->addFilterGroup($filterGroup);
         }
     }
@@ -132,9 +132,7 @@ class RequestBuilder
      */
     private function addSortOrders(SearchCriteriaInterface $searchCriteria)
     {
-        if ($searchCriteria->getSortOrders()) {
-            $this->requestBuilder->setSort($searchCriteria->getSortOrders());
-        }
+        $this->requestBuilder->setSort($searchCriteria->getSortOrders() ?? []);
     }
 
     /**
