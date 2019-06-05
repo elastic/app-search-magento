@@ -10,6 +10,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'ElasticAppSearch_Search',
+    'ElasticAppSearch_CatalogSearch',
     __DIR__
 );
