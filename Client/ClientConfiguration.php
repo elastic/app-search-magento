@@ -10,6 +10,10 @@
 
 namespace Elastic\AppSearch\Client;
 
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Encryption\EncryptorInterface;
+use Magento\Framework\Module\ModuleListInterface;
+
 /**
  * Implementation of the App Search client configuration.
  *
@@ -20,27 +24,39 @@ namespace Elastic\AppSearch\Client;
 class ClientConfiguration implements ClientConfigurationInterface
 {
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var string
+     */
+    private const INTEGRATION_NAME = 'magento-module';
+
+    /**
+     * @var ScopeConfigInterface
      */
     private $scopeConfig;
 
     /**
-     * @var \Magento\Framework\Encryption\EncryptorInterface
+     * @var EncryptorInterface
      */
     private $encryptor;
 
     /**
+     * @var ModuleListInterface
+     */
+    private $moduleList;
+
+    /**
      * Constructor.
      *
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-     * @param \Magento\Framework\Encryption\EncryptorInterface   $encryptor
+     * @param ScopeConfigInterface $scopeConfig
+     * @param EncryptorInterface   $encryptor
      */
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Encryption\EncryptorInterface $encryptor
+        ScopeConfigInterface $scopeConfig,
+        EncryptorInterface $encryptor,
+        ModuleListInterface $moduleList
     ) {
         $this->scopeConfig = $scopeConfig;
-        $this->encryptor = $encryptor;
+        $this->encryptor   = $encryptor;
+        $this->moduleList  = $moduleList;
     }
 
     /**
@@ -73,6 +89,25 @@ class ClientConfiguration implements ClientConfigurationInterface
     public function isDebug(): bool
     {
         return (bool) $this->scopeConfig->getValue('elastic_appsearch/client/is_debug');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIntegrationName(): string
+    {
+        return sprintf('%s:%s', self::INTEGRATION_NAME, $this->getModuleVersion());
+    }
+
+
+    /**
+     * Get current version of the App Search module.
+     *
+     * @return string
+     */
+    private function getModuleVersion(): string
+    {
+        return $this->moduleList->getOne('Elastic_AppSearch')['setup_version'];
     }
 
     /**

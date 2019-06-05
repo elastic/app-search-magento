@@ -51,8 +51,7 @@ COPY --chown=www-data env.php app/etc/env.php
 ENV HOME /var/www
 
 # Add local repo to work on the extension.
-RUN composer config repositories.app-search '{"type": "path", "url": "./app-search-module"}' \
- && composer config "minimum-stability" dev
+RUN composer config repositories.app-search '{"type": "path", "url": "./app-search-module"}'
 
 # Revert original user (root) to run Apache.
 USER root
