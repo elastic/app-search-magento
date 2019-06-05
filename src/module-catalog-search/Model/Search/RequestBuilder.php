@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Search;
 
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
-use Elastic\AppSearch\CatalogSearch\Search\Request\Builder;
+use Elastic\AppSearch\Framework\Search\Request\Builder;
 use Magento\Framework\App\ScopeResolverInterface;
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;

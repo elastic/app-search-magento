@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Search\Request;
+namespace Elastic\AppSearch\Framework\Search\Request;
 
-use Elastic\AppSearch\CatalogSearch\Search\Request;
+use Elastic\AppSearch\Framework\Search\Request;
 use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\Filter;
 use Magento\Framework\Search\Request\QueryInterface;
-use Elastic\AppSearch\CatalogSearch\Search\Request\Builder\FilterGroupBuilder;
+use Elastic\AppSearch\Framework\Search\Request\Builder\FilterGroupBuilder;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Search\Request\Query\BoolExpressionFactory as BoolQueryFactory;
 use Magento\Framework\Search\Request\Cleaner;
@@ -26,7 +26,7 @@ use Magento\Framework\Search\Request\Config;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Search\Request
+ * @package   Elastic\AppSearch\Framework\Search\Request
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

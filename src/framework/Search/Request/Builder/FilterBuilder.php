@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Search\Request\Builder;
+namespace Elastic\AppSearch\Framework\Search\Request\Builder;
 
 use Magento\Framework\Search\Request\FilterInterface;
 use Magento\Framework\Search\Request\Filter\BoolExpressionFactory as BoolFilterFactory;
@@ -21,7 +21,7 @@ use Magento\Framework\Api\Filter;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Search\Request\Builder
+ * @package   Elastic\AppSearch\Framework\Search\Request\Builder
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
