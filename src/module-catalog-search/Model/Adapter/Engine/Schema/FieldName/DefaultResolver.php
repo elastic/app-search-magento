@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName;
 
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 
 /**

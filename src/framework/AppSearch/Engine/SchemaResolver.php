@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Framework\AppSearch\Engine;
 
 use Magento\Framework\Exception\LocalizedException;
 
 /**
  * SchemaResolverInterface implementation.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\Framework\AppSearch\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

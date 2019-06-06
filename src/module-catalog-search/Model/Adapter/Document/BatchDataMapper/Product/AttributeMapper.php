@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperInterface;
 
 /**

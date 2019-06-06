@@ -10,8 +10,8 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 
 /**
  * Generate a schema as a result of the merge of several schemas.

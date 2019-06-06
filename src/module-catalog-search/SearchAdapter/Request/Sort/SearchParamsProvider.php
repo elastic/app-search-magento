@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Sort;
 
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
 

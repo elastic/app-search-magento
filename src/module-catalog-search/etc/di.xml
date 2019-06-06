@@ -21,8 +21,6 @@
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManagerInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManager" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver" />
 
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema" />
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaResolver" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolver" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
@@ -36,19 +34,6 @@
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilderInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilder" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Processor" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolverInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolver" />
-
-    <type name="Magento\Config\Model\Config\TypePool">
-        <arguments>
-            <argument name="sensitive" xsi:type="array">
-                <item name="elastic_appsearch/client/private_api_key" xsi:type="string">1</item>
-                <item name="elastic_appsearch/client/search_api_key" xsi:type="string">1</item>
-            </argument>
-            <argument name="environment" xsi:type="array">
-                <item name="elastic_appsearch/client/api_endpoint" xsi:type="string">1</item>
-                <item name="elastic_appsearch/client/is_debug" xsi:type="string">1</item>
-            </argument>
-        </arguments>
-    </type>
 
     <type name="Magento\Search\Model\Adminhtml\System\Config\Source\Engine">
         <arguments>
@@ -98,7 +83,7 @@
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaResolver">
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver">
         <arguments>
             <argument name="providers" xsi:type="array">
                 <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider</item>

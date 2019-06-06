@@ -14,7 +14,7 @@ use Magento\Framework\Indexer\IndexStructureInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolverInterface;
 
 /**
  * Implementation of the App Search index structure.

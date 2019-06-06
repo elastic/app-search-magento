@@ -22,6 +22,9 @@
     <preference for="Elastic\AppSearch\Framework\AppSearch\EngineInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine" />
     <preference for="Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\EngineResolver" />
 
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver" />
+
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
 
     <type name="Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver">
@@ -33,6 +36,19 @@
     <type name="Elastic\AppSearch\Search\Model\Search">
         <arguments>
             <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Config\Model\Config\TypePool">
+        <arguments>
+            <argument name="sensitive" xsi:type="array">
+                <item name="elastic_appsearch/client/private_api_key" xsi:type="string">1</item>
+                <item name="elastic_appsearch/client/search_api_key" xsi:type="string">1</item>
+            </argument>
+            <argument name="environment" xsi:type="array">
+                <item name="elastic_appsearch/client/api_endpoint" xsi:type="string">1</item>
+                <item name="elastic_appsearch/client/is_debug" xsi:type="string">1</item>
+            </argument>
         </arguments>
     </type>
 

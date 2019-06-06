@@ -10,9 +10,9 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Engine\Schema;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaProviderInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder as SchemaBuilder;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider;
 
@@ -88,7 +88,7 @@ class CompositeSchemaProviderTest extends \PHPUnit\Framework\TestCase
             return new Schema($params['fields']);
         };
 
-        $schemaFactory = $this->createMock('Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterfaceFactory');
+        $schemaFactory = $this->createMock('Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterfaceFactory');
         $schemaFactory->expects($this->any())->method('create')->willReturnCallback($createSchema);
 
         return new SchemaBuilder($schemaFactory);

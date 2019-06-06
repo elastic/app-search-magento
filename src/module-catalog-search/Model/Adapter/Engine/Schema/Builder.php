@@ -11,8 +11,8 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
 
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterfaceFactory;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterfaceFactory;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 
 /**
  * AppSearch Engine Schema builder implementation.

@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaProviderInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaResolver;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaResolver class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

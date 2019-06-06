@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldType;
 
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 
 /**
  * Used to retrieve field type from an attribute.

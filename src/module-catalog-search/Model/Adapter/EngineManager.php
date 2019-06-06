@@ -16,7 +16,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Swiftype\AppSearch\Client;
 use Psr\Log\LoggerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 
 /**
  * Engine management service implementation.
