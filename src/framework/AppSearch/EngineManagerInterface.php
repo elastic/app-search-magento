@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
+namespace Elastic\AppSearch\Framework\AppSearch;
 
 use Magento\Framework\Exception\LocalizedException;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
@@ -19,7 +19,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
  *
  * @api
  *
- * @package   Elastic\Model\Adapter
+ * @package   Elastic\AppSearch\Framework\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

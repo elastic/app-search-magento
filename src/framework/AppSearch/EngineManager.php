@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
+namespace Elastic\AppSearch\Framework\AppSearch;
 
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\Exception\NotFoundException;
@@ -21,7 +21,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 /**
  * Engine management service implementation.
  *
- * @package   Elastic\Model\Adapter
+ * @package   Elastic\AppSearch\Framework\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

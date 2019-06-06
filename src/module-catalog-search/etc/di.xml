@@ -16,8 +16,6 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManagerInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManager" />
-
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManagerInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManager" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver" />
 

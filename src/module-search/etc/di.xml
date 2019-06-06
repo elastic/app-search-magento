@@ -21,6 +21,7 @@
 
     <preference for="Elastic\AppSearch\Framework\AppSearch\EngineInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine" />
     <preference for="Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\EngineResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\EngineManagerInterface" type="Elastic\AppSearch\Framework\AppSearch\EngineManager" />
 
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema" />
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver" />

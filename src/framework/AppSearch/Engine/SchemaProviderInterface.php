@@ -13,6 +13,9 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine;
 /**
  * Schema provider interface definition.
  *
+ * @api
+ * @spi
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0

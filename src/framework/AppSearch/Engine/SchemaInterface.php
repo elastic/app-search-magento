@@ -13,6 +13,8 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine;
 /**
  * AppSearch Engine Schema interface.
  *
+ * @api
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0

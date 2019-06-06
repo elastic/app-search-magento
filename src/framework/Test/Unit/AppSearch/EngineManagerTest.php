@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManager;
+use Elastic\AppSearch\Framework\AppSearch\EngineManager;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Swiftype\AppSearch\Client;
@@ -19,9 +19,9 @@ use Swiftype\Exception\NotFoundException;
 use Swiftype\Exception\ConnectionException;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManager class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\EngineManager class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

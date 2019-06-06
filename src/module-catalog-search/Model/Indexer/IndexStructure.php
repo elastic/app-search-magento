@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Indexer;
 
 use Magento\Framework\Indexer\IndexStructureInterface;
 use Magento\Framework\App\ScopeResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolverInterface;
 
