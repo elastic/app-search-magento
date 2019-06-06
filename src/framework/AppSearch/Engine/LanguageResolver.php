@@ -10,7 +10,6 @@
 
 namespace Elastic\AppSearch\Framework\AppSearch\Engine;
 
-use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
@@ -41,13 +40,22 @@ class LanguageResolver
     private $scopeConfig;
 
     /**
+     * @var string
+     */
+    private $scopeType;
+
+    /**
      * Constructor.
      *
-     * @param ScopeConfigInterface $scopeConfig Store configuration.
+     * @param ScopeConfigInterface $scopeConfig Scope configuration.
+     * @param string               $scopeType   Lookup scope type.
      */
-    public function __construct(ScopeConfigInterface $scopeConfig)
-    {
+    public function __construct(
+      ScopeConfigInterface $scopeConfig,
+      string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT
+    ) {
         $this->scopeConfig = $scopeConfig;
+        $this->scopeType   = $scopeType;
     }
 
     /**
@@ -77,7 +85,7 @@ class LanguageResolver
      */
     private function getStoreLocaleCode(int $storeId)
     {
-        return (string) $this->scopeConfig->getValue('general/locale/code', ScopeInterface::SCOPE_STORE, $storeId);
+        return (string) $this->scopeConfig->getValue('general/locale/code', $this->scopeType, $storeId);
     }
 
     /**

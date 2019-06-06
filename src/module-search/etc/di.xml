@@ -24,8 +24,14 @@
 
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
 
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver">
+        <arguments>
+            <argument name="scopeType" xsi:type="const">Magento\Store\Model\ScopeInterface::SCOPE_STORE</argument>
+        </arguments>
+    </type>
+
     <type name="Elastic\AppSearch\Search\Model\Search">
-       <arguments>
+        <arguments>
             <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
         </arguments>
     </type>
