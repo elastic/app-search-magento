@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 
 /**
- * Defualt field name resolver implementation.
+ * Default field name resolver implementation.
  *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
