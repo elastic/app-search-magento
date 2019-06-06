@@ -51,8 +51,8 @@ class LanguageResolver
      * @param string               $scopeType   Lookup scope type.
      */
     public function __construct(
-      ScopeConfigInterface $scopeConfig,
-      string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT
+        ScopeConfigInterface $scopeConfig,
+        string $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->scopeType   = $scopeType;
