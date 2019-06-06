@@ -16,7 +16,7 @@ use Magento\Framework\Filter\FilterManager;
 /**
  * Connvert engine identifier into real App Search engine names.
  *
- * @package   Elastic\AppSearch\Framework\AppSearch
+ * @package   Elastic\AppSearch\Framework\AppSearch\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
