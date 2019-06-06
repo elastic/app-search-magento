@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Engine\Schema;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder as SchemaBuilder;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder as SchemaBuilder;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider;
 
 /**

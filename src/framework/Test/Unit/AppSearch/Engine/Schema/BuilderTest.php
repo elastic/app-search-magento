@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Engine\Schema;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\Schema;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder as SchemaBuilder;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder as SchemaBuilder;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -89,7 +89,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * Init the schema builder used during tests.
      *
-     * @return \Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder
+     * @return \Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder
      */
     private function getSchemaBuilder()
     {

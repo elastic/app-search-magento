@@ -19,7 +19,6 @@
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManagerInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManager" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver" />
 
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Builder" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolver" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldType\DefaultResolver" />
@@ -89,7 +88,7 @@
         </arguments>
     </type>
 
-    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\CompositeSchemaProvider">
+    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\CompositeSchemaProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
                 <item name="base" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\BaseSchemaProvider\Proxy</item>

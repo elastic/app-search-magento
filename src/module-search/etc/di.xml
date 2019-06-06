@@ -25,6 +25,7 @@
 
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema" />
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder" />
 
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
 

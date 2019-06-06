@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\BuilderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterFactory;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;

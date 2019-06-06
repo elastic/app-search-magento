@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
+namespace Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
@@ -16,7 +16,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 /**
  * Generate a schema as a result of the merge of several schemas.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

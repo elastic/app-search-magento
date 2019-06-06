@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\BuilderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
