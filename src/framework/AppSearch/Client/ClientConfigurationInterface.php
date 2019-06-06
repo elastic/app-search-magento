@@ -35,7 +35,6 @@ interface ClientConfigurationInterface
      */
     public function getPrivateApiKey(): ?string;
 
-
     /**
      * Search API Key used to connect to App Search.
      *
