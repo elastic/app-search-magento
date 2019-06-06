@@ -10,11 +10,12 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
 
-use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\Exception\NotFoundException;
 use Magento\Framework\Exception\LocalizedException;
 use Swiftype\AppSearch\Client;
 use Psr\Log\LoggerInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
 
 /**

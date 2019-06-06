@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
+namespace Elastic\AppSearch\Framework\AppSearch;
 
 /**
  * Resolve App Search Engine from config.
  *
  * @api
  *
- * @package   Elastic\Model\Indexer
+ * @package   Elastic\AppSearch\Framework\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

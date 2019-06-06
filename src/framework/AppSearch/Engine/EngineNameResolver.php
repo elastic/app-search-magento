@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Framework\AppSearch\Engine;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Filter\FilterManager;
@@ -16,7 +16,7 @@ use Magento\Framework\Filter\FilterManager;
 /**
  * Connvert engine identifier into real App Search engine names.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\Framework\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

@@ -12,10 +12,10 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym;
 
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManagerInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Magento\Framework\App\ScopeResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
-use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client;
 
 /**

@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine;
+use Elastic\AppSearch\Framework\AppSearch\Engine;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine class.
+ * Unit test for theElastic\AppSearch\Framework\AppSearch\Engine class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
+namespace Elastic\AppSearch\Framework\AppSearch;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\EngineNameResolver;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\LanguageResolver;
+use Elastic\AppSearch\Framework\AppSearch\Engine\EngineNameResolver;
+use Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver;
 
 /**
  * Engine resolver implementation.
  *
- * @package   Elastic\Model\Adapter
+ * @package   Elastic\AppSearch\Framework\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

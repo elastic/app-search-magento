@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer;
 
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Analytics\SearchParamsProvider as AnalyticsSearchParams;

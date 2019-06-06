@@ -11,8 +11,8 @@
 namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter;
 
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManager;
-use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Swiftype\AppSearch\Client;
 use Psr\Log\NullLogger;
 use Swiftype\Exception\NotFoundException;

@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolver;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\EngineNameResolver;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\LanguageResolver;
+use Elastic\AppSearch\Framework\AppSearch\EngineResolver;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\EngineNameResolver;
+use Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolver class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\EngineResolver class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -33,7 +33,7 @@ class EngineResolverTest extends \PHPUnit\Framework\TestCase
     {
         $engine = $this->createMock(EngineInterface::class);
 
-        $engineFactory = $this->createMock('Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterfaceFactory');
+        $engineFactory = $this->createMock('Elastic\AppSearch\Framework\AppSearch\EngineInterfaceFactory');
         $engineFactory->expects($this->any())->method('create')->willReturn($engine);
 
         $engineNameResolver = $this->createMock(EngineNameResolver::class);

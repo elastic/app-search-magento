@@ -16,8 +16,11 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Elastic\AppSearch\Framework\Client\ClientConfigurationInterface" type="Elastic\AppSearch\Framework\Client\ClientConfiguration" />
-    <preference for="Elastic\AppSearch\Framework\Client\ConnectionManagerInterface" type="Elastic\AppSearch\Framework\Client\ConnectionManager" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Client\ClientConfigurationInterface" type="Elastic\AppSearch\Framework\AppSearch\Client\ClientConfiguration" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface" type="Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManager" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\EngineInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\EngineResolver" />
 
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
 

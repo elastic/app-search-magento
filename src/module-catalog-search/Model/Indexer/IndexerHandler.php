@@ -14,8 +14,8 @@ use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\Indexer\IndexStructureInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineManagerInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManagerInterface;
 
 /**

@@ -11,9 +11,9 @@
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
 
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface;

@@ -11,10 +11,10 @@
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request;
 
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 
 /**
  * Resolve search request engine.

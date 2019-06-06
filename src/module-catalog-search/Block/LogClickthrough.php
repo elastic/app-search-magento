@@ -12,8 +12,8 @@ namespace Elastic\AppSearch\CatalogSearch\Block;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineResolverInterface;
-use Elastic\AppSearch\Framework\Client\ClientConfigurationInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ClientConfigurationInterface;
 use Magento\Search\Helper\Data as SearchHelper;
 use Magento\CatalogSearch\Block\SearchTermsLog;
 

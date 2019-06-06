@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 
 /**
  * Used to sync documents with the engine in a secured way.

@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Framework\Test\Unit\Client;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client;
 
-use Elastic\AppSearch\Framework\Client\ConnectionManager;
-use Elastic\AppSearch\Framework\Client\ClientConfigurationInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManager;
+use Elastic\AppSearch\Framework\AppSearch\Client\ClientConfigurationInterface;
 use Psr\Log\LoggerInterface;
 use Swiftype\AppSearch\Client;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\Client\ConnectionManager class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManager class.
  *
- * @package   Elastic\AppSearch\Framework\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

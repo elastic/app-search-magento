@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Engine;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\EngineNameResolver;
+use Elastic\AppSearch\Framework\AppSearch\Engine\EngineNameResolver;
 use Magento\Framework\Filter\FilterManager;
 use Magento\Framework\Filter\TranslitUrl;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\EngineNameResolver class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\EngineNameResolver class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

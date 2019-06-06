@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Framework\Client;
+namespace Elastic\AppSearch\Framework\AppSearch\Client;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Encryption\EncryptorInterface;
@@ -17,7 +17,7 @@ use Magento\Framework\Module\ModuleListInterface;
 /**
  * Implementation of the App Search client configuration.
  *
- * @package   Elastic\AppSearch\Framework\Client
+ * @package   Elastic\AppSearch\Framework\AppSearch\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

@@ -10,10 +10,10 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\EngineInterface;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Magento\Framework\Indexer\SaveHandler\Batch;
-use Elastic\AppSearch\Framework\Client\ConnectionManagerInterface;
-use Elastic\AppSearch\Framework\Client;
+use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\Client;
 
 /**
  * Implementation of the sync manager component.

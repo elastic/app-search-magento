@@ -11,6 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter;
 
 use Magento\Framework\Exception\LocalizedException;
+use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\SchemaInterface;
 
 /**

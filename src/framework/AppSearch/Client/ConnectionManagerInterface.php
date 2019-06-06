@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Framework\Client;
+namespace Elastic\AppSearch\Framework\AppSearch\Client;
 
 use Swiftype\AppSearch\Client;
 
@@ -17,7 +17,7 @@ use Swiftype\AppSearch\Client;
  *
  * @api
  *
- * @package   Elastic\AppSearch\Framework\Client
+ * @package   Elastic\AppSearch\Framework\AppSearch\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

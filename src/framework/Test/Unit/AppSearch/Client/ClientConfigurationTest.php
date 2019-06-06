@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Framework\Test\Unit\Client;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client;
 
-use Elastic\AppSearch\Framework\Client\ClientConfiguration;
+use Elastic\AppSearch\Framework\AppSearch\Client\ClientConfiguration;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Module\ModuleListInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\Client\ClientConfiguration class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Client\ClientConfiguration class.
  *
- * @package   Elastic\AppSearch\Framework\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -135,7 +135,7 @@ class ClientConfigurationTest extends \PHPUnit\Framework\TestCase
      *
      * @param string $configValue
      *
-     * @return \Elastic\AppSearch\Framework\Client\ClientConfiguration
+     * @return \Elastic\AppSearch\Framework\AppSearch\Client\ClientConfiguration
      */
     private function getClientConfiguration($configValue)
     {
