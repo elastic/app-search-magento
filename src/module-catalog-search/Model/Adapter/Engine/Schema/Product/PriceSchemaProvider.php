@@ -11,8 +11,8 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;

@@ -10,6 +10,9 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
 
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
+
 /**
  * Field mapper implementation.
  *

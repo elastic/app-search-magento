@@ -22,7 +22,7 @@ interface FieldMapperInterface
     /**
      * Return field name to use for the attribute.
      *
-     * @param AttributeAdapter $attribute
+     * @param string $attribute
      *
      * @return string
      */

@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
+namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 
 /**
  * Used to retrieve field type from an attribute.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -22,9 +22,9 @@ interface FieldTypeResolverInterface
     /**
      * Return field type to use for the attribute.
      *
-     * @param AttributeAdapter $attribute
+     * @param AttributeAdapterInterface $attribute
      *
      * @return string|NULL
      */
-    public function getFieldType(AttributeAdapter $attribute): ?string;
+    public function getFieldType(AttributeAdapterInterface $attribute): string;
 }

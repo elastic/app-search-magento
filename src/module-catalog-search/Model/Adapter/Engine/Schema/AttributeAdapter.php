@@ -10,16 +10,17 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
 
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
 use Magento\Eav\Api\Data\AttributeInterface;
 
 /**
  * Wrap EAV attribute to be usable to build a schema.
  *
- * @package   Elastic\Model\Adapter\Engine\Schema
+ * @package   Elastic\Model\Adapter\Engine\Fie
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class AttributeAdapter
+class AttributeAdapter implements AttributeAdapterInterface
 {
     /**
      * @var AttributeInterface

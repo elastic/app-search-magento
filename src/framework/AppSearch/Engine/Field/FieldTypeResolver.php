@@ -8,25 +8,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldType;
+namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 
 /**
- * Used to retrieve field type from an attribute.
+ * Default implementation of the field type resolver.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class DefaultResolver implements FieldTypeResolverInterface
+class FieldTypeResolver implements FieldTypeResolverInterface
 {
     /**
      * {@inheritDoc}
      */
-    public function getFieldType(AttributeAdapter $attribute): ?string
+    public function getFieldType(AttributeAdapterInterface $attribute): string
     {
         $fieldType = SchemaInterface::FIELD_TYPE_TEXT;
 

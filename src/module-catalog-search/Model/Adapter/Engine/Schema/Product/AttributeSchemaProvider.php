@@ -17,8 +17,8 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
 use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeDataProvider;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterFactory;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
 
 /**
  * Add product attributes to the schema.

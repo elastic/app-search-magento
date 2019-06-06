@@ -20,8 +20,7 @@
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver" />
 
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolver" />
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldTypeResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldType\DefaultResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
 
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProvider" />

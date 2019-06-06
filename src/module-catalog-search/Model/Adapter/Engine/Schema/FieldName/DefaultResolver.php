@@ -10,22 +10,29 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
-use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver as FrameworkFieldNameResolver;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 
 /**
- * Used to retrieve field name from an attribute depending on the context.
+ * Customize default field name resolver for products.
  *
  * @package   Elastic\Model\Adapter\Engine
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class DefaultResolver implements FieldNameResolverInterface
+class DefaultResolver extends FrameworkFieldNameResolver
 {
+    /**
+     * @var CustomerSession
+     */
     private $customerSession;
 
+    /**
+     * Constructor
+     *
+     * @param CustomerSession $customerSession
+     */
     public function __construct(CustomerSession $customerSession)
     {
         $this->customerSession = $customerSession;
@@ -34,13 +41,9 @@ class DefaultResolver implements FieldNameResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function getFieldName(AttributeAdapter $attribute, array $context = []): ?string
+    public function getFieldName(AttributeAdapterInterface $attribute, array $context = []): string
     {
-        $fieldName = $attribute->getAttributeCode();
-
-        if (isset($context['type']) && $this->useValueField($attribute, $context['type'])) {
-            $fieldName = $fieldName . '_value';
-        }
+        $fieldName = parent::getFieldName($attribute, $context);
 
         if ($fieldName == 'price') {
             $fieldName = $this->getPriceFieldName($fieldName, $context);
@@ -68,28 +71,5 @@ class DefaultResolver implements FieldNameResolverInterface
         }
 
         return $fieldName;
-    }
-
-    /**
-     * Check if the attribute need a _value suffix for the current context.
-     *
-     * @param AttributeAdapter $attribute
-     * @param array            $context
-     *
-     * @return boolean
-     */
-    private function useValueField(AttributeAdapter $attribute, string $type)
-    {
-        $useValueField = false;
-
-        $frontendType = $attribute->getFrontendInput();
-
-        if ($frontendType == "boolean") {
-            $useValueField = $type == SchemaInterface::CONTEXT_SEARCH;
-        } elseif (in_array($frontendType, ['select', 'multiselect'])) {
-            $useValueField = in_array($type, [SchemaInterface::CONTEXT_SEARCH, SchemaInterface::CONTEXT_SORT]);
-        }
-
-        return $useValueField && ($attribute->isSearchable() || $attribute->isSortable());
     }
 }
