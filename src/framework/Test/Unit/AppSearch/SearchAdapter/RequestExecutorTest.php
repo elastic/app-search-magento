@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter;
 
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 use Magento\Framework\Search\RequestInterface;
@@ -22,9 +22,9 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */
