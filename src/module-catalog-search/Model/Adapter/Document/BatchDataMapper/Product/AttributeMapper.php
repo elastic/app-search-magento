@@ -14,7 +14,7 @@ use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 
 /**
  * Product attribute batch data mapper.

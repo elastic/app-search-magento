@@ -29,7 +29,10 @@
 
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolver" />
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolver" />
-    <!-- TODO add preference for field name resolver -->
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Document\SyncManagerInterface" type="Elastic\AppSearch\Framework\AppSearch\Document\SyncManager" />
 
     <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
 

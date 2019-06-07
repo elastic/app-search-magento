@@ -70,8 +70,10 @@ class FieldMapperTest extends \PHPUnit\Framework\TestCase
      *
      * @return AttributeAdapterProviderInterface
      */
-    private function getAttributeAdapterProvider(string $fieldName, string $fieldType): AttributeAdapterProviderInterface
-    {
+    private function getAttributeAdapterProvider(
+        string $fieldName,
+        string $fieldType
+    ): AttributeAdapterProviderInterface {
         $attributeAdapter = $this->createMock(AttributeAdapterInterface::class);
 
         $attributeAdapter->method('getAttributeCode')->willReturn($fieldName);

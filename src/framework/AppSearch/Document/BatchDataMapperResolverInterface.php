@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document;
+namespace Elastic\AppSearch\Framework\AppSearch\Document;
 
 /**
  * Allow to retrieve the batch data mapper used for a specific engine.

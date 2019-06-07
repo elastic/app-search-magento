@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Document;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Document;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver;
+use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Client
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

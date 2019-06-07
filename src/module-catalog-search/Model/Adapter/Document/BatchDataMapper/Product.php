@@ -10,8 +10,8 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\DataProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
 
 /**
  * Product batch data mapper implementation.

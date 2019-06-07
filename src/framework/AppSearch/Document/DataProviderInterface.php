@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document;
+namespace Elastic\AppSearch\Framework\AppSearch\Document;
 
 /**
  * Retrive data for an entity to be indexed.

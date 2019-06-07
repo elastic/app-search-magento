@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document;
+namespace Elastic\AppSearch\Framework\AppSearch\Document;
 
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Magento\Framework\Indexer\SaveHandler\Batch;
@@ -20,7 +20,7 @@ use Elastic\AppSearch\Framework\AppSearch\Client;
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  *
- * @package   Elastic\Model\Adapter\Document
+ * @package   Elastic\AppSearch\Framework\AppSearch\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

@@ -16,7 +16,7 @@ use Magento\Framework\App\ScopeResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManagerInterface;
+use Elastic\AppSearch\Framework\AppSearch\Document\SyncManagerInterface;
 
 /**
  * Implementation of the App Search indexer handler.
@@ -84,7 +84,7 @@ class IndexerHandler implements IndexerInterface
         SyncManagerInterface $syncManager,
         EngineResolverInterface $engineResolver,
         ScopeResolverInterface $scopeResolver,
-        $engineIdentifier = self::DEFAULT_ENGINE_IDENTIFIER,
+        string $engineIdentifier = self::DEFAULT_ENGINE_IDENTIFIER,
         $data = []
     ) {
         $this->indexStructure   = $indexStructure;
