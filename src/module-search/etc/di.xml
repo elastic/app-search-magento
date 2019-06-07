@@ -42,6 +42,22 @@
         </arguments>
     </type>
 
+    <type name="Magento\Search\Model\Adminhtml\System\Config\Source\Engine">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic App Search</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\EngineResolver">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">elastic_appsearch</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Elastic\AppSearch\Search\Model\Search">
         <arguments>
             <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
