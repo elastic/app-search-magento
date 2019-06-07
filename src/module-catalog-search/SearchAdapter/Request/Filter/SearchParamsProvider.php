@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter;
 
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 
 /**
  * Extract and build filters from the search request.

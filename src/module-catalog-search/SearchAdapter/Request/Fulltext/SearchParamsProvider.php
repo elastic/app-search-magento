@@ -14,7 +14,7 @@ use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 
 /**
  * Extract search fields from the search request.

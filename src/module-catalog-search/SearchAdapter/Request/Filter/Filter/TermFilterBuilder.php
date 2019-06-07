@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\Filter;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
 use Magento\Framework\Search\Request\FilterInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
  * Implementation of the term filter builder.

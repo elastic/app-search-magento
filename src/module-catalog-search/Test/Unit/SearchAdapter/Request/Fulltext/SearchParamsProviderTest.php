@@ -14,8 +14,8 @@ use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\SearchParamsProvider class.

@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilderInterfaceFactory;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 
 /**
  * Extract and build facets from the search request.

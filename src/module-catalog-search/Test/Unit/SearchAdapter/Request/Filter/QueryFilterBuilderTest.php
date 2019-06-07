@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request\Filter
 use Magento\Framework\Search\Request\QueryInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\QueryFilterBuilder;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\Framework\Validator\UniversalFactory;
 
 /**

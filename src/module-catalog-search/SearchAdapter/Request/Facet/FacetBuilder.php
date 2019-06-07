@@ -12,7 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet;
 
 use Magento\Framework\Search\Request\BucketInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\Framework\Search\Request\Aggregation\Range;
 
 /**

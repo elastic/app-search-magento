@@ -8,24 +8,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
-
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
+namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 
 /**
- * Field mapper implementation.
+ * Default field mapper implementation.
  *
- * @package   Elastic\Model\Adapter\Engine\Schema
+ * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
 class FieldMapper implements FieldMapperInterface
 {
     /**
-     * @var AttributeAdapterProvider
+     * @var AttributeAdapterProviderInterface
      */
-    private $attributeProvider;
+    private $attributeAdapterProvider;
 
     /**
      * @var FieldNameResolverInterface
@@ -40,16 +37,16 @@ class FieldMapper implements FieldMapperInterface
     /**
      * Constructor.
      *
-     * @param AttributeAdapterProvider   $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
-     * @param FieldTypeResolverInterface $fieldTypeResolver
+     * @param AttributeAdapterProviderInterface $attributeAdapterProvider
+     * @param FieldNameResolverInterface        $fieldNameResolver
+     * @param FieldTypeResolverInterface        $fieldTypeResolver
      */
     public function __construct(
-        AttributeAdapterProvider $attributeProvider,
+        AttributeAdapterProviderInterface $attributeAdapterProvider,
         FieldNameResolverInterface $fieldNameResolver,
         FieldTypeResolverInterface $fieldTypeResolver
     ) {
-        $this->attributeProvider = $attributeProvider;
+        $this->attributeAdapterProvider = $attributeAdapterProvider;
         $this->fieldNameResolver = $fieldNameResolver;
         $this->fieldTypeResolver = $fieldTypeResolver;
     }
@@ -72,6 +69,8 @@ class FieldMapper implements FieldMapperInterface
 
     /**
      * {@inheritDoc}
+     *
+     * TODO: field coercicion
      */
     public function mapValue($attributeCode, $value)
     {
@@ -83,10 +82,10 @@ class FieldMapper implements FieldMapperInterface
      *
      * @param string $attributeCode
      *
-     * @return AttributeAdapter
+     * @return AttributeAdapterInterface
      */
-    private function getAttribute(string $attributeCode): AttributeAdapter
+    private function getAttribute(string $attributeCode): AttributeAdapterInterface
     {
-        return $this->attributeProvider->getAttributeAdapter($attributeCode);
+        return $this->attributeAdapterProvider->getAttributeAdapter($attributeCode);
     }
 }

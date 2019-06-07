@@ -15,7 +15,7 @@ use Magento\Framework\Search\Request\QueryInterface;
 use Magento\Framework\Search\Request\FilterInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\FilterBuilderInterfaceFactory;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\FilterBuilderInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
  * Implementation of the filtered query filter builder.

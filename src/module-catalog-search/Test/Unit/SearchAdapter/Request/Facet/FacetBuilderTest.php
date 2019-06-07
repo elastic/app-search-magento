@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request\Facet;
 
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilder;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\DynamicRangeProvider;
 use Magento\Framework\Search\Request\Aggregation\TermBucket;
 use Magento\Framework\Search\Request\Aggregation\Range;

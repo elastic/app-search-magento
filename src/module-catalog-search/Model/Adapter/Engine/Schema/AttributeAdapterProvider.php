@@ -10,6 +10,8 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
 
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
 use Magento\Eav\Model\Config as EavConfig;
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
 use Magento\Eav\Api\Data\AttributeInterfaceFactory;
@@ -24,7 +26,7 @@ use Magento\Eav\Api\Data\AttributeInterface;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class AttributeAdapterProvider
+class AttributeAdapterProvider implements AttributeAdapterProviderInterface
 {
     /**
      * @var AttributeAdapter[]
@@ -76,7 +78,7 @@ class AttributeAdapterProvider
      *
      * @return AttributeAdapter
      */
-    public function getAttributeAdapter(string $attributeCode, array $attributeData = []): AttributeAdapter
+    public function getAttributeAdapter(string $attributeCode, array $attributeData = []): AttributeAdapterInterface
     {
         if (!isset($this->cachedPool[$attributeCode])) {
             $attribute = $this->getAttribute($attributeCode);

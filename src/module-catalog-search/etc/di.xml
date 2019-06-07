@@ -19,7 +19,6 @@
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManagerInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\SyncManager" />
     <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapperResolver" />
 
-    <preference for="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolver" />
     <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface" type="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver" />
 
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator" />
@@ -98,10 +97,17 @@
         </arguments>
     </virtualType>
 
-    <type name="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapperResolver">
+    <virtualType name="Elastic\AppSearch\CatalogSearch\AppSearch\Product\Engine\Field\FieldMapper" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapper">
+        <arguments>
+            <argument name="attributeAdapterProvider" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider</argument>
+            <argument name="fieldNameResolver" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolver">
         <arguments>
             <argument name="fieldMappers" xsi:type="array">
-                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldMapper</item>
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\AppSearch\Product\Engine\Field\FieldMapper</item>
             </argument>
         </arguments>
     </type>
