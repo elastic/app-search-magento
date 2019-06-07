@@ -10,9 +10,10 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response;
 
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolverInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 
 /**
  * Apply rescorers to the search response.
@@ -21,7 +22,7 @@ use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class RescorerProcessor implements ProcessorInterface
+class RescorerProcessor implements ResponseProcessorInterface
 {
     /**
      * @var RescorerResolverInterface

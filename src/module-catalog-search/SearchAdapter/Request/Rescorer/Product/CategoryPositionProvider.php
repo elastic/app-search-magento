@@ -11,18 +11,18 @@
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product;
 
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\App\ScopeResolverInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Search\Request\IndexScopeResolverInterface as TableResolver;
 use Magento\Framework\Search\Request\Dimension;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 
 /**
  * List of product that are manually positionned for the current searched category.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\PositionedDocuments
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\PositionedDocuments
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

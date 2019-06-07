@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Page;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
 
 /**

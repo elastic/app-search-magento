@@ -17,6 +17,7 @@ use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Catalog\Model\Layer\Filter\Dynamic\AlgorithmFactory;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Convert search criteria into search request.
@@ -45,20 +46,28 @@ class RequestBuilder
     private $scopeConfig;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * Constructor.
      *
      * @param Builder                $requestBuilder
      * @param ScopeResolverInterface $scopeResolver
      * @param ScopeConfigInterface   $scopeConfig;
+     * @param StoreManagerInterface  $storeManager
      */
     public function __construct(
         Builder $requestBuilder,
         ScopeResolverInterface $scopeResolver,
-        ScopeConfigInterface $scopeConfig
+        ScopeConfigInterface $scopeConfig,
+        StoreManagerInterface $storeManager
     ) {
         $this->requestBuilder = $requestBuilder;
         $this->scopeResolver  = $scopeResolver;
         $this->scopeConfig    = $scopeConfig;
+        $this->storeManager   = $storeManager;
     }
 
     /**
@@ -97,8 +106,13 @@ class RequestBuilder
      */
     private function addDimensions()
     {
-        $scope = $this->scopeResolver->getScope()->getId();
-        $this->requestBuilder->bindDimension('scope', $scope);
+        $scopeId = $this->scopeResolver->getScope()->getId();
+
+        if ($scopeId == 0) {
+            $scopeId = $this->storeManager->getDefaultStoreView()->getId();
+        }
+
+        $this->requestBuilder->bindDimension('scope', $scopeId);
     }
 
     /**

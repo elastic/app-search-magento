@@ -16,14 +16,14 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator" />
-    <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProvider" />
-    <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvider" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolver" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\QueryFilterBuilder" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\FilterBuilderInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Filter\FilterBuilder" />
     <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilderInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilder" />
-    <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Processor" />
-    <preference for="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolverInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Processor" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolver" />
 
     <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
         <arguments>
@@ -118,7 +118,7 @@
         </arguments>
     </type>
 
-    <virtualType name="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator\CategoryFilter" type="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator">
+    <virtualType name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator\CategoryFilter" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator">
         <arguments>
           <argument name="queryName" xsi:type="string">category</argument>
         </arguments>
@@ -126,11 +126,11 @@
 
     <type name="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product\CategoryPositionProvider">
         <arguments>
-          <argument name="queryLocator" xsi:type="object">Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator\CategoryFilter</argument>
+          <argument name="queryLocator" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator\CategoryFilter</argument>
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProvider">
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
                 <item name="page" xsi:type="object">Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Page\SearchParamsProvider</item>

@@ -8,18 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Magento\Framework\App\ScopeResolverInterface;
-use Magento\Store\Model\StoreManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 
 /**
  * Resolve search request engine.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -36,25 +35,15 @@ class EngineResolver
     private $scopeResolver;
 
     /**
-     * @var StoreManagerInterface
-     */
-    private $storeManager;
-
-    /**
      * Constructor.
      *
-     * @param EngineResolverInterface       $engineResolver
-     * @param ScopeResolverInterface        $scopeResolver
-     * @param StoreManagerInterface         $storeManager
+     * @param EngineResolverInterface $engineResolver
+     * @param ScopeResolverInterface  $scopeResolver
      */
-    public function __construct(
-        EngineResolverInterface $engineResolver,
-        ScopeResolverInterface $scopeResolver,
-        StoreManagerInterface $storeManager
-    ) {
+    public function __construct(EngineResolverInterface $engineResolver, ScopeResolverInterface $scopeResolver)
+    {
         $this->engineResolver = $engineResolver;
         $this->scopeResolver  = $scopeResolver;
-        $this->storeManager   = $storeManager;
     }
 
     /**
@@ -66,25 +55,20 @@ class EngineResolver
      */
     public function getEngine(RequestInterface $request): EngineInterface
     {
-        return $this->engineResolver->getEngine($request->getIndex(), $this->getStoreId($request));
+        return $this->engineResolver->getEngine($request->getIndex(), $this->getScopeId($request));
     }
 
     /**
-     * Resolve store id from the search request.
+     * Resolve scope id from the search request.
      *
      * @param RequestInterface $request
      *
      * @return int
      */
-    private function getStoreId(RequestInterface $request): int
+    private function getScopeId(RequestInterface $request): int
     {
         $dimension = current($request->getDimensions());
-        $storeId   = $this->scopeResolver->getScope($dimension->getValue())->getId();
 
-        if ($storeId == 0) {
-            $storeId = $this->storeManager->getDefaultStoreView()->getId();
-        }
-
-        return $storeId;
+        return $this->scopeResolver->getScope($dimension->getValue())->getId();
     }
 }

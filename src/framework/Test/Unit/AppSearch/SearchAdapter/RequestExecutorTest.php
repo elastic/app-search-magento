@@ -10,16 +10,16 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client as AppSearchClient;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolverInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor class.
@@ -175,7 +175,7 @@ class RequestExecutorTest extends \PHPUnit\Framework\TestCase
      */
     private function getResponseProcessor()
     {
-        $responseProcessor = $this->createMock(ProcessorInterface::class);
+        $responseProcessor = $this->createMock(ResponseProcessorInterface::class);
         $responseProcessor->expects($this->once())->method('process')->will($this->returnArgument(1));
 
         return $responseProcessor;

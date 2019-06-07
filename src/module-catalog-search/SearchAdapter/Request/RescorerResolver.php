@@ -10,6 +10,8 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request;
 
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
 
 /**

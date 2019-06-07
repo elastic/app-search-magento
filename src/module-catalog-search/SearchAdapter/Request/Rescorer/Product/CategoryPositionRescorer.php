@@ -10,14 +10,14 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\ResultSorter;
 
 /**
  * Rescore top 100 positioned products for the current searched category.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\PositionedDocuments
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\PositionedDocuments
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

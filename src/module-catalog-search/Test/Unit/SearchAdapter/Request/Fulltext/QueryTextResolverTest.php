@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request\Fullte
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolver;
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface;
 
 /**
  * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolver class.

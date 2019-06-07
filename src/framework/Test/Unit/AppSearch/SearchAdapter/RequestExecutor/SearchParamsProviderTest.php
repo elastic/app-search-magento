@@ -8,20 +8,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProvider;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvider;
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProvider class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvide class.
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

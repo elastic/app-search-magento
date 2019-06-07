@@ -10,6 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response;
 
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 use Magento\Framework\Search\RequestInterface;
 
 /**
@@ -19,7 +20,7 @@ use Magento\Framework\Search\RequestInterface;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class Processor implements ProcessorInterface
+class Processor implements ResponseProcessorInterface
 {
     /**
      * @var ProcessorInterface[]

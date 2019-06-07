@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Facet\FacetBuilderInterfaceFactory;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;

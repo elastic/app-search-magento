@@ -10,14 +10,14 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\RescorerInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Analytics\SearchParamsProvider as AnalyticsSearchParams;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Page\SearchParamsProvider as PageSearchParams;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface;
 
 /**
  * Ensure score is consistent with the document positions.
@@ -25,7 +25,7 @@ use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextReso
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

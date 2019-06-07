@@ -8,20 +8,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter;
 
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext\QueryTextResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\EngineResolver;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\ProcessorInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 
 /**
  * Run the search request against the engine.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -55,18 +55,18 @@ class RequestExecutor
     /**
      * Constructor.
      *
-     * @param ConnectionManagerInterface             $connectionManager
+     * @param ConnectionManagerInterface    $connectionManager
      * @param EngineResolver                $engineResolver
      * @param SearchParamsProviderInterface $searchParamsProvider
      * @param QueryTextResolverInterface    $queryTextResolver
-     * @param ProcessorInterface            $responseProcessor
+     * @param ResponseProcessorInterface    $responseProcessor
      */
     public function __construct(
         ConnectionManagerInterface $connectionManager,
         EngineResolver $engineResolver,
         SearchParamsProviderInterface $searchParamsProvider,
         QueryTextResolverInterface $queryTextResolver,
-        ProcessorInterface $responseProcessor
+        ResponseProcessorInterface $responseProcessor
     ) {
         $this->client               = $connectionManager->getClient();
         $this->engineResolver       = $engineResolver;

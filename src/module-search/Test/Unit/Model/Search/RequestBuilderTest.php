@@ -56,8 +56,12 @@ class RequestBuilderTest extends \PHPUnit\Framework\TestCase
         $scopeResolver = $this->createMock(\Magento\Framework\App\ScopeResolverInterface::class);
         $scopeResolver->expects($this->once())->method('getScope')->willReturn($scope);
 
-        $scopeConfig   = $this->createMock(\Magento\Framework\App\Config\ScopeConfigInterface::class);
+        $scopeConfig = $this->createMock(\Magento\Framework\App\Config\ScopeConfigInterface::class);
 
-        return new RequestBuilder($builder, $scopeResolver, $scopeConfig);
+        $defaultStore = $this->createMock(\Magento\Store\Api\Data\StoreInterface::class);
+        $storeManager = $this->createMock(\Magento\Store\Model\StoreManagerInterface::class);
+        $storeManager->expects($this->once())->method('getDefaultStoreView')->willReturn($defaultStore);
+
+        return new RequestBuilder($builder, $scopeResolver, $scopeConfig, $storeManager);
     }
 }

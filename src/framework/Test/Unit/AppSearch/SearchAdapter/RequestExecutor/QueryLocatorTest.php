@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocator class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Request
+ * @package   namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

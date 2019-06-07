@@ -11,15 +11,15 @@
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext;
 
 use Magento\Framework\Search\RequestInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\SearchParamsProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\QueryLocatorInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 
 /**
  * Extract search fields from the search request.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Fulltext
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

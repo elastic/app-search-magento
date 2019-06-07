@@ -12,6 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
 
 use Magento\Framework\Search\AdapterInterface;
 use Magento\Framework\Search\RequestInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 
 /**
  * AppSearch search adapter implementation.

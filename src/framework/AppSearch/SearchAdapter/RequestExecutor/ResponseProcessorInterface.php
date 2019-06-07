@@ -8,25 +8,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 
 use Magento\Framework\Search\RequestInterface;
 
 /**
- * Retrieve AppSearch search request params.
+ * Modify the search App Search response to make it more easy to consume by the response builder.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-interface SearchParamsProviderInterface
+interface ResponseProcessorInterface
 {
     /**
-     * Transform search request into a search param array.
+     * Process response.
      *
      * @param RequestInterface $request
+     * @param array            $response
      *
      * @return array
      */
-    public function getParams(RequestInterface $request): array;
+    public function process(RequestInterface $request, array $response): array;
 }

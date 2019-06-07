@@ -8,25 +8,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext;
 
 use Magento\Framework\Search\RequestInterface;
 
 /**
- * Retrieve rescorer for a request.
+ * Extract searched text from the search request.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-interface RescorerResolverInterface
+interface QueryTextResolverInterface
 {
     /**
-     * Get rescorer for a search request.
+     * Return searched text extracted from the request.
      *
      * @param RequestInterface $request
      *
-     * @return RescorerInterface
+     * @return string
      */
-    public function getRescorer(RequestInterface $request): RescorerInterface;
+    public function getText(RequestInterface $request): string;
 }

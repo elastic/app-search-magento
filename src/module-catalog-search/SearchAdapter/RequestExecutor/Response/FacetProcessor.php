@@ -10,6 +10,7 @@
 
 namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response;
 
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\BucketInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Facet\AlgorithmInterface;
@@ -23,7 +24,7 @@ use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Facet
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class FacetProcessor implements ProcessorInterface
+class FacetProcessor implements ResponseProcessorInterface
 {
     /**
      * @var AlgorithmInterface[]

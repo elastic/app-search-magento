@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
@@ -16,7 +16,7 @@ use Magento\Framework\Search\Request\QueryInterface;
 /**
  * Fulltext search query locator implementation.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Request
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
