@@ -85,7 +85,7 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
     ) {
         $expectedBatchCount = intval($docCount / $batchSize) * $countEngine;
 
-        $syncManager = $this->getSyncManager($batchSize, $client = $this->getClientMock($expectedBatchCount));
+        $syncManager = $this->getSyncManager($batchSize, $this->getClientMock($expectedBatchCount));
 
         for ($i = 0; $i < $countEngine; $i++) {
             $docs   = $docSource(1, $docCount);
