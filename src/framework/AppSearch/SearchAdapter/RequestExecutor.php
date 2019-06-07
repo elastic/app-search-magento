@@ -48,7 +48,7 @@ class RequestExecutor
     private $queryTextResolver;
 
     /**
-     * @var ProcessorInterface
+     * @var ResponseProcessorInterface
      */
     private $responseProcessor;
 
