@@ -42,6 +42,14 @@
         </arguments>
     </type>
 
+    <type name="Magento\Search\Model\AdapterFactory">
+        <arguments>
+            <argument name="adapters" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\Framework\AppSearch\SearchAdapter</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Magento\Search\Model\Adminhtml\System\Config\Source\Engine">
         <arguments>
             <argument name="engines" xsi:type="array">

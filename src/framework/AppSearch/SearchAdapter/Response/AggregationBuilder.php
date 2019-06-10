@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Response;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response;
 
 use Magento\Framework\Api\Search\AggregationInterface;
 use Magento\Framework\Search\Response\AggregationFactory;
@@ -16,12 +16,11 @@ use Magento\Framework\Api\Search\BucketInterface;
 use Magento\Framework\Search\Response\BucketFactory;
 use Magento\Framework\Search\Response\Aggregation\ValueFactory as AggregationValueFactory;
 use Magento\Framework\Search\Response\Aggregation\Value as AggregationValue;
-use Magento\CatalogSearch\Model\Search\RequestGenerator;
 
 /**
  * Build response aggregation from the App Search response.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Response
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -72,13 +71,10 @@ class AggregationBuilder
     {
         $buckets = [];
 
-        foreach ($rawResponse['facets'] as $bucketName => $facetData) {
+        foreach ($rawResponse['facets'] ?? [] as $bucketName => $facetData) {
             $bucketData = ['name' => $bucketName, 'values' => $this->getAggregationValues($facetData)];
             $buckets[$bucketName] = $this->bucketFactory->create($bucketData);
         }
-
-        $metaBucket = $this->getResultCountBucket($rawResponse);
-        $buckets[$metaBucket->getName()] = $metaBucket;
 
         return $this->aggregationFactory->create(['buckets' => $buckets]);
     }
@@ -100,20 +96,5 @@ class AggregationBuilder
         }
 
         return $values;
-    }
-
-    /**
-     * Temporary fix to allow having search results count available through aggregations.
-     *
-     * @return BucketInterface
-     */
-    private function getResultCountBucket(array $rawResponse): BucketInterface
-    {
-        $docCounts = (int) $rawResponse['meta']['page']['total_results'];
-
-        $valueData = ['value' => 'docs', 'metrics' => ['value' => 'docs', 'count' => $docCounts]];
-        $values = [$this->aggregationValueFactory->create($valueData)];
-
-        return $this->bucketFactory->create(['name' => '_meta' . RequestGenerator::BUCKET_SUFFIX, 'values' => $values]);
     }
 }

@@ -14,6 +14,8 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Response
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\BucketInterface;
 use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Facet\AlgorithmInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver;
+use Magento\CatalogSearch\Model\Search\RequestGenerator;
 
 /**
  * Process facet from the App Search response.
@@ -27,6 +29,11 @@ use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Facet
 class FacetProcessor implements ResponseProcessorInterface
 {
     /**
+     * @var DocumentCountResolver
+     */
+    private $documentCountResolver;
+
+    /**
      * @var AlgorithmInterface[]
      */
     private $algorithms;
@@ -34,11 +41,13 @@ class FacetProcessor implements ResponseProcessorInterface
     /**
      * Constructor.
      *
-     * @param AlgorithmInterface[] $algorithms
+     * @param DocumentCountResolver $documentCountResolver
+     * @param AlgorithmInterface[]  $algorithms
      */
-    public function __construct(array $algorithms)
+    public function __construct(DocumentCountResolver $documentCountResolver, array $algorithms)
     {
-        $this->algorithms = $algorithms;
+        $this->documentCountResolver = $documentCountResolver;
+        $this->algorithms            = $algorithms;
     }
 
     /**
@@ -46,7 +55,10 @@ class FacetProcessor implements ResponseProcessorInterface
      */
     public function process(RequestInterface $request, array $response): array
     {
-        $response['facets'] = $this->parseFacets($request, $response['facets'] ?? []);
+        $response['facets'] = array_merge(
+            $this->parseFacets($request, $response['facets'] ?? []),
+            $this->getDocumentCountFacet($response)
+        );
 
         return $response;
     }
@@ -149,5 +161,22 @@ class FacetProcessor implements ResponseProcessorInterface
         }
 
         return $data;
+    }
+
+    /**
+     * Temporary fix to allow having search results count available through aggregations.
+     *
+     * @deprecated
+     *
+     * @param array $reponse
+     *
+     * @return array
+     */
+    private function getDocumentCountFacet(array $response): array
+    {
+        $docCounts = $this->documentCountResolver->getDocumentCount($response);
+        $facetName = '_meta' . RequestGenerator::BUCKET_SUFFIX;
+
+        return [$facetName => [['value' => 'docs', 'count' => $docCounts]]];
     }
 }

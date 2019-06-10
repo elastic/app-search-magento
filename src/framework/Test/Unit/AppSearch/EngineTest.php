@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch;
 use Elastic\AppSearch\Framework\AppSearch\Engine;
 
 /**
- * Unit test for theElastic\AppSearch\Framework\AppSearch\Engine class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic

@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Response;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response;
 
 /**
  * Retrieve document count from the App Search response
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Response
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

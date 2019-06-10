@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Response;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response;
 
 use Magento\Framework\Api\Search\DocumentFactory as BaseDocumentFactory;
 use Magento\Framework\Api\AttributeValueFactory;
@@ -18,7 +18,7 @@ use Magento\Framework\Api\CustomAttributesDataInterface;
 /**
  * App Search search adapter response document factory.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\Response
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -57,7 +57,7 @@ class DocumentFactory
      */
     public function create(array $rawDocument): DocumentInterface
     {
-        $documentId    = $rawDocument['entity_id']['raw'];
+        $documentId    = (string) $rawDocument['id']['raw'];
         $documentScore = (float) $rawDocument['_meta']['score'];
 
         $attributes = [

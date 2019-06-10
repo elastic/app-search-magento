@@ -8,20 +8,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
+namespace Elastic\AppSearch\Framework\AppSearch;
 
 use Magento\Framework\Search\AdapterInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\ResponseBuilder;
 
 /**
  * AppSearch search adapter implementation.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter
+ * @package   Elastic\AppSearch\Framework\AppSearch
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class Adapter implements AdapterInterface
+class SearchAdapter implements AdapterInterface
 {
     /**
      * @var RequestExecutor

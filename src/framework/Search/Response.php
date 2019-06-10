@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
+namespace Elastic\AppSearch\Framework\Search;
 
 use Magento\Framework\Search\Response\QueryResponse;
 use Magento\Framework\Api\Search\AggregationInterface;
@@ -16,7 +16,7 @@ use Magento\Framework\Api\Search\AggregationInterface;
 /**
  * AppSearch search adapter response implementation.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

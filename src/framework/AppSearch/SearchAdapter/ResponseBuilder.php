@@ -8,17 +8,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter;
+namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter;
 
 use Magento\Framework\Search\ResponseInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Response\DocumentFactory;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Response\AggregationBuilder;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Response\DocumentCountResolver;
+use Elastic\AppSearch\Framework\Search\ResponseFactory;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentFactory;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\AggregationBuilder;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver;
 
 /**
  * AppSearch search adapter response factory implementation.
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

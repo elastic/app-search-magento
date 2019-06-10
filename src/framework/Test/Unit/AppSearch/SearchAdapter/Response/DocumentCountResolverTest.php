@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Response;
+namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\Response;
 
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\Response\DocumentCountResolver;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\SearchAdapter\Response\DocumentCountResolver class.
+ * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\SearchAdapter\Response
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

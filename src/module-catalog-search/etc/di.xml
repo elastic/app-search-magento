@@ -33,14 +33,6 @@
         </arguments>
     </type>
 
-    <type name="Magento\Search\Model\AdapterFactory">
-        <arguments>
-            <argument name="adapters" xsi:type="array">
-                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\CatalogSearch\SearchAdapter\Adapter</item>
-            </argument>
-        </arguments>
-    </type>
-
     <type name="Magento\CatalogSearch\Model\Indexer\IndexerHandlerFactory">
         <arguments>
             <argument name="handlers" xsi:type="array">
