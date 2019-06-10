@@ -13,16 +13,15 @@ namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fa
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\BucketInterface;
-use Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response\Facet\AlgorithmInterface;
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\Dynamic\AlgorithmInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver;
-use Magento\CatalogSearch\Model\Search\RequestGenerator;
 
 /**
  * Process facet from the App Search response.
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
- * @package   Elastic\AppSearch\CatalogSearch\SearchAdapter\RequestExecutor\Response
+ * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -39,15 +38,23 @@ class ResponseProcessor implements ResponseProcessorInterface
     private $algorithms;
 
     /**
+     * @var string
+     */
+    private $facetSuffix;
+
+    /**
      * Constructor.
+     *
+     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param DocumentCountResolver $documentCountResolver
      * @param AlgorithmInterface[]  $algorithms
      */
-    public function __construct(DocumentCountResolver $documentCountResolver, array $algorithms)
+    public function __construct(DocumentCountResolver $documentCountResolver, array $algorithms, string $facetSuffix = '')
     {
         $this->documentCountResolver = $documentCountResolver;
         $this->algorithms            = $algorithms;
+        $this->facetSuffix           = $facetSuffix;
     }
 
     /**
@@ -175,7 +182,7 @@ class ResponseProcessor implements ResponseProcessorInterface
     private function getDocumentCountFacet(array $response): array
     {
         $docCounts = $this->documentCountResolver->getDocumentCount($response);
-        $facetName = '_meta' . RequestGenerator::BUCKET_SUFFIX;
+        $facetName = '_meta' . $this->facetSuffix;
 
         return [$facetName => [['value' => 'docs', 'count' => $docCounts]]];
     }

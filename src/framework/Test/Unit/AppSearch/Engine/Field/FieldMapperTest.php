@@ -20,6 +20,8 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterfac
 /**
  * Unit test for the FieldMapper class.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0

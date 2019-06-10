@@ -99,7 +99,7 @@ class CategoryPositionRescorer implements RescorerInterface
 
     private function getSortDirection(RequestInterface $request): string
     {
-        return $request->getSize() && count($request->getSort()) < 1 ? 'DESC' : current($request->getSort())->getDirection();
+        return count($request->getSort()) < 1 ? 'DESC' : current($request->getSort())->getDirection();
     }
 
     private function getPositionedDocuments(RequestInterface $request): array

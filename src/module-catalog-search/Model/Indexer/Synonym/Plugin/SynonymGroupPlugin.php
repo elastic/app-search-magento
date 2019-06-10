@@ -12,6 +12,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Plugin;
 
 use Magento\Search\Model\ResourceModel\SynonymGroup as SynonymGroupResourceModel;
 use Magento\Framework\Indexer\IndexerRegistry;
+use Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Indexer;
 
 /**
  * Invalidate the index when a change occurs in synonyms groups.
@@ -76,7 +77,7 @@ class SynonymGroupPlugin
      */
     private function invalidateIndex()
     {
-        $indexer = $this->indexerRegistry->get(\Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Indexer::INDEXER_ID);
+        $indexer = $this->indexerRegistry->get(Indexer::INDEXER_ID);
         $indexer->invalidate();
     }
 }

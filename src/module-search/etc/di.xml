@@ -107,6 +107,7 @@
             <argument name="algorithms" xsi:type="array">
                 <item name="auto" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\Dynamic\Algorithm\Auto</item>
             </argument>
+            <argument name="facetSuffix" xsi:type="const">Magento\CatalogSearch\Model\Search\RequestGenerator::BUCKET_SUFFIX</argument>
         </arguments>
     </type>
 

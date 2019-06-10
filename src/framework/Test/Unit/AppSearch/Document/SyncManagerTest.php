@@ -20,6 +20,8 @@ use Swiftype\AppSearch\Client;
 /**
  * Unit test for the SyncManager class.
  *
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -106,6 +108,8 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * Sync manager used during tests.
      *
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
      * @param int    $batchSize
      * @param Client $client
      *
@@ -158,8 +162,8 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
     private function getAddedDocuments(int $startIndex, int $lastIndex)
     {
         $docs = array_map(
-            function ($id) {
-                return ['id' => $id];
+            function ($docId) {
+                return ['id' => $docId];
             },
             range($startIndex, $lastIndex)
         );

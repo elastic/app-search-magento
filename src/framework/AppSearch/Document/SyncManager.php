@@ -18,8 +18,6 @@ use Elastic\AppSearch\Framework\AppSearch\Client;
 /**
  * Implementation of the sync manager component.
  *
- * @SuppressWarnings(PHPMD.LongVariable)
- *
  * @package   Elastic\AppSearch\Framework\AppSearch\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -58,6 +56,8 @@ class SyncManager implements SyncManagerInterface
 
     /**
      * Constructor.
+     *
+     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param BatchDataMapperResolverInterface $batchDataMapperResolver
      * @param ConnectionManagerInterface       $connectionManager
@@ -103,7 +103,7 @@ class SyncManager implements SyncManagerInterface
         foreach ($this->batch->getItems($documents, $this->batchSize) as $entityIds) {
             $documents = array_map(
                 function ($docId) {
-                    return ["id" => $docId, "deleted" => true];
+                    return ['id' => $docId, 'deleted' => true];
                 },
                 $entityIds
             );

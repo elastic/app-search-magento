@@ -37,6 +37,8 @@ class FieldMapper implements FieldMapperInterface
     /**
      * Constructor.
      *
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
      * @param AttributeAdapterProviderInterface $attributeAdapterProvider
      * @param FieldNameResolverInterface        $fieldNameResolver
      * @param FieldTypeResolverInterface        $fieldTypeResolver

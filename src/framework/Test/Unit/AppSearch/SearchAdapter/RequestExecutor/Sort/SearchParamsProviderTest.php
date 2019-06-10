@@ -67,7 +67,7 @@ class SearchParamsProviderTest extends \PHPUnit\Framework\TestCase
           ],
           [
             $this->getRequest(
-              [$this->getSortOrder('foo', SortOrder::SORT_ASC), $this->getSortOrder('bar', SortOrder::SORT_ASC)]
+                [$this->getSortOrder('foo', SortOrder::SORT_ASC), $this->getSortOrder('bar', SortOrder::SORT_ASC)]
             ),
             ['sort' => [['foo' => 'asc'], ['bar' => 'asc']]],
           ],

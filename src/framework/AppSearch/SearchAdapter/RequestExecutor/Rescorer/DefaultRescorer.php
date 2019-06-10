@@ -15,8 +15,10 @@ use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Swiftype\AppSearch\Client;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
-use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Analytics\SearchParamsProvider as AnalyticsSearchParams;
-use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Page\SearchParamsProvider as PageSearchParams;
+// phpcs:disable
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Analytics\SearchParamsProvider as AnalytcisParams;
+// phpcs:enable
+use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Page\SearchParamsProvider as PageParams;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface;
 
 /**
@@ -178,11 +180,11 @@ class DefaultRescorer implements RescorerInterface
     {
         $engineName   = $this->engineResolver->getEngine($request)->getName();
         $searchParams = [
-          PageSearchParams::PAGE_PARAM_NAME => [
-            PageSearchParams::PAGE_SIZE_PARAM_NAME => PageSearchParams::MAX_PAGE_SIZE
+          PageParams::PAGE_PARAM_NAME => [
+            PageParams::PAGE_SIZE_PARAM_NAME => PageParams::MAX_PAGE_SIZE
           ],
-          AnalyticsSearchParams::ANALYTICS_PARAM_NAME => [
-            AnalyticsSearchParams::TAGS_PARAM_NAME => [self::ANALYTICS_TAG]
+          AnalytcisParams::ANALYTICS_PARAM_NAME => [
+            AnalytcisParams::TAGS_PARAM_NAME => [self::ANALYTICS_TAG]
           ],
         ];
 

@@ -71,6 +71,8 @@ class SearchTest extends \PHPUnit\Framework\TestCase
     /**
      * Mock the search response builder used during test.
      *
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
      * @return SearchResponseBuilder
      */
     private function getResponseBuilder()
