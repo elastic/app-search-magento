@@ -25,7 +25,7 @@ use Magento\Framework\Filter\TranslitUrl;
 class EngineNameResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Test expected engine name for catalogsearch fulltext engine..
+     * Test expected engine name for an engine..
      */
     public function testLanguage()
     {
@@ -34,9 +34,9 @@ class EngineNameResolverTest extends \PHPUnit\Framework\TestCase
 
         $engineNameResolver = new EngineNameResolver($scopeConfig, $this->getFilterManager());
 
-        $engineName = $engineNameResolver->getEngineName('catalogsearch_fulltext', 1);
+        $engineName = $engineNameResolver->getEngineName('index_identifier', 1);
 
-        $this->assertEquals('engine-prefix-catalogsearch-fulltext-1', $engineName);
+        $this->assertEquals('engine-prefix-index-identifier-1', $engineName);
     }
 
     /**

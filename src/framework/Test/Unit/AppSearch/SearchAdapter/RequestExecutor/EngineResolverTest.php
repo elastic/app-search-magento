@@ -15,7 +15,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineRe
 /**
  * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver class.
  *
- * @package   namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor
+ * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */
