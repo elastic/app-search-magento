@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestE
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver class.
+ * Unit test for the EngineResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic

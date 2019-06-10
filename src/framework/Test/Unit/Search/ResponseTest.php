@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\Search\Response;
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\Search\Response class.
+ * Unit test for the Response class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\Search
  * @copyright 2019 Elastic

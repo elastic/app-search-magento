@@ -18,7 +18,7 @@ use Magento\Framework\Search\SearchEngineInterface;
 use Magento\Framework\Api\Search\SearchResultInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Search\Model\Search class.
+ * Unit test for the Search class.
  *
  * @package   Elastic\AppSearch\Search\Test\Unit\Model
  * @copyright 2019 Elastic

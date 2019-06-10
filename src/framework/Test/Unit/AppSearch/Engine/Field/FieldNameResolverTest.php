@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver class.
+ * Unit test for the FieldNameResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\\Field
  * @copyright 2019 Elastic

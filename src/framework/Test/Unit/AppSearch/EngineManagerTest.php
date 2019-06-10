@@ -19,7 +19,7 @@ use Swiftype\Exception\NotFoundException;
 use Swiftype\Exception\ConnectionException;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\EngineManager class.
+ * Unit test for the EngineManager class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic

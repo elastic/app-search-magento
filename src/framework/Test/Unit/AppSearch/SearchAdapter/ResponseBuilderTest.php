@@ -17,7 +17,7 @@ use Magento\Framework\Api\Search\AggregationInterface;
 use Magento\Framework\Api\Search\DocumentInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\ResponseBuilder class.
+ * Unit test for the ResponseBuilder class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter
  * @copyright 2019 Elastic

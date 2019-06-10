@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\Schema class.
+ * Unit test for the Schema class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine
  * @copyright 2019 Elastic

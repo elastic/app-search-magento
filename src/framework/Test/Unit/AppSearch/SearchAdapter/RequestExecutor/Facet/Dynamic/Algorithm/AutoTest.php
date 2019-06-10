@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestE
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\Dynamic\Algorithm\Auto;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\Dynamic\Algorithm\Auto class.
+ * Unit test for the Auto class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Facet\Dynamic\Algorithm
  * @copyright 2019 Elastic

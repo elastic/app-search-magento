@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\Response
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountResolver class.
+ * Unit test for the DocumentCountResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic

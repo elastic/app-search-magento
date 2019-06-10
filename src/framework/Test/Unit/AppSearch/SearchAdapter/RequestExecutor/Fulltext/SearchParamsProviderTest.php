@@ -18,7 +18,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterf
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\SearchParamsProvider class.
+ * Unit test for the SearchParamsProvider class.
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *

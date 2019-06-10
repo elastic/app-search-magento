@@ -16,7 +16,7 @@ use Magento\Framework\Search\Request\Aggregation\Range;
 use Magento\Framework\Search\Request\Aggregation\RangeFactory;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\DynamicRangeProvider class.
+ * Unit test for the DynamicRangeProvider class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Facet
  * @copyright 2019 Elastic

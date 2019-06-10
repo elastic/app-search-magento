@@ -17,7 +17,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\ResponseBuilder;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter class.
+ * Unit test for the SearchAdapter class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic

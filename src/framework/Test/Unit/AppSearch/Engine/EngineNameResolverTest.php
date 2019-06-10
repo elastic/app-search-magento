@@ -16,7 +16,7 @@ use Magento\Framework\Filter\FilterManager;
 use Magento\Framework\Filter\TranslitUrl;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\EngineNameResolver class.
+ * Unit test for the EngineNameResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine
  * @copyright 2019 Elastic

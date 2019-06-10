@@ -16,7 +16,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Module\ModuleListInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Client\ClientConfiguration class.
+ * Unit test for the ClientConfiguration class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client
  * @copyright 2019 Elastic

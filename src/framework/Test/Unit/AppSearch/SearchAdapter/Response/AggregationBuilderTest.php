@@ -20,7 +20,7 @@ use Magento\Framework\Search\Response\Bucket;
 use Magento\Framework\Search\Response\Aggregation\Value as AggregationValue;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\AggregationBuilder class.
+ * Unit test for the AggregationBuilder class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic

@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Analytic
 use Magento\Framework\Search\RequestInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Analytics\SearchParamsProvider class.
+ * Unit test for the SearchParamsProvider class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Analytics
  * @copyright 2019 Elastic

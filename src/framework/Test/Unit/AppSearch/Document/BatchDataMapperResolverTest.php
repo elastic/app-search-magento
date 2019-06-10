@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver;
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver class.
+ * Unit test for the BatchDataMapperResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Document
  * @copyright 2019 Elastic

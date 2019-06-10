@@ -17,7 +17,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder as SchemaBuilder
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\CompositeSchemaProvider;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\Schema\CompositeSchemaProvider class.
+ * Unit test for the CompositeSchemaProvider class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\Schema
  * @copyright 2019 Elastic

@@ -22,7 +22,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor class.
+ * Unit test for the RequestExecutor class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter
  * @copyright 2019 Elastic

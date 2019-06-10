@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder as SchemaBuilder
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder class.
+ * Unit test for the Builder class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\Schema
  * @copyright 2019 Elastic

@@ -15,7 +15,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver class.
+ * Unit test for the SchemaResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine
  * @copyright 2019 Elastic

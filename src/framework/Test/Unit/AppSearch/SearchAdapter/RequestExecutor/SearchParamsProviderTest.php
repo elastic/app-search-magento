@@ -17,7 +17,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvide class.
+ * Unit test for the SearchParamsProvide class.
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *

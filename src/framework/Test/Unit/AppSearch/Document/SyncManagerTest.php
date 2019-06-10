@@ -18,7 +18,7 @@ use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Swiftype\AppSearch\Client;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Document\SyncManager class.
+ * Unit test for the SyncManager class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Document
  * @copyright 2019 Elastic

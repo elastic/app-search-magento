@@ -16,7 +16,7 @@ use Magento\Eav\Api\Data\AttributeInterface;
 use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider class.
+ * Unit test for the AttributeAdapterProvider class.
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  *

@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 use Swiftype\AppSearch\Client;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManager class.
+ * Unit test for the ConnectionManager class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client
  * @copyright 2019 Elastic

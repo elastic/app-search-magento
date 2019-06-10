@@ -15,7 +15,7 @@ use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Search\Model\Search\RequestBuilder class.
+ * Unit test for the RequestBuilder class.
  *
  * @package   Elastic\AppSearch\Search\Test\Unit\Model\Search
  * @copyright 2019 Elastic

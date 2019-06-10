@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolver;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolver class.
+ * Unit test for the FieldMapperResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine\\Field
  * @copyright 2019 Elastic

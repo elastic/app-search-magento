@@ -14,7 +14,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver class.
+ * Unit test for the LanguageResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\Engine
  * @copyright 2019 Elastic

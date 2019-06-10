@@ -17,7 +17,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\Framework\Validator\UniversalFactory;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilterBuilder class.
+ * Unit test for the QueryFilterBuilder class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Filter
  * @copyright 2019 Elastic

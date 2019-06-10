@@ -19,7 +19,7 @@ use Magento\Framework\Search\Request\Aggregation\RangeBucket;
 use Magento\Framework\Search\Request\Aggregation\DynamicBucket;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\FacetBuilderTest class.
+ * Unit test for the FacetBuilderTest class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Facet
  * @copyright 2019 Elastic

@@ -16,7 +16,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\EngineNameResolver;
 use Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\EngineResolver class.
+ * Unit test for the EngineResolver class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch
  * @copyright 2019 Elastic

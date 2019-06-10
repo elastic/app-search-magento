@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Page\Sea
 use Magento\Framework\Search\RequestInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Page\SearchParamsProvider class.
+ * Unit test for the SearchParamsProvider class.
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *

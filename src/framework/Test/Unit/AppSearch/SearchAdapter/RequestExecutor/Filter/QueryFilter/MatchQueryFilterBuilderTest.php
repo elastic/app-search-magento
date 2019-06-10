@@ -14,7 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\Q
 use Magento\Framework\Search\Request\QueryInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter\MatchQueryFilterBuilder class.
+ * Unit test for the MatchQueryFilterBuilder class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter
  * @copyright 2019 Elastic

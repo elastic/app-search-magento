@@ -18,7 +18,7 @@ use Magento\Framework\Search\Request\Query\Filter as FilteredQuery;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter\BoolQueryFilterBuilder class.
+ * Unit test for the BoolQueryFilterBuilder class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter
  * @copyright 2019 Elastic

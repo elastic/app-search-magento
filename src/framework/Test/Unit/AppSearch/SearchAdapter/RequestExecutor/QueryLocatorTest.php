@@ -15,7 +15,7 @@ use Magento\Framework\Search\Request\QueryInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator class.
+ * Unit test for the QueryLocator class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic

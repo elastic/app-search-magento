@@ -17,7 +17,7 @@ use Magento\Framework\Api\AttributeValue;
 use Magento\Framework\Api\Search\Document;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentFactory class.
+ * Unit test for the DocumentFactory class.
  *
  * @package   Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic

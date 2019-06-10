@@ -16,7 +16,7 @@ use Magento\Framework\Search\Request\QueryInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolver class.
+ * Unit test for the QueryTextResolver class.
  *
  * @package   Elastic\AppSearch\Framework\AppSearch\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Fulltext
  * @copyright 2019 Elastic
