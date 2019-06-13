@@ -51,9 +51,9 @@ class ResponseProcessor implements ResponseProcessorInterface
      * @param AlgorithmInterface[]  $algorithms
      */
     public function __construct(
-      DocumentCountResolver $documentCountResolver,
-      array $algorithms,
-      string $facetSuffix = ''
+        DocumentCountResolver $documentCountResolver,
+        array $algorithms,
+        string $facetSuffix = ''
     ) {
         $this->documentCountResolver = $documentCountResolver;
         $this->algorithms            = $algorithms;
