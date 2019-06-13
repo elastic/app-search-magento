@@ -1,4 +1,4 @@
-<p style="float:right"><a href="https://circleci.com/gh/swiftype/swiftype-app-search-magento"><img src="https://circleci.com/gh/swiftype/swiftype-app-search-magento.svg?style=svg&circle-token=f396f44f6e5dbcced1d3d8e3b42bcee791b805a0" alt="CircleCI build"></a></p>
+<p style="float:right"><a href="https://circleci.com/gh/elastic/app-search-magento"><img src="https://circleci.com/gh/elastic/app-search-magento.svg?style=svg&circle-token=f396f44f6e5dbcced1d3d8e3b42bcee791b805a0" alt="CircleCI build"></a></p>
 
 ![Elastic App Search Logo](docs/assets/logo-app-search.png)
 
