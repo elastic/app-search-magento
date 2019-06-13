@@ -49,7 +49,7 @@ jobs:
           cd magento
           composer config repositories.app-search '{"type": "path", "url": "../repo"}'
           composer config "minimum-stability" dev
-          composer require elastic/elastic-app-search-magento
+          composer require elastic/app-search-magento
     - run:
         name: Enable Magento modules
         command: cd magento && bin/magento module:enable --all
@@ -121,7 +121,7 @@ jobs:
         at: ~/project
     - run:
         name: Copying test suite config.
-        command: cp vendor/elastic/elastic-app-search-magento/dev/tests/<< parameters.testsuite >>/phpunit.xml.dist dev/tests/<< parameters.testsuite >>/
+        command: cp vendor/elastic/app-search-magento/dev/tests/<< parameters.testsuite >>/phpunit.xml.dist dev/tests/<< parameters.testsuite >>/
     - run:
         name: Running test suite (<< parameters.testsuite >>)
         command: vendor/bin/phpunit -c dev/tests/<< parameters.testsuite >>/phpunit.xml.dist
