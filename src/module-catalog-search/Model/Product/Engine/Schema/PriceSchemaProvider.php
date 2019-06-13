@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Magento\Customer\Api\GroupRepositoryInterface as CustomerGroupRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
@@ -22,7 +22,7 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 /**
  * Price fields for the product schema.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

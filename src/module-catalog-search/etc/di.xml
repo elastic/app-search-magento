@@ -43,26 +43,26 @@
     <type name="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver">
         <arguments>
             <argument name="providers" xsi:type="array">
-                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider</item>
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\SchemaProvider</item>
             </argument>
         </arguments>
     </type>
 
-    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\SchemaProvider" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\CompositeSchemaProvider">
+    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\SchemaProvider" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\CompositeSchemaProvider">
         <arguments>
             <argument name="providers" xsi:type="array">
-                <item name="base" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\BaseSchemaProvider\Proxy</item>
-                <item name="attributes" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\AttributeSchemaProvider\Proxy</item>
-                <item name="price" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\PriceSchemaProvider\Proxy</item>
-                <item name="categories" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product\CategorySchemaProvider\Proxy</item>
+                <item name="base" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\BaseSchemaProvider\Proxy</item>
+                <item name="attributes" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\AttributeSchemaProvider\Proxy</item>
+                <item name="price" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\PriceSchemaProvider\Proxy</item>
+                <item name="categories" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\CategorySchemaProvider\Proxy</item>
             </argument>
         </arguments>
     </virtualType>
 
     <virtualType name="Elastic\AppSearch\CatalogSearch\AppSearch\Product\Engine\Field\FieldMapper" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapper">
         <arguments>
-            <argument name="attributeAdapterProvider" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider</argument>
-            <argument name="fieldNameResolver" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName\DefaultResolver</argument>
+            <argument name="attributeAdapterProvider" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider</argument>
+            <argument name="fieldNameResolver" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\FieldNameResolver</argument>
         </arguments>
     </virtualType>
 
@@ -77,17 +77,17 @@
     <type name="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver">
         <arguments>
             <argument name="mappers" xsi:type="array">
-                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product</item>
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product</item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product">
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product">
         <arguments>
-            <argument name="attributeMapper" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product\AttributeMapper</argument>
+            <argument name="attributeMapper" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product\AttributeMapper</argument>
             <argument name="additionalDataProviders" xsi:type="array">
-                <item name="categoryData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product\CategoryDataProvider</item>
-                <item name="priceData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product\PriceDataProvider</item>
+                <item name="categoryData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product\CategoryDataProvider</item>
+                <item name="priceData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product\PriceDataProvider</item>
             </argument>
         </arguments>
     </type>
@@ -95,7 +95,7 @@
     <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolver">
         <arguments>
             <argument name="rescorers" xsi:type="array">
-                <item name="catalog_view_container" xsi:type="object">Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product\CategoryPositionRescorer</item>
+                <item name="catalog_view_container" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer\CategoryPositionRescorer</item>
             </argument>
         </arguments>
     </type>
@@ -106,7 +106,7 @@
         </arguments>
     </virtualType>
 
-    <type name="Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product\CategoryPositionProvider">
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer\CategoryPositionProvider">
         <arguments>
           <argument name="queryLocator" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator\CategoryFilter</argument>
         </arguments>

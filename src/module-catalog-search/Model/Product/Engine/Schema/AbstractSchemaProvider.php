@@ -8,14 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product;
-
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterFactory;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapter;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterFactory;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
 use Magento\Eav\Api\Data\AttributeInterfaceFactory;
@@ -25,7 +24,7 @@ use Magento\Eav\Api\Data\AttributeInterfaceFactory;
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

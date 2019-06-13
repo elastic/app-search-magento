@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer;
 
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface;
@@ -22,7 +22,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer
 /**
  * List of product that are manually positionned for the current searched category.
  *
- * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\PositionedDocuments
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -57,7 +57,6 @@ class CategoryPositionProvider
      * @var array
      */
     private $cachedPositions = [];
-
 
     /**
      * Constructor.

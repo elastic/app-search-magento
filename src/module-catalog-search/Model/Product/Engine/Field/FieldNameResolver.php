@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\FieldName;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver as FrameworkFieldNameResolver;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
@@ -17,11 +17,11 @@ use Magento\Customer\Model\Session as CustomerSession;
 /**
  * Customize default field name resolver for products.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class DefaultResolver extends FrameworkFieldNameResolver
+class FieldNameResolver extends FrameworkFieldNameResolver
 {
     /**
      * @var CustomerSession

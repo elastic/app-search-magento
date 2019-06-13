@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;

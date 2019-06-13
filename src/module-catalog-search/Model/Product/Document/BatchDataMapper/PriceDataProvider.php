@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product;
 
 use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider as AttributeProvider;
 
 /**
  * Retrieve price data for products.

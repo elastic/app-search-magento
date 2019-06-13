@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Document\BatchDataMapper\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider as AttributeProvider;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider as AttributeProvider;
 
 /**
  * Retrive data for an product to be indexed.

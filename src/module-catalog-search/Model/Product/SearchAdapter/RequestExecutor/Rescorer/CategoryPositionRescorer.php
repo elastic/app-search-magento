@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\SearchAdapter\Request\Rescorer\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer;
 
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
@@ -17,7 +17,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer
 /**
  * Rescore top 100 positioned products for the current searched category.
  *
- * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\PositionedDocuments
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

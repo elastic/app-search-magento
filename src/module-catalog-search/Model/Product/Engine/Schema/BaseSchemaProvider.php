@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema;
 
 /**
- * Price fields for the product schema.
+ * Base fields for the product schema.
  *
- * @package   Elastic\Model\Adapter\Engine
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class CategorySchemaProvider extends AbstractSchemaProvider
+class BaseSchemaProvider extends AbstractSchemaProvider
 {
     /**
      * {@inheritDoc}
@@ -25,8 +25,8 @@ class CategorySchemaProvider extends AbstractSchemaProvider
     protected function getAttributesData()
     {
         return [
-            ['attribute_code' => 'category_name'],
-            ['attribute_code' => 'category_ids'],
+          ['attribute_code' => 'entity_id'],
+          ['attribute_code' => 'options'],
         ];
     }
 }

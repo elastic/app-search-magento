@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
@@ -22,7 +22,7 @@ use Magento\Eav\Api\Data\AttributeInterface;
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  *
- * @package   Elastic\Model\Adapter\Engine\Schema
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

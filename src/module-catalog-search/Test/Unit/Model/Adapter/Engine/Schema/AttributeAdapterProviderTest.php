@@ -10,10 +10,10 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Adapter\Engine\Schema;
 
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapterProvider;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider;
 use Magento\Eav\Model\Config as EavConfig;
 use Magento\Eav\Api\Data\AttributeInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Adapter\Engine\Schema\AttributeAdapter;
+use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapter;
 
 /**
  * Unit test for the AttributeAdapterProvider class.
