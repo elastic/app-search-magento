@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\CatalogSearch
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Magento\Elasticsearch\Model\ResourceModel\Engine</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Indexer\IndexerHandlerFactory">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\Indexer\IndexerHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Indexer\IndexStructureFactory">
+        <arguments>
+            <argument name="structures" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\Indexer\IndexStructure</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\SchemaProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\SchemaProvider" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\CompositeSchemaProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="base" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\BaseSchemaProvider\Proxy</item>
+                <item name="attributes" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\AttributeSchemaProvider\Proxy</item>
+                <item name="price" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\PriceSchemaProvider\Proxy</item>
+                <item name="categories" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema\CategorySchemaProvider\Proxy</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Elastic\AppSearch\CatalogSearch\AppSearch\Product\Engine\Field\FieldMapper" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapper">
+        <arguments>
+            <argument name="attributeAdapterProvider" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider</argument>
+            <argument name="fieldNameResolver" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\FieldNameResolver</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolver">
+        <arguments>
+            <argument name="fieldMappers" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\AppSearch\Product\Engine\Field\FieldMapper</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver">
+        <arguments>
+            <argument name="mappers" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper">
+        <arguments>
+            <argument name="attributeMapper" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\AttributeMapper</argument>
+            <argument name="additionalDataProviders" xsi:type="array">
+                <item name="categoryData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\CategoryDataProvider</item>
+                <item name="priceData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\PriceDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolver">
+        <arguments>
+            <argument name="rescorers" xsi:type="array">
+                <item name="catalog_view_container" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer\CategoryPositionRescorer</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator\CategoryFilter" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator">
+        <arguments>
+          <argument name="queryName" xsi:type="string">category</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Product\SearchAdapter\RequestExecutor\Rescorer\CategoryPositionProvider">
+        <arguments>
+          <argument name="queryLocator" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator\CategoryFilter</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext\Collection</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollection" type="Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext\Collection">
+        <arguments>
+            <argument name="searchRequestName" xsi:type="string">quick_search_container</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\AdvancedSearch\Model\SuggestedQueries">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Magento\AdvancedSearch\Model\DataProvider\Suggestions</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogSearch\Model\Search\RequestGenerator">
+        <plugin name="elastic_app_search_custom_request" type="Elastic\AppSearch\CatalogSearch\Plugin\Model\Search\RequestGeneratorPlugin" />
+    </type>
+
+    <type name="Magento\Search\Model\ResourceModel\SynonymGroup">
+        <plugin name="synonym_group_indexing" type="Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Plugin\SynonymGroupPlugin" />
+    </type>
+
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Indexer">
+        <arguments>
+            <argument name="dimensionProvider" xsi:type="object" shared="false">Magento\Store\Model\StoreDimensionProvider</argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\IndexerHandlerFactory">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\IndexerHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\IndexerHandler">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="string">catalogsearch_fulltext</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

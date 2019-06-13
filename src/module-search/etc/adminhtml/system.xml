@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\Search
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="elastic_appsearch" translate="label" type="text" sortOrder="1100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Elastic App Search</label>
+            <tab>general</tab>
+            <resource>ElasticAppSearch_CatalogSearch::config_elastic_appsearch</resource>
+            <group id="client" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Client configuration</label>
+                <field id="api_endpoint" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App Search API Endpoint</label>
+                </field>
+                <field id="private_api_key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App Search Private API Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="search_api_key" translate="label comment" type="obscure" sortOrder="21" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App Search Public Search API Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="is_debug" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable App Search Debug</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="engine_prefix" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App Search Engine prefix</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

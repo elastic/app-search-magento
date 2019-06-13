@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\CatalogSearch
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="search">
+                <field id="search_in_category_name" translate="label" type="select" sortOrder="61" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Search in category names</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="engine">elastic_appsearch</field>
+                    </depends>
+                </field>
+                <field id="category_name_weight" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Category names weight</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="search_in_category_name">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

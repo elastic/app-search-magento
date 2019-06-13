@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\Search
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Client\ClientConfigurationInterface" type="Elastic\AppSearch\Framework\AppSearch\Client\ClientConfiguration" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface" type="Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManager" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\EngineInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\EngineResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\EngineManagerInterface" type="Elastic\AppSearch\Framework\AppSearch\EngineManager" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\SchemaResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\Document\SyncManagerInterface" type="Elastic\AppSearch\Framework\AppSearch\Document\SyncManager" />
+
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocatorInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\QueryLocator" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvider" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolver" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilterBuilderInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilterBuilder" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\FilterBuilderInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\FilterBuilder" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\FacetBuilderInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\FacetBuilder" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessor" />
+    <preference for="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface" type="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolver" />
+
+    <preference for="Magento\Search\Api\SearchInterface" type="Elastic\AppSearch\Search\Model\Search" />
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\LanguageResolver">
+        <arguments>
+            <argument name="scopeType" xsi:type="const">Magento\Store\Model\ScopeInterface::SCOPE_STORE</argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="page" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Page\SearchParamsProvider</item>
+                <item name="filters" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\SearchParamsProvider</item>
+                <item name="search_fields" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\SearchParamsProvider</item>
+                <item name="facets" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\SearchParamsProvider</item>
+                <item name="sorts" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Sort\SearchParamsProvider</item>
+                <item name="analytics" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Analytics\SearchParamsProvider</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolver">
+        <arguments>
+            <argument name="rescorers" xsi:type="array">
+                <item name="default" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer\DefaultRescorer</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilterBuilder">
+        <arguments>
+            <argument name="builderFactories" xsi:type="array">
+                <item name="boolQuery" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter\BoolQueryFilterBuilderFactory</item>
+                <item name="matchQuery" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter\MatchQueryFilterBuilderFactory</item>
+                <item name="filteredQuery" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\QueryFilter\FilteredQueryFilterBuilderFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\FilterBuilder">
+        <arguments>
+            <argument name="builderFactories" xsi:type="array">
+                <item name="boolFilter" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\Filter\BoolFilterBuilderFactory</item>
+                <item name="termFilter" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\Filter\TermFilterBuilderFactory</item>
+                <item name="rangeFilter" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\Filter\RangeFilterBuilderFactory</item>
+                <item name="wildcardFilter" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\Filter\WildcardFilterBuilderFactory</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="facets" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\ResponseProcessor</item>
+                <item name="rescorer" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Rescorer\ResponseProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\ResponseProcessor">
+        <arguments>
+            <argument name="algorithms" xsi:type="array">
+                <item name="auto" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet\Dynamic\Algorithm\Auto</item>
+            </argument>
+            <argument name="facetSuffix" xsi:type="const">Magento\CatalogSearch\Model\Search\RequestGenerator::BUCKET_SUFFIX</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\AdapterFactory">
+        <arguments>
+            <argument name="adapters" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\Framework\AppSearch\SearchAdapter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\Adminhtml\System\Config\Source\Engine">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic App Search</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Search\Model\EngineResolver">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">elastic_appsearch</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Search\Model\Search">
+        <arguments>
+            <argument name="searchResponseBuilder" xsi:type="object">Elastic\AppSearch\Framework\Search\SearchResponseBuilder</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Config\Model\Config\TypePool">
+        <arguments>
+            <argument name="sensitive" xsi:type="array">
+                <item name="elastic_appsearch/client/private_api_key" xsi:type="string">1</item>
+                <item name="elastic_appsearch/client/search_api_key" xsi:type="string">1</item>
+            </argument>
+            <argument name="environment" xsi:type="array">
+                <item name="elastic_appsearch/client/api_endpoint" xsi:type="string">1</item>
+                <item name="elastic_appsearch/client/is_debug" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

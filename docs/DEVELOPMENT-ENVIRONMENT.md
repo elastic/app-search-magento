@@ -76,7 +76,7 @@ docker-compose exec magento sudo -u www-data -E /bin/bash
 We need to install the App Search module before we install Magento. Deploy the App Search module by issuing the following command (in a bash session in the container):
 
 ```bash
-composer require "elastic/elastic-app-search-magento:dev-master@dev"
+composer require "elastic/app-search-magento:dev-master@dev"
 ```
 
 **Note:** The App Search module will be symlinked from your host machine. So any change you will do will be replicated in your Magento instance.

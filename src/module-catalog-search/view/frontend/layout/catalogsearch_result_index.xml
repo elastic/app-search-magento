@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\CatalogSearch
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="head.additional">
+            <block class="Elastic\AppSearch\CatalogSearch\Block\LogClickthrough" name="elastic_appsearch_log_clicktrough" template="ElasticAppSearch_CatalogSearch::log-clicktrough.phtml">
+                <arguments>
+                    <argument name="engine_identifier" xsi:type="string">catalogsearch_fulltext</argument>
+                    <argument name="items_selector" xsi:type="string">.product-item</argument>
+                    <argument name="links_selector" xsi:type="string">a.product-item-link, a.product-item-photo</argument>
+                    <argument name="document_id_node_selector" xsi:type="string">.price-box</argument>
+                    <argument name="document_id_attribute" xsi:type="string">data-product-id</argument>
+                    <argument name="analytics_tag" xsi:type="string">quick_search_container</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
