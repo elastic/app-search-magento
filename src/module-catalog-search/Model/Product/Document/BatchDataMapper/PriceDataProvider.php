@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
@@ -19,7 +19,7 @@ use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterP
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
- * @package   Elastic\Model\Adapter\Document\BatchDataMapper\Product
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

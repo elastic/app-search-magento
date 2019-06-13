@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
@@ -20,7 +20,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 /**
  * Product attribute batch data mapper.
  *
- * @package   Elastic\Model\Adapter\Document\BatchDataMapper
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

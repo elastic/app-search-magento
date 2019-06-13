@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
@@ -17,7 +17,7 @@ use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterP
 /**
  * Retrive data for an product to be indexed.
  *
- * @package   Elastic\Model\BatchDataMapper\Product
+ * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

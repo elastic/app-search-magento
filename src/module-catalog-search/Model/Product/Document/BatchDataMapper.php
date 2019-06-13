@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
+namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
@@ -22,7 +22,7 @@ use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class Product implements BatchDataMapperInterface
+class BatchDataMapper implements BatchDataMapperInterface
 {
     /**
      * @var BatchDataMapperInterface

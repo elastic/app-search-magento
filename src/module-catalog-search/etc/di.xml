@@ -77,17 +77,17 @@
     <type name="Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolver">
         <arguments>
             <argument name="mappers" xsi:type="array">
-                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product</item>
+                <item name="catalogsearch_fulltext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper</item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product">
+    <type name="Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper">
         <arguments>
-            <argument name="attributeMapper" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product\AttributeMapper</argument>
+            <argument name="attributeMapper" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\AttributeMapper</argument>
             <argument name="additionalDataProviders" xsi:type="array">
-                <item name="categoryData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product\CategoryDataProvider</item>
-                <item name="priceData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\Product\PriceDataProvider</item>
+                <item name="categoryData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\CategoryDataProvider</item>
+                <item name="priceData" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper\PriceDataProvider</item>
             </argument>
         </arguments>
     </type>
