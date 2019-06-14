@@ -16,55 +16,55 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Magento\CatalogGraphQl\Model\Resolver\Products" type="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver\Products" />
+    <preference for="Magento\CatalogGraphQl\Model\Resolver\Products" type="Elastic\AppSearch\CatalogGraphQl\Model\Resolver\Products" />
 
-    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product\SearchResultCollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
+    <virtualType name="Elastic\AppSearch\CatalogGraphQl\Model\ResourceModel\Product\SearchResultCollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
         <arguments>
-            <argument name="instanceName" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product\SearchResultCollection</argument>
+            <argument name="instanceName" xsi:type="string">Elastic\AppSearch\CatalogGraphQl\Model\ResourceModel\Product\SearchResultCollection</argument>
         </arguments>
     </virtualType>
 
-    <type name="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\CollectionProvider">
+    <type name="Elastic\AppSearch\CatalogGraphQl\Model\Layer\CollectionProvider">
         <arguments>
-            <argument name="collectionFactory" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product\SearchResultCollectionFactory</argument>
+            <argument name="collectionFactory" xsi:type="object">Elastic\AppSearch\CatalogGraphQl\Model\ResourceModel\Product\SearchResultCollectionFactory</argument>
         </arguments>
     </type>
 
-    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context" type="Magento\CatalogGraphQl\Model\Layer\Context">
+    <virtualType name="Elastic\AppSearch\CatalogGraphQl\Model\Layer\Context" type="Magento\CatalogGraphQl\Model\Layer\Context">
         <arguments>
-            <argument name="collectionProvider" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\CollectionProvider</argument>
+            <argument name="collectionProvider" xsi:type="object">Elastic\AppSearch\CatalogGraphQl\Model\Layer\CollectionProvider</argument>
             <argument name="stateKey" xsi:type="object">Magento\Catalog\Model\Layer\Category\StateKey</argument>
             <argument name="collectionFilter" xsi:type="object">Magento\Catalog\Model\Layer\Category\CollectionFilter</argument>
         </arguments>
     </virtualType>
-    
-    <type name="Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver\Products\Query\Search">
+
+    <type name="Elastic\AppSearch\CatalogGraphQl\Model\Resolver\Products\Query\Search">
         <arguments>
-            <argument name="layerContext" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+            <argument name="layerContext" xsi:type="object">Elastic\AppSearch\CatalogGraphQl\Model\Layer\Context</argument>
         </arguments>
     </type>
-    
+
     <type name="Magento\Catalog\Model\Layer\Search">
         <arguments>
-            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogGraphQl\Model\Layer\Context</argument>
         </arguments>
     </type>
-    
+
     <type name="Magento\Catalog\Model\Layer\Category">
         <arguments>
-            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogGraphQl\Model\Layer\Context</argument>
         </arguments>
     </type>
-    
+
     <type name="Magento\Catalog\Model\Layer">
         <arguments>
-            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\Context</argument>
+            <argument name="context" xsi:type="object">Elastic\AppSearch\CatalogGraphQl\Model\Layer\Context</argument>
         </arguments>
     </type>
-    
+
     <preference for="Magento\Catalog\Model\Layer\Filter\Attribute" type="Magento\CatalogSearch\Model\Layer\Filter\Attribute" />
     <preference for="Magento\Catalog\Model\Layer\Filter\Price" type="Magento\CatalogSearch\Model\Layer\Filter\Price" />
     <preference for="Magento\Catalog\Model\Layer\Filter\Category" type="Magento\CatalogSearch\Model\Layer\Filter\Category" />
     <preference for="Magento\Catalog\Model\Layer\Filter\Decimal" type="Magento\CatalogSearch\Model\Layer\Filter\Decimal" />
-    
+
 </config>

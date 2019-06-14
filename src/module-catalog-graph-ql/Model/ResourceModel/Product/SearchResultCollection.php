@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product;
+namespace Elastic\AppSearch\CatalogGraphQl\Model\ResourceModel\Product;
 
 use Magento\CatalogSearch\Model\Search\RequestGenerator;
 use Magento\Framework\Api\Search\AggregationInterface;
@@ -20,7 +20,7 @@ use Magento\Framework\Api\Search\SearchResultInterface;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Model\ResourceModel\GraphQl\Product
+ * @package   Elastic\AppSearch\CatalogGraphQl\Model\ResourceModel\Product
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

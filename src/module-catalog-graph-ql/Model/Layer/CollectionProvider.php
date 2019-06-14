@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer;
+namespace Elastic\AppSearch\CatalogGraphQl\Model\Layer;
 
 use Magento\Catalog\Model\Layer\ItemCollectionProviderInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
@@ -22,7 +22,7 @@ use Magento\Catalog\Model\Category as Category;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Model
+ * @package   Elastic\AppSearch\CatalogGraphQl\Model\Layer
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

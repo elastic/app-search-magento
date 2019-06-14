@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver;
+namespace Elastic\AppSearch\CatalogGraphQl\Model\Resolver;
 
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
-use Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver\Products\Query\Search as SearchQuery;
+use Elastic\AppSearch\CatalogGraphQl\Model\Resolver\Products\Query\Search as SearchQuery;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\SearchFilter;
 use Magento\Catalog\Model\Layer\Resolver as LayerResolver;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
@@ -25,7 +25,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
  *
  * @deprecated Will be removed when Magento GraphQL implementation will have better support for sort / pagination.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Model\GraphQl\Resolver
+ * @package   Elastic\AppSearch\CatalogGraphQl\Model\Resolver
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
