@@ -3,8 +3,6 @@
 ![Elastic App Search Logo](docs/assets/logo-app-search.png)
 
 > A first-party Magento integration for building excellent, relevant search experiences with [Elastic App Search](https://www.elastic.co/cloud/app-search-service).
->
-> **:warning: This is a beta version of the module. Stable version will be released soon.**
 
 ## Contents
 
