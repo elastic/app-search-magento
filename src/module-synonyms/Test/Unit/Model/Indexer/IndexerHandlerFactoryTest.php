@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Indexer\Synonym;
+namespace Elastic\AppSearch\Synonyms\Test\Unit\Model\Indexer;
 
-use Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\IndexerHandlerFactory;
+use Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandlerFactory;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Search\EngineResolverInterface;
 
 /**
- * Unit test for the Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\IndexerHandlerFactory
+ * Unit test for the IndexerHandlerFactory class.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Test\Unit\Model\Indexer\Synonym
+ * @package   Elastic\AppSearch\Synonyms\Test\Unit\Model\Indexer
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

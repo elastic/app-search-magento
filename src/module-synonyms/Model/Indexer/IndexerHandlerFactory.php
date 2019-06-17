@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym;
+namespace Elastic\AppSearch\Synonyms\Model\Indexer;
 
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Search\EngineResolverInterface;
@@ -17,7 +17,7 @@ use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 /**
  * Factory to create synonym save index handler.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Synonym\Indexer
+ * @package   Elastic\AppSearch\Synonyms\Model\Indexer
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

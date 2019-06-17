@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package   Elastic\AppSearch\CatalogSearch
+ * @package   Elastic\AppSearch\Synonyms
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
-    <view id="search_synonym" class="\Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Mview\Action" group="indexer">
+    <view id="search_synonym" class="\Elastic\AppSearch\Synonyms\Model\Indexer\Mview\Action" group="indexer">
         <subscriptions>
             <table name="search_synonyms" entity_column="group_id" />
         </subscriptions>
