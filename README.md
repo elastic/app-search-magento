@@ -106,7 +106,7 @@ Full documentation to setup your environment is available [here](docs/DEVELOPMEN
 
 ### Where do I report issues with the client?
 
-If something is not working as expected, please open an [issue](https://github.com/swiftype/swiftype-app-search-magento/issues/new).
+If something is not working as expected, please open an [issue](https://github.com/elastic/app-search-magento/issues/new).
 
 ### Where can I find the full App Search API documentation ?
 
@@ -120,11 +120,11 @@ You can checkout the [Elastic community discuss forums](https://discuss.elastic.
 
 We welcome contributors to the project. Before you begin, a couple notes...
 
-+ Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/swiftype/swiftype-app-search-magento/issues).
++ Before opening a pull request, please create an issue to [discuss the scope of your proposal](https://github.com/elastic/app-search-magento/issues).
 + Please write simple code and concise documentation, when appropriate.
 
 ## License 📗
 
 [Open Software License ("OSL") v.3.0](LICENSE) © [Elastic](https://github.com/elastic)
 
-Thank you to all the [contributors](https://github.com/swiftype/swiftype-app-search-magento/graphs/contributors)!
+Thank you to all the [contributors](https://github.com/elastic/app-search-magento/graphs/contributors)!

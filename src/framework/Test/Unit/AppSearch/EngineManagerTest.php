@@ -13,10 +13,10 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch;
 use Elastic\AppSearch\Framework\AppSearch\EngineManager;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 use Psr\Log\NullLogger;
-use Swiftype\Exception\NotFoundException;
-use Swiftype\Exception\ConnectionException;
+use Elastic\OpenApi\Codegen\Exception\NotFoundException;
+use Elastic\OpenApi\Codegen\Exception\ConnectionException;
 
 /**
  * Unit test for the EngineManager class.

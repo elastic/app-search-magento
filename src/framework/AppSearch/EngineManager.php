@@ -11,9 +11,9 @@
 namespace Elastic\AppSearch\Framework\AppSearch;
 
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
-use Swiftype\Exception\NotFoundException;
+use Elastic\OpenApi\Codegen\Exception\NotFoundException;
 use Magento\Framework\Exception\LocalizedException;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 use Psr\Log\LoggerInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 

@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\SearchAdapter;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
-use Swiftype\AppSearch\Client as AppSearchClient;
+use Elastic\AppSearch\Client\Client as AppSearchClient;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;

@@ -16,7 +16,7 @@ use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Magento\Framework\App\ScopeResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 
 /**
  * App Search synonyms save index handler.

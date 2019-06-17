@@ -28,7 +28,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Response
 class RequestExecutor
 {
     /**
-     * @var \Swiftype\AppSearch\Client
+     * @var \Elastic\AppSearch\Client\Client
      */
     private $client;
 

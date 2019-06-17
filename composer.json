@@ -1,7 +1,7 @@
 {
   "name" : "elastic/app-search-magento",
   "description" : "Elastic App Search official integration for Magento 2",
-  "homepage": "https://github.com/swiftype/swiftype-app-search-magento",
+  "homepage": "https://github.com/elastic/app-search-magento",
   "keywords" : [
     "search",
     "client",
@@ -16,7 +16,7 @@
   ],
   "require" : {
     "php" : "^7.0",
-    "swiftype/swiftype-app-search-php" : "1.0.0",
+    "elastic/app-search-php" : "^1.0.0",
     "magento/framework": ">=101.0.0"
   },
   "require-dev" : {
