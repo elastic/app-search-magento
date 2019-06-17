@@ -15,7 +15,7 @@ use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperResolverInterf
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 
 /**
  * Unit test for the SyncManager class.

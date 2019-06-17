@@ -10,7 +10,7 @@
 
 namespace Elastic\AppSearch\Framework\AppSearch\Client;
 
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 
 /**
  * Retrieve a configured and ready to go App Search client.

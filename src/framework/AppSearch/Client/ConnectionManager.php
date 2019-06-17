@@ -11,8 +11,8 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Client;
 
 use Psr\Log\LoggerInterface;
-use Swiftype\AppSearch\ClientBuilder;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\ClientBuilder;
+use Elastic\AppSearch\Client\Client;
 
 /**
  * Implementation of the App Search connection manager.
@@ -24,7 +24,7 @@ use Swiftype\AppSearch\Client;
 class ConnectionManager implements ConnectionManagerInterface
 {
     /**
-     * @var \Swiftype\AppSearch\Client
+     * @var \Elastic\AppSearch\Client\Client
      */
     private $client;
 
@@ -69,7 +69,7 @@ class ConnectionManager implements ConnectionManagerInterface
      *
      * @param array $options
      *
-     * @return \Swiftype\AppSearch\Client
+     * @return \Elastic\AppSearch\Client\Client
      */
     private function createClient($options = [])
     {

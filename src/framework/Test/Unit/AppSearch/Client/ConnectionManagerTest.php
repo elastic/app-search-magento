@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\Test\Unit\AppSearch\Client;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManager;
 use Elastic\AppSearch\Framework\AppSearch\Client\ClientConfigurationInterface;
 use Psr\Log\LoggerInterface;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 
 /**
  * Unit test for the ConnectionManager class.
@@ -59,7 +59,7 @@ class ConnectionManagerTest extends \PHPUnit\Framework\TestCase
      *
      * @param string $apiEndpoint
      *
-     * @expectedException \Swiftype\Exception\UnexpectedValueException
+     * @expectedException \Elastic\OpenApi\Codegen\Exception\UnexpectedValueException
      */
     public function testInvalidApiEndpoint($apiEndpoint = 'not_a_valid_url')
     {
@@ -72,7 +72,7 @@ class ConnectionManagerTest extends \PHPUnit\Framework\TestCase
      *
      * @todo: Use another exception type.
      *
-     * @expectedException \Swiftype\Exception\UnexpectedValueException
+     * @expectedException \Elastic\OpenApi\Codegen\Exception\UnexpectedValueException
      */
     public function testEmptyConfiguration()
     {

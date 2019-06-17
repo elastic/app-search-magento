@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Re
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerInterface;
 use Magento\Framework\Search\RequestInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
-use Swiftype\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineResolver;
 // phpcs:disable
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Analytics\SearchParamsProvider as AnalytcisParams;
