@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\Synonyms
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Search\Model\ResourceModel\SynonymGroup">
+        <plugin name="synonym_group_indexing" type="Elastic\AppSearch\Synonyms\Model\Indexer\Plugin\SynonymGroupPlugin" />
+    </type>
+
+    <type name="Elastic\AppSearch\Synonyms\Model\Indexer">
+        <arguments>
+            <argument name="dimensionProvider" xsi:type="object" shared="false">Magento\Store\Model\StoreDimensionProvider</argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandlerFactory">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandler">
+        <arguments>
+            <argument name="engines" xsi:type="array">
+                <item name="catalogsearch_fulltext" xsi:type="string">catalogsearch_fulltext</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

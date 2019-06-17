@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Mview;
+namespace Elastic\AppSearch\Synonyms\Model\Indexer\Mview;
 
 use Magento\Framework\Indexer\IndexerRegistry;
 use Magento\Framework\Mview\ActionInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Indexer;
+use Elastic\AppSearch\Synonyms\Model\Indexer;
 
 /**
  * A simple mview action that invalidate the synonyms indexer when something happens in the synonyms table.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Synonym\Indexer\Mview
+ * @package   Elastic\AppSearch\Synonyms\Model\Indexer\Mview
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

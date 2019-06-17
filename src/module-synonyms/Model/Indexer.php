@@ -8,18 +8,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym;
+namespace Elastic\AppSearch\Synonyms\Model;
 
 use Magento\Framework\Indexer\DimensionProviderInterface;
 use Magento\Indexer\Model\ProcessManager;
 use Magento\Store\Model\StoreDimensionProvider;
-use Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Action\Full as FullAction;
+use Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandlerFactory;
+use Elastic\AppSearch\Synonyms\Model\Indexer\Action\Full as FullAction;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 
 /**
  * Sync synonyms with the search engine.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Synonym\Indexer
+ * @package   Elastic\AppSearch\Synonyms\Model
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

@@ -29,12 +29,14 @@
       "Elastic\\AppSearch\\Framework\\" : "src/framework",
       "Elastic\\AppSearch\\Search\\" : "src/module-search",
       "Elastic\\AppSearch\\CatalogSearch\\" : "src/module-catalog-search",
-      "Elastic\\AppSearch\\CatalogGraphQl\\" : "src/module-catalog-graph-ql"
+      "Elastic\\AppSearch\\CatalogGraphQl\\" : "src/module-catalog-graph-ql",
+      "Elastic\\AppSearch\\Synonyms\\" : "src/module-synonyms"
     },
     "files": [
       "src/module-search/registration.php",
       "src/module-catalog-search/registration.php",
-      "src/module-catalog-graph-ql/registration.php"
+      "src/module-catalog-graph-ql/registration.php",
+      "src/module-synonyms/registration.php"
     ]
   }
 }

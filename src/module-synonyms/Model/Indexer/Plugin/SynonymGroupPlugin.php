@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Plugin;
+namespace Elastic\AppSearch\Synonyms\Model\Indexer\Plugin;
 
 use Magento\Search\Model\ResourceModel\SynonymGroup as SynonymGroupResourceModel;
 use Magento\Framework\Indexer\IndexerRegistry;
-use Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Indexer;
+use Elastic\AppSearch\Synonyms\Model\Indexer;
 
 /**
  * Invalidate the index when a change occurs in synonyms groups.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Synonym\Indexer\Plugin
+ * @package   Elastic\AppSearch\Synonyms\Model\Indexer\Plugin
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */

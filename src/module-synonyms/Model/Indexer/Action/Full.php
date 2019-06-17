@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Indexer\Synonym\Action;
+namespace Elastic\AppSearch\Synonyms\Model\Indexer\Action;
 
 use Magento\Search\Model\ResourceModel\SynonymGroup;
 use Magento\Store\Model\StoreManagerInterface;
@@ -16,7 +16,7 @@ use Magento\Store\Model\StoreManagerInterface;
 /**
  * Collect synonyms for a specific store and return list of synonyms sets.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Synonym\Indexer\Action
+ * @package   Elastic\AppSearch\Synonyms\Model\Indexer\Action
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
