@@ -26,13 +26,15 @@
   },
   "autoload" : {
     "psr-4" : {
-      "Elastic\\AppSearch\\Framework\\" : "src/framework-app-search",
+      "Elastic\\AppSearch\\Framework\\Search\\" : "src/framework-search",
+      "Elastic\\AppSearch\\Framework\\AppSearch\\" : "src/framework-app-search",
       "Elastic\\AppSearch\\Search\\" : "src/module-search",
       "Elastic\\AppSearch\\CatalogSearch\\" : "src/module-catalog-search",
       "Elastic\\AppSearch\\CatalogGraphQl\\" : "src/module-catalog-graph-ql",
       "Elastic\\AppSearch\\Synonyms\\" : "src/module-synonyms"
     },
     "files": [
+      "src/framework-search/registration.php",
       "src/framework-app-search/registration.php",
       "src/module-search/registration.php",
       "src/module-catalog-search/registration.php",
