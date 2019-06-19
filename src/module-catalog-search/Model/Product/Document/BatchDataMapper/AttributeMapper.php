@@ -88,7 +88,7 @@ class AttributeMapper implements BatchDataMapperInterface
      */
     private function createDocument($entityId)
     {
-        return array_fill_keys(['id', 'entity_id'], $entityId);
+        return array_fill_keys(['id', 'entity_id'], (string) $entityId);
     }
 
     /**
@@ -148,7 +148,7 @@ class AttributeMapper implements BatchDataMapperInterface
         if ($attributeOptions) {
             $attributeLabels = [];
             foreach ($attributeOptions as $option) {
-                if (\in_array($option->getValue(), $value)) {
+                if (in_array($option->getValue(), $value)) {
                     $attributeLabels[] = (string) $option->getLabel();
                 }
             }

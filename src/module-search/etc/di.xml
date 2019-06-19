@@ -51,6 +51,15 @@
         </arguments>
     </type>
 
+    <type name="Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapper">
+        <arguments>
+            <argument name="fieldValueMappers" xsi:type="array">
+                <item name="text" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\Engine\Field\ValueMapper\TextValueMapper</item>
+                <item name="number" xsi:type="object">Elastic\AppSearch\Framework\AppSearch\Engine\Field\ValueMapper\NumberValueMapper</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProvider">
         <arguments>
             <argument name="providers" xsi:type="array">

@@ -44,61 +44,11 @@ class TermFilterBuilder implements FilterBuilderInterface
      */
     public function getFilter(FilterInterface $filter): array
     {
-        $fieldName = $this->getFieldName($filter->getField());
-        $fieldType = $this->getFieldType($filter->getField());
+        $context     = ['type' => SchemaInterface::CONTEXT_FILTER];
 
-        return [$fieldName => $this->prepareFilterValue($filter->getValue(), $fieldType)];
-    }
+        $filterdName = $this->fieldMapper->getFieldName($filter->getField(), $context);
+        $filterValue = $this->fieldMapper->mapValue($filter->getField(), $filter->getValue());
 
-    /**
-     * Convert the field name to match the indexed data.
-     *
-     * @param string $requestFieldName
-     *
-     * @return string
-     */
-    private function getFieldName(string $requestFieldName): string
-    {
-        return $this->fieldMapper->getFieldName($requestFieldName, ['type' => SchemaInterface::CONTEXT_FILTER]);
-    }
-
-    /**
-     * Return request expected field type.
-     *
-     * @param string $requestFieldName
-     *
-     * @return string
-     */
-    private function getFieldType(string $requestFieldName): string
-    {
-        return $this->fieldMapper->getFieldType($requestFieldName);
-    }
-
-    /**
-     * Coerce filter value to the expected type.
-     *
-     * @param mixed  $rawValue
-     * @param string $fieldType
-     *
-     * @return mixed
-     */
-    private function prepareFilterValue($rawValue, string $fieldType)
-    {
-        if (is_array($rawValue)) {
-            $callback = function ($value) use ($fieldType) {
-                return $this->prepareFilterValue($value, $fieldType);
-            };
-            return array_map($callback, $rawValue);
-        }
-
-        $value = $rawValue;
-
-        if ($fieldType == SchemaInterface::FIELD_TYPE_TEXT) {
-            $value = strval($rawValue);
-        } elseif ($fieldType == SchemaInterface::FIELD_TYPE_NUMBER) {
-            $value = floatval($rawValue);
-        }
-
-        return $value;
+        return [$filterdName => $filterValue];
     }
 }

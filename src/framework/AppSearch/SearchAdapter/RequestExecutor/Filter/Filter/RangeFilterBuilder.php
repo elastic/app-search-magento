@@ -44,24 +44,19 @@ class RangeFilterBuilder implements FilterBuilderInterface
      */
     public function getFilter(FilterInterface $filter): array
     {
-        $fieldName = $this->getFieldName($filter->getField());
+        $context    = ['type' => SchemaInterface::CONTEXT_FILTER];
+        $filterName = $this->fieldMapper->getFieldName($filter->getField(), $context);
 
-        $range = array_map('floatval', array_filter(
-            ['from' => $filter->getFrom(), 'to' => $filter->getTo()]
-        ));
+        $range = [];
 
-        return !empty($range) ? [$fieldName => array_filter($range)] : [];
-    }
+        if ($filter->getFrom() !== null) {
+            $range['from'] = $filter->getFrom();
+        }
 
-    /**
-     * Convert the field name to match the indexed data.
-     *
-     * @param string $requestFieldName
-     *
-     * @return string
-     */
-    private function getFieldName(string $requestFieldName)
-    {
-        return $this->fieldMapper->getFieldName($requestFieldName, ['type' => SchemaInterface::CONTEXT_FILTER]);
+        if ($filter->getTo() !== null) {
+            $range['to'] = $filter->getTo();
+        }
+
+        return !empty($range) ? [$filterName => $this->fieldMapper->mapValue($filter->getField(), $range)] : [];
     }
 }
