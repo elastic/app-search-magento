@@ -35,6 +35,11 @@ class FieldMapper implements FieldMapperInterface
     private $fieldTypeResolver;
 
     /**
+     * @var FieldValueMapperInterface[]
+     */
+    private $fieldValueMappers;
+
+    /**
      * Constructor.
      *
      * @SuppressWarnings(PHPMD.LongVariable)
@@ -42,15 +47,18 @@ class FieldMapper implements FieldMapperInterface
      * @param AttributeAdapterProviderInterface $attributeAdapterProvider
      * @param FieldNameResolverInterface        $fieldNameResolver
      * @param FieldTypeResolverInterface        $fieldTypeResolver
+     * @param FieldValueMapperInterface[]       $fieldValueMappers
      */
     public function __construct(
         AttributeAdapterProviderInterface $attributeAdapterProvider,
         FieldNameResolverInterface $fieldNameResolver,
-        FieldTypeResolverInterface $fieldTypeResolver
+        FieldTypeResolverInterface $fieldTypeResolver,
+        array $fieldValueMappers = []
     ) {
         $this->attributeAdapterProvider = $attributeAdapterProvider;
         $this->fieldNameResolver = $fieldNameResolver;
         $this->fieldTypeResolver = $fieldTypeResolver;
+        $this->fieldValueMappers = $fieldValueMappers;
     }
 
     /**
@@ -71,11 +79,15 @@ class FieldMapper implements FieldMapperInterface
 
     /**
      * {@inheritDoc}
-     *
-     * TODO: field coercicion
      */
     public function mapValue($attributeCode, $value)
     {
+        $fieldType = $this->getFieldType($attributeCode);
+
+        if (isset($this->fieldValueMappers[$fieldType])) {
+            $value = $this->fieldValueMappers[$fieldType]->mapValue($value);
+        }
+
         return $value;
     }
 
