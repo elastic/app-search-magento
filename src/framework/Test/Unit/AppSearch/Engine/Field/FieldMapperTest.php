@@ -16,7 +16,6 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
 
-
 /**
  * Unit test for the FieldMapper class.
  *
