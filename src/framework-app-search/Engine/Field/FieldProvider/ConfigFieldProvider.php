@@ -77,7 +77,7 @@ class ConfigFieldProvider implements FieldProviderInterface
 
         if (!isset($fields[$name])) {
             throw new LocalizedException(
-                __('Unable to find field %1 in config for engine %2', $name, $this->engineIdentifier)
+                __('Unable to find field %1 in config for engine %2.', $name, $this->engineIdentifier)
             );
         }
 

@@ -11,6 +11,7 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field\Config;
 
 use Magento\Framework\Config\ConverterInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 
 /**
  * Convert app_search_fields.xml files into field config.
@@ -22,6 +23,16 @@ use Magento\Framework\Config\ConverterInterface;
 class Converter implements ConverterInterface
 {
     /**
+     * List of fields that should be added to all schemas.
+     *
+     * @var array
+     */
+    private $defaultFields = [
+        'deleted' => ['name' => 'deleted', 'type' => SchemaInterface::FIELD_TYPE_TEXT],
+        'sync_id' => ['name' => 'sync_id', 'type' => SchemaInterface::FIELD_TYPE_TEXT],
+    ];
+
+    /**
      * {@inheritdoc}
      */
     public function convert($source)
@@ -30,7 +41,7 @@ class Converter implements ConverterInterface
 
         foreach ($source->documentElement->getElementsByTagName('engine') as $engine) {
             $engineIdentifier = (string) $engine->getAttribute('identifier');
-            $result[$engineIdentifier] = [];
+            $result[$engineIdentifier] = $this->defaultFields;
             foreach ($engine->getElementsByTagName('field') as $field) {
                 $fieldConfig = $this->getFieldConfig($field);
                 $fieldName   = $fieldConfig['name'];

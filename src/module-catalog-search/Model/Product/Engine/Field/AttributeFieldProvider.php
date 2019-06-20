@@ -77,7 +77,7 @@ class AttributeFieldProvider implements FieldProviderInterface
         $fields = $this->getFields();
 
         if (!isset($fields[$name])) {
-            throw new LocalizedException(__('Unable to find field %1 in config', $name));
+            throw new LocalizedException(__('Unable to find field %1 in attribute list.', $name));
         }
 
         return $fields[$name];

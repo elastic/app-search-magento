@@ -16,6 +16,8 @@ use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\Client\Client;
+use Magento\Framework\Indexer\SaveHandler\Batch;
+use Ramsey\Uuid\UuidFactory;
 
 /**
  * Unit test for the SyncManager class.
@@ -119,9 +121,10 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
     {
         $connectionManager = $this->createConnectionManager($client);
         $batchDataMapperResolver = $this->getBatchDataMapperResolver();
-        $batch = new \Magento\Framework\Indexer\SaveHandler\Batch();
+        $batch = new Batch();
+        $uuidFactory = new UuidFactory();
 
-        return new SyncManager($batchDataMapperResolver, $connectionManager, $batch, $batchSize);
+        return new SyncManager($batchDataMapperResolver, $connectionManager, $batch, $uuidFactory, $batchSize);
     }
 
     /**
@@ -138,6 +141,8 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
             $this->getInsertDocsStub()
         );
 
+        $client->method('search')->willReturnCallback($this->getSearchDocsStub());
+
         return $client;
     }
 
@@ -148,6 +153,17 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
     {
         return function ($engineName, $docs) {
             $this->writtenDocs[$engineName] = array_merge($this->writtenDocs[$engineName] ?? [], $docs);
+            return $docs;
+        };
+    }
+
+    /**
+     * Stub function for search used during wait for completion.
+     */
+    private function getSearchDocsStub()
+    {
+        return function ($engineName) {
+            return ['meta' => ['page' => ['total_results' => count($this->writtenDocs[$engineName])]]];
         };
     }
 

@@ -24,6 +24,12 @@
         </arguments>
     </type>
 
+    <virtualType name="Elastic\AppSearch\CatalogSearch\Model\Indexer\IndexerHandler" type="Elastic\AppSearch\Framework\AppSearch\Indexer\IndexerHandler">
+        <arguments>
+            <argument name="engineIdentifier" xsi:type="const">Magento\CatalogSearch\Model\Indexer\Fulltext::INDEXER_ID</argument>
+        </arguments>
+    </virtualType>
+
     <type name="Magento\CatalogSearch\Model\Indexer\IndexerHandlerFactory">
         <arguments>
             <argument name="handlers" xsi:type="array">
@@ -35,7 +41,7 @@
     <type name="Magento\CatalogSearch\Model\Indexer\IndexStructureFactory">
         <arguments>
             <argument name="structures" xsi:type="array">
-                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\Indexer\IndexStructure</item>
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\Framework\AppSearch\Indexer\IndexStructure</item>
             </argument>
         </arguments>
     </type>
