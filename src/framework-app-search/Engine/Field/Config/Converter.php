@@ -51,8 +51,8 @@ class Converter implements ConverterInterface
     private function getFieldConfig(\DOMElement $field): array
     {
         return [
-            'name'=> (string) $field->getAttribute('name'),
-            'type'=> (string) $field->getAttribute('type'),
+            'name' => (string) $field->getAttribute('name'),
+            'type' => (string) $field->getAttribute('type'),
         ];
     }
 }

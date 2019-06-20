@@ -82,8 +82,10 @@ class AttributeMapper implements BatchDataMapperInterface
      *
      * @return string
      */
-    private function getFieldName(ProductAttributeInterface $attribute, string $type = SchemaInterface::CONTEXT_FILTER): string
-    {
+    private function getFieldName(
+        ProductAttributeInterface $attribute,
+        string $type = SchemaInterface::CONTEXT_FILTER
+    ): string {
         return $this->fieldMapper->getFieldName($attribute->getAttributeCode(), ['type' => $type]);
     }
 

@@ -27,6 +27,11 @@ class FieldNameResolver implements FieldNameResolverInterface
     private const VALUE_SUFFIX = '_value';
 
     /**
+     * @var string[]
+     */
+    private $valueFieldContexts = [SchemaInterface::CONTEXT_SEARCH, SchemaInterface::CONTEXT_SORT];
+
+    /**
      * {@inheritDoc}
      */
     public function getFieldName(FieldInterface $field, array $context = []): string
@@ -50,6 +55,6 @@ class FieldNameResolver implements FieldNameResolverInterface
      */
     private function useValueField(FieldInterface $field, string $type)
     {
-        return $field->useValueField() && in_array($type, [SchemaInterface::CONTEXT_SEARCH, SchemaInterface::CONTEXT_SORT]);
+        return $field->useValueField() && in_array($type, $this->valueFieldContexts);
     }
 }

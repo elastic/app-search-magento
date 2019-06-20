@@ -43,6 +43,8 @@ class AttributeFieldProvider implements FieldProviderInterface
     /**
      * Constructor.
      *
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
      * @param AttributeDataProvider $attributeDataProvider
      * @param AttributeFieldFactory $fieldFactory
      */
@@ -57,7 +59,7 @@ class AttributeFieldProvider implements FieldProviderInterface
      */
     public function getFields(): array
     {
-        if ($this->fields === null) {} {
+        if ($this->fields === null) {
             foreach ($this->attributeDataProvider->getSearchableAttributes() as $attribute) {
                 $field = $this->createField($attribute);
                 $this->fields[$field->getName()] = $field;

@@ -19,6 +19,8 @@ use Magento\Framework\Exception\LocalizedException;
 /**
  * A field provider that read fields from the config (app_search_fields.xml).
  *
+ * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldProvider
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -59,7 +61,11 @@ class ConfigFieldProvider implements FieldProviderInterface
      */
     public function getFields(): array
     {
-        return array_map([$this, 'createField'], $this->fieldConfig->get($this->engineIdentifier));
+        if ($this->fields === null) {
+            $this->fields = array_map([$this, 'createField'], $this->fieldConfig->get($this->engineIdentifier));
+        }
+
+        return $this->fields;
     }
 
     /**

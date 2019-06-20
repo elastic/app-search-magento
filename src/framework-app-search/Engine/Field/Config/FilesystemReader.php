@@ -17,6 +17,8 @@ use Magento\Framework\Config\ValidationStateInterface;
 /**
  * Reader that handle app_search_fields xml files.
  *
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field\Config
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -28,6 +30,8 @@ class FilesystemReader extends Filesystem
      */
     private const CONFIG_FILE_NAME = 'app_search_fields.xml';
 
+    // phpcs:disable
+
     /**
      * List of identifier attributes for merging
      *
@@ -37,6 +41,8 @@ class FilesystemReader extends Filesystem
         '/engines/engine'       => 'identifier',
         '/engines/engine/field' => 'name',
     ];
+
+    // phpcs:enable
 
     /**
      * Constructor.
