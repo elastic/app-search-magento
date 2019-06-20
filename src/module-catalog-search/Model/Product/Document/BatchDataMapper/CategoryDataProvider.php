@@ -13,6 +13,8 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
 use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
+use Magento\CatalogSearch\Model\Indexer\Fulltext;
 
 /**
  * Retrive category data for products.
@@ -43,13 +45,17 @@ class CategoryDataProvider implements DataProviderInterface
     /**
      * Constructor.
      *
-     * @param ResourceModel        $resourceModel
-     * @param FieldMapperInterface $fieldMapper
+     * @param ResourceModel                $resourceModel
+     * @param FieldMapperResolverInterface $fieldMapperResolver
+     * @param string                       $engineIdentifier
      */
-    public function __construct(ResourceModel $resourceModel, FieldMapperInterface $fieldMapper)
-    {
+    public function __construct(
+        ResourceModel $resourceModel,
+        FieldMapperResolverInterface $fieldMapperResolver,
+        string $engineIdentifier = Fulltext::INDEXER_ID
+    ) {
         $this->resourceModel = $resourceModel;
-        $this->fieldMapper   = $fieldMapper;
+        $this->fieldMapper   = $fieldMapperResolver->getFieldMapper($engineIdentifier);
     }
 
     /**

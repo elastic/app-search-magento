@@ -12,11 +12,13 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface as SchemaBuilderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\Customer\Api\GroupRepositoryInterface as CustomerGroupRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Magento\Customer\Api\Data\GroupInterface as CustomerGroupInterface;
+use Magento\CatalogSearch\Model\Indexer\Fulltext;
 
 /**
  * Price fields for the product schema.
@@ -58,18 +60,20 @@ class PriceSchemaProvider implements SchemaProviderInterface
      * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param SchemaBuilderInterface           $schemaBuilder
-     * @param FieldMapperInterface             $fieldMapper
+     * @param FieldMapperResolverInterface     $fieldMapperResolver
      * @param CustomerGroupRepositoryInterface $customerGroupRepository
      * @param SearchCriteriaBuilder            $searchCriteriaBuilder
+     * @param string                           $engineIdentifier
      */
     public function __construct(
         SchemaBuilderInterface $schemaBuilder,
-        FieldMapperInterface $fieldMapper,
+        FieldMapperResolverInterface $fieldMapperResolver,
         CustomerGroupRepositoryInterface $customerGroupRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        string $engineIdentifier = Fulltext::INDEXER_ID
     ) {
         $this->schemaBuilder            = $schemaBuilder;
-        $this->fieldMapper              = $fieldMapper;
+        $this->fieldMapper              = $fieldMapperResolver->getFieldMapper($engineIdentifier);
         $this->customerGroupRepository  = $customerGroupRepository;
         $this->searchCriteriaBuilder    = $searchCriteriaBuilder;
     }

@@ -14,7 +14,9 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface as SchemaBuilderInterface;
 use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeDataProvider;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
+use Magento\CatalogSearch\Model\Indexer\Fulltext;
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
 
 /**
@@ -55,18 +57,20 @@ class AttributeSchemaProvider implements SchemaProviderInterface
     /**
      * Constructor.
      *
-     * @param SchemaBuilderInterface $schemaBuilder
-     * @param AttributeDataProvider  $attributeDataProvider
-     * @param FieldMapperInterface   $fieldMapper
+     * @param SchemaBuilderInterface       $schemaBuilder
+     * @param AttributeDataProvider        $attributeDataProvider
+     * @param FieldMapperResolverInterface $fieldMapperResolver
+     * @param string                       $engineIdentifier
      */
     public function __construct(
         SchemaBuilderInterface $schemaBuilder,
         AttributeDataProvider $attributeDataProvider,
-        FieldMapperInterface $fieldMapper
+        FieldMapperResolverInterface $fieldMapperResolver,
+        string $engineIdentifier = Fulltext::INDEXER_ID
     ) {
         $this->schemaBuilder         = $schemaBuilder;
         $this->attributeDataProvider = $attributeDataProvider;
-        $this->fieldMapper           = $fieldMapper;
+        $this->fieldMapper           = $fieldMapperResolver->getFieldMapper($engineIdentifier);
     }
 
     /**

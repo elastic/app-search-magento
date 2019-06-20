@@ -18,6 +18,7 @@
 <engines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:elastic:framework-app-search:etc/app_search_fields.xsd">
     <engine identifier="catalogsearch_fulltext">
         <field name="entity_id" type="text" />
+        <field name="options" type="text" />
         <field name="category_ids" type="text" />
         <field name="category_name" type="text" />
     </engine>

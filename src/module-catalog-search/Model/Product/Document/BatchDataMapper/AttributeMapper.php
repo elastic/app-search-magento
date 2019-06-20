@@ -11,11 +11,12 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeProvider;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 use Magento\Catalog\Api\Data\ProductAttributeInterface;
-
+use Magento\CatalogSearch\Model\Indexer\Fulltext;
 
 /**
  * Product attribute batch data mapper.
@@ -39,12 +40,16 @@ class AttributeMapper implements BatchDataMapperInterface
     /**
      * Constructor.
      *
-     * @param FieldMapperInterface $fieldMapper
-     * @param AttributeProvider    $attributeProvider
+     * @param FieldMapperResolverInterface $fieldMapperResolver
+     * @param AttributeProvider            $attributeProvider
+     * @param string                       $engineIdentifier
      */
-    public function __construct(FieldMapperInterface $fieldMapper, AttributeProvider $attributeProvider)
-    {
-        $this->fieldMapper       = $fieldMapper;
+    public function __construct(
+        FieldMapperResolverInterface $fieldMapperResolver,
+        AttributeProvider $attributeProvider,
+        string $engineIdentifier = FullText::INDEXER_ID
+    ) {
+        $this->fieldMapper       = $fieldMapperResolver->getFieldMapper($engineIdentifier);
         $this->attributeProvider = $attributeProvider;
     }
 
