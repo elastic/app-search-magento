@@ -10,14 +10,13 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema;
 
-use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface as SchemaBuilderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\Customer\Api\GroupRepositoryInterface as CustomerGroupRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
+use Magento\Customer\Api\Data\GroupInterface as CustomerGroupInterface;
 
 /**
  * Price fields for the product schema.
@@ -29,9 +28,19 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 class PriceSchemaProvider implements SchemaProviderInterface
 {
     /**
-     * @var AttributeAdapterProvider
+     * @var string
      */
-    private $attributeAdapterProvider;
+    private const PRICE_ATTRIBUTE = 'price';
+
+    /**
+     * @var SchemaBuilderInterface
+     */
+    private $schemaBuilder;
+
+    /**
+     * @var FieldMapperInterface
+     */
+    private $fieldMapper;
 
     /**
      * @var CustomerGroupRepositoryInterface
@@ -48,25 +57,19 @@ class PriceSchemaProvider implements SchemaProviderInterface
      *
      * @SuppressWarnings(PHPMD.LongVariable)
      *
-     * @param BuilderInterface                 $builder
-     * @param AttributeAdapterProvider         $attributeAdapterProvider
-     * @param FieldNameResolverInterface       $fieldNameResolver
-     * @param FieldTypeResolverInterface       $fieldTypeResolver
+     * @param SchemaBuilderInterface           $schemaBuilder
+     * @param FieldMapperInterface             $fieldMapper
      * @param CustomerGroupRepositoryInterface $customerGroupRepository
      * @param SearchCriteriaBuilder            $searchCriteriaBuilder
      */
     public function __construct(
-        BuilderInterface $builder,
-        AttributeAdapterProvider $attributeAdapterProvider,
-        FieldNameResolverInterface $fieldNameResolver,
-        FieldTypeResolverInterface $fieldTypeResolver,
+        SchemaBuilderInterface $schemaBuilder,
+        FieldMapperInterface $fieldMapper,
         CustomerGroupRepositoryInterface $customerGroupRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
-        $this->builder                  = $builder;
-        $this->attributeAdapterProvider = $attributeAdapterProvider;
-        $this->fieldNameResolver        = $fieldNameResolver;
-        $this->fieldTypeResolver        = $fieldTypeResolver;
+        $this->schemaBuilder            = $schemaBuilder;
+        $this->fieldMapper              = $fieldMapper;
         $this->customerGroupRepository  = $customerGroupRepository;
         $this->searchCriteriaBuilder    = $searchCriteriaBuilder;
     }
@@ -76,16 +79,26 @@ class PriceSchemaProvider implements SchemaProviderInterface
      */
     public function getSchema(): SchemaInterface
     {
-        $priceAttribute = $this->attributeAdapterProvider->getAttributeAdapter('price');
-        $fieldType      = $this->fieldTypeResolver->getFieldType($priceAttribute);
-        $searchCriteria = $this->searchCriteriaBuilder->create();
+        $fieldType = $this->fieldMapper->getFieldType(self::PRICE_ATTRIBUTE);
 
-        foreach ($this->customerGroupRepository->getList($searchCriteria)->getItems() as $customerGroup) {
+        foreach ($this->getCustomerGroups() as $customerGroup) {
             $context = ['customer_group_id' => $customerGroup->getId()];
-            $fieldName = $this->fieldNameResolver->getFieldName($priceAttribute, $context);
-            $this->builder->addField($fieldName, $fieldType);
+            $fieldName = $this->fieldMapper->getFieldName(self::PRICE_ATTRIBUTE, $context);
+            $this->schemaBuilder->addField($fieldName, $fieldType);
         }
 
-        return $this->builder->build();
+        return $this->schemaBuilder->build();
+    }
+
+    /**
+     * Get all available customer groups.
+     *
+     * @return CustomerGroupInterface[]
+     */
+    private function getCustomerGroups()
+    {
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+
+        return $this->customerGroupRepository->getList($searchCriteria)->getItems();
     }
 }

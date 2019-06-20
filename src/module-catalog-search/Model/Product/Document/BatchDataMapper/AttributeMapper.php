@@ -11,10 +11,10 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\BatchDataMapperInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider as AttributeProvider;
-use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapter;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
+use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeProvider;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
+use Magento\Catalog\Api\Data\ProductAttributeInterface;
 
 
 /**
@@ -27,9 +27,9 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 class AttributeMapper implements BatchDataMapperInterface
 {
     /**
-     * @var FieldNameResolverInterface
+     * @var FieldMapperInterface
      */
-    private $fieldNameResolver;
+    private $fieldMapper;
 
     /**
      * @var AttributeProvider
@@ -39,12 +39,12 @@ class AttributeMapper implements BatchDataMapperInterface
     /**
      * Constructor.
      *
-     * @param FieldNameResolverInterface $fieldNameResolver
-     * @param AttributeProvider          $attributeProvider
+     * @param FieldMapperInterface $fieldMapper
+     * @param AttributeProvider    $attributeProvider
      */
-    public function __construct(FieldNameResolverInterface $fieldNameResolver, AttributeProvider $attributeProvider)
+    public function __construct(FieldMapperInterface $fieldMapper, AttributeProvider $attributeProvider)
     {
-        $this->fieldNameResolver = $fieldNameResolver;
+        $this->fieldMapper       = $fieldMapper;
         $this->attributeProvider = $attributeProvider;
     }
 
@@ -74,9 +74,17 @@ class AttributeMapper implements BatchDataMapperInterface
         return $documents;
     }
 
-    private function getFieldName(AttributeAdapter $attribute, $type = SchemaInterface::CONTEXT_FILTER)
+    /**
+     * Get field name for a specific context.
+     *
+     * @param ProductAttributeInterface $attribute
+     * @param string                    $type
+     *
+     * @return string
+     */
+    private function getFieldName(ProductAttributeInterface $attribute, string $type = SchemaInterface::CONTEXT_FILTER): string
     {
-        return $this->fieldNameResolver->getFieldName($attribute, ['type' => $type]);
+        return $this->fieldMapper->getFieldName($attribute->getAttributeCode(), ['type' => $type]);
     }
 
     /**
@@ -96,22 +104,22 @@ class AttributeMapper implements BatchDataMapperInterface
      *
      * @param int $attributeId
      *
-     * @return AttributeAdapter
+     * @return ProductAttributeInterface
      */
-    private function getAttribute($attributeId)
+    private function getAttribute($attributeId): ProductAttributeInterface
     {
-        return $this->attributeProvider->getAttributeAdapter($attributeId);
+        return $this->attributeProvider->getSearchableAttribute($attributeId);
     }
 
     /**
      * Prepare attribute value to be indexed.
      *
-     * @param AttributeAdapter $attribute
-     * @param mixed            $value
+     * @param ProductAttributeInterface $attribute
+     * @param mixed                     $value
      *
      * @return mixed
      */
-    private function prepareValue(AttributeAdapter $attribute, $value)
+    private function prepareValue(ProductAttributeInterface $attribute, $value)
     {
         $value = is_array($value) && count($value) == 1 ? current($value) : $value;
 
@@ -121,23 +129,25 @@ class AttributeMapper implements BatchDataMapperInterface
 
         if (is_array($value)) {
             $value = array_values(array_unique($value));
-            if ($attribute->isSortable() && !$attribute->isFilterable()) {
+            $isUsedForSortBy = $attribute->getUsedForSortBy();
+            $isFilterable    = $attribute->getIsFilterable() || $attribute->getIsFilterableInSearch();
+            if ($isUsedForSortBy && !$isFilterable) {
                 $value = current($value);
             }
         }
 
-        return $value;
+        return $this->fieldMapper->mapValue($attribute->getAttributeCode(), $value);
     }
 
     /**
      * Get searchable values for attribute (e.g. convert option ids to labels).
      *
-     * @param AttributeAdapter $attribute
-     * @param mixed          $value
+     * @param ProductAttributeInterface $attribute
+     * @param mixed                     $value
      *
      * @return mixed
      */
-    private function getSearchValue(AttributeAdapter $attribute, $value)
+    private function getSearchValue(ProductAttributeInterface $attribute, $value)
     {
         $attributeOptions = $attribute->getOptions();
 
@@ -155,6 +165,6 @@ class AttributeMapper implements BatchDataMapperInterface
             $value = $attributeLabels;
         }
 
-        return $value;
+        return $this->fieldMapper->mapValue($attribute->getAttributeCode(), $value);
     }
 }

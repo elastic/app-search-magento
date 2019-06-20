@@ -10,9 +10,9 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
+use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
 use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider as AttributeProvider;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
  * Retrieve price data for products.
@@ -23,7 +23,7 @@ use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterP
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class PriceDataProvider extends AbstractDataProvider
+class PriceDataProvider implements DataProviderInterface
 {
     /**
      * @var ResourceModel
@@ -31,19 +31,20 @@ class PriceDataProvider extends AbstractDataProvider
     private $resourceModel;
 
     /**
+     * @var FieldMapperInterface
+     */
+    private $fieldMapper;
+
+    /**
      * Constructor.
      *
-     * @param ResourceModel              $resourceModel
-     * @param AttributeProvider          $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
+     * @param ResourceModel         $resourceModel
+     * @param FieldMapperInterface $fieldMapper
      */
-    public function __construct(
-        ResourceModel $resourceModel,
-        AttributeProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver
-    ) {
-        parent::__construct($attributeProvider, $fieldNameResolver);
+    public function __construct(ResourceModel $resourceModel, FieldMapperInterface $fieldMapper)
+    {
         $this->resourceModel = $resourceModel;
+        $this->fieldMapper   = $fieldMapper;
     }
 
     /**
@@ -68,7 +69,8 @@ class PriceDataProvider extends AbstractDataProvider
         $priceData = [];
 
         foreach ($data as $customerGroupId => $price) {
-            $priceData[$this->getFieldName('price', ['customer_group_id' => $customerGroupId])] = $price;
+            $fieldName = $this->fieldMapper->getFieldName('price', ['customer_group_id' => $customerGroupId]);
+            $priceData[$fieldName] = $this->fieldMapper->mapValue('price', $price);
         }
 
         return $priceData;

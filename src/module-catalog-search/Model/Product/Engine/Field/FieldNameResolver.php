@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver as FrameworkFieldNameResolver;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldInterface;
 use Magento\Customer\Model\Session as CustomerSession;
 
 /**
@@ -41,9 +41,9 @@ class FieldNameResolver extends FrameworkFieldNameResolver
     /**
      * {@inheritDoc}
      */
-    public function getFieldName(AttributeAdapterInterface $attribute, array $context = []): string
+    public function getFieldName(FieldInterface $field, array $context = []): string
     {
-        $fieldName = parent::getFieldName($attribute, $context);
+        $fieldName = parent::getFieldName($field, $context);
 
         if ($fieldName == 'price') {
             $fieldName = $this->getPriceFieldName($fieldName, $context);
@@ -66,10 +66,6 @@ class FieldNameResolver extends FrameworkFieldNameResolver
     {
         $groupId = $context['customer_group_id'] ?? $this->customerSession->getCustomerGroupId();
 
-        if ($groupId) {
-            $fieldName = $fieldName . '_' . $groupId;
-        }
-
-        return $fieldName;
+        return $fieldName . '_' . (int) $groupId;
     }
 }

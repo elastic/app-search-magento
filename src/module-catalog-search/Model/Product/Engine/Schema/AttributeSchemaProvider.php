@@ -12,11 +12,10 @@ namespace Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\BuilderInterface as SchemaBuilderInterface;
 use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeDataProvider;
-use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterFactory;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
+use Magento\Catalog\Api\Data\ProductAttributeInterface;
 
 /**
  * Add product attributes to the schema.
@@ -30,9 +29,9 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterfac
 class AttributeSchemaProvider implements SchemaProviderInterface
 {
     /**
-     * @var BuilderInterface
+     * @var SchemaBuilderInterface
      */
-    private $builder;
+    private $schemaBuilder;
 
     /**
      * @var AttributeDataProvider
@@ -40,19 +39,9 @@ class AttributeSchemaProvider implements SchemaProviderInterface
     private $attributeDataProvider;
 
     /**
-     * @var AttributeDataProvider
+     * @var FieldMapperInterface
      */
-    private $attributeAdapterFactory;
-
-    /**
-     * @var FieldNameResolverInterface
-     */
-    private $fieldNameResolver;
-
-    /**
-     * @var FieldTypeResolverInterface
-     */
-    private $fieldTypeResolver;
+    private $fieldMapper;
 
     /**
      * @var string[]
@@ -66,24 +55,18 @@ class AttributeSchemaProvider implements SchemaProviderInterface
     /**
      * Constructor.
      *
-     * @param BuilderInterface           $builder
-     * @param AttributeDataProvider      $attributeDataProvider
-     * @param AttributeAdapterFactory    $attributeAdapterFactory
-     * @param FieldNameResolverInterface $fieldNameResolver
-     * @param FieldTypeResolverInterface $fieldTypeResolver
+     * @param SchemaBuilderInterface $schemaBuilder
+     * @param AttributeDataProvider  $attributeDataProvider
+     * @param FieldMapperInterface   $fieldMapper
      */
     public function __construct(
-        BuilderInterface $builder,
+        SchemaBuilderInterface $schemaBuilder,
         AttributeDataProvider $attributeDataProvider,
-        AttributeAdapterFactory $attributeAdapterFactory,
-        FieldNameResolverInterface $fieldNameResolver,
-        FieldTypeResolverInterface $fieldTypeResolver
+        FieldMapperInterface $fieldMapper
     ) {
-        $this->builder                 = $builder;
-        $this->attributeDataProvider   = $attributeDataProvider;
-        $this->attributeAdapterFactory = $attributeAdapterFactory;
-        $this->fieldNameResolver       = $fieldNameResolver;
-        $this->fieldTypeResolver       = $fieldTypeResolver;
+        $this->schemaBuilder         = $schemaBuilder;
+        $this->attributeDataProvider = $attributeDataProvider;
+        $this->fieldMapper           = $fieldMapper;
     }
 
     /**
@@ -94,15 +77,26 @@ class AttributeSchemaProvider implements SchemaProviderInterface
         $productAttributes = $this->attributeDataProvider->getSearchableAttributes();
 
         foreach ($productAttributes as $productAttribute) {
-            $attribute = $this->attributeAdapterFactory->create(['attribute' => $productAttribute]);
-            foreach ($this->contexts as $contextName) {
-                $fieldName = $this->fieldNameResolver->getFieldName($attribute, ['type' => $contextName]);
-                $fieldType = $this->fieldTypeResolver->getFieldType($attribute);
-
-                $this->builder->addField($fieldName, $fieldType);
+            if ($productAttribute->getAttributeCode() != 'price') {
+                $this->addAttribute($productAttribute);
             }
         }
 
-        return $this->builder->build();
+        return $this->schemaBuilder->build();
+    }
+
+    /**
+     * Add the attribute to the schema.
+     *
+     * @param ProductAttributeInterface $attribute
+     */
+    private function addAttribute(ProductAttributeInterface $attribute)
+    {
+        foreach ($this->contexts as $contextName) {
+            $fieldName = $this->fieldMapper->getFieldName($attribute->getAttributeCode(), ['type' => $contextName]);
+            $fieldType = $this->fieldMapper->getFieldType($attribute->getAttributeCode());
+
+            $this->schemaBuilder->addField($fieldName, $fieldType);
+        }
     }
 }

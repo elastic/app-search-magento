@@ -10,9 +10,9 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
+use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
 use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
-use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterProvider as AttributeProvider;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 
 /**
  * Retrive category data for products.
@@ -23,27 +23,33 @@ use Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field\AttributeAdapterP
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-class CategoryDataProvider extends AbstractDataProvider
+class CategoryDataProvider implements DataProviderInterface
 {
+    /**
+     * @var array
+     */
+    private $mappedField = ['id' => 'category_ids', 'name' => 'category_name'];
+
     /**
      * @var ResourceModel
      */
     private $resourceModel;
 
     /**
+     * @var FieldMapperInterface
+     */
+    private $fieldMapper;
+
+    /**
      * Constructor.
      *
-     * @param ResourceModel              $resourceModel
-     * @param AttributeProvider          $attributeProvider
-     * @param FieldNameResolverInterface $fieldNameResolver
+     * @param ResourceModel        $resourceModel
+     * @param FieldMapperInterface $fieldMapper
      */
-    public function __construct(
-        ResourceModel $resourceModel,
-        AttributeProvider $attributeProvider,
-        FieldNameResolverInterface $fieldNameResolver
-    ) {
-        parent::__construct($attributeProvider, $fieldNameResolver);
+    public function __construct(ResourceModel $resourceModel, FieldMapperInterface $fieldMapper)
+    {
         $this->resourceModel = $resourceModel;
+        $this->fieldMapper   = $fieldMapper;
     }
 
     /**
@@ -65,10 +71,13 @@ class CategoryDataProvider extends AbstractDataProvider
      */
     private function processCategoryData($data)
     {
-        $categoryData = [
-            $this->getFieldName('category_ids')  => array_column($data, 'id'),
-            $this->getFieldName('category_name') => array_column($data, 'name'),
-        ];
+        $categoryData = [];
+
+        foreach ($this->mappedField as $srcField => $targetField) {
+            $fieldName  = $this->fieldMapper->getFieldName($targetField);
+            $fieldValue = $this->fieldMapper->mapValue($targetField, array_column($data, $srcField));
+            $categoryData[$fieldName] = $fieldValue;
+        }
 
         return $categoryData;
     }
