@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Model\Indexer;
+namespace Elastic\AppSearch\Framework\AppSearch\Indexer;
 
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\Indexer\IndexStructureInterface;
@@ -21,17 +21,12 @@ use Elastic\AppSearch\Framework\AppSearch\Document\SyncManagerInterface;
 /**
  * Implementation of the App Search indexer handler.
  *
- * @package   Elastic\Model\Indexer
+ * @package   Elastic\AppSearch\Framework\AppSearch\Indexer
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
 class IndexerHandler implements IndexerInterface
 {
-    /**
-     * @var string
-     */
-    const DEFAULT_ENGINE_IDENTIFIER = \Magento\CatalogSearch\Model\Indexer\Fulltext::INDEXER_ID;
-
     /**
      * @var IndexStructureInterface
      */
@@ -84,7 +79,7 @@ class IndexerHandler implements IndexerInterface
         SyncManagerInterface $syncManager,
         EngineResolverInterface $engineResolver,
         ScopeResolverInterface $scopeResolver,
-        string $engineIdentifier = self::DEFAULT_ENGINE_IDENTIFIER,
+        string $engineIdentifier,
         $data = []
     ) {
         $this->indexStructure   = $indexStructure;
