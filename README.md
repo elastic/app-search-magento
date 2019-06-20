@@ -4,6 +4,9 @@
 
 > A first-party Magento integration for building excellent, relevant search experiences with [Elastic App Search](https://www.elastic.co/cloud/app-search-service).
 
+> **:warning: This is a beta version of the client. Stable version will be released soon. [Here](#known-issues) is a list of currently known most important issues.**
+
+
 ## Contents
 
 - [Getting started](#getting-started-)
@@ -93,6 +96,19 @@ To finish the install, you need to clean your cache and reindex your content int
 bin/magento cache:clean
 bin/magento indexer:reindex catalogsearch_fulltext
 ```
+
+### Known issues:
+
+The module is in its first round of beta. This first round is intended to act as a technical preview, which aims to validate our ability to integrate App Search as an implementation of a Magento search adapter interface.
+
+There are a few caveats with the current implementation, whose most notable are:
+
+- The maximum number of fields allowed by App Search (currently 64) does not allow to index catalogs with too many products attributes (#37)
+
+- We will need to rework how product prices are stored into App Search to allow sites with a large number of customer groups to be indexed (#38)
+
+- Search relevance will be reworked because it is not optimal yet
+
 
 ## Development
 
