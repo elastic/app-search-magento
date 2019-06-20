@@ -14,6 +14,7 @@ use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Magento\Framework\Indexer\SaveHandler\Batch;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client;
+use Ramsey\Uuid\UuidFactory;
 
 /**
  * Implementation of the sync manager component.
@@ -33,6 +34,11 @@ class SyncManager implements SyncManagerInterface
      * @var array
      */
     private $docs = [];
+
+    /**
+     * @var string
+     */
+    private $syncId;
 
     /**
      * @var int
@@ -55,6 +61,11 @@ class SyncManager implements SyncManagerInterface
     private $client;
 
     /**
+     * @var UuidFactory
+     */
+    private $uuidFactory;
+
+    /**
      * Constructor.
      *
      * @SuppressWarnings(PHPMD.LongVariable)
@@ -62,18 +73,22 @@ class SyncManager implements SyncManagerInterface
      * @param BatchDataMapperResolverInterface $batchDataMapperResolver
      * @param ConnectionManagerInterface       $connectionManager
      * @param Batch                            $batch
+     * @param UuidFactory                      $uuidFactory
      * @param int                              $batchSize
      */
     public function __construct(
         BatchDataMapperResolverInterface $batchDataMapperResolver,
         ConnectionManagerInterface $connectionManager,
         Batch $batch,
+        UuidFactory $uuidFactory,
         int $batchSize = self::DEFAULT_BATCH_SIZE
     ) {
         $this->batchDataMapperResolver = $batchDataMapperResolver;
         $this->client                  = $connectionManager->getClient();
         $this->batch                   = $batch;
         $this->batchSize               = $batchSize;
+        $this->uuidFactory             = $uuidFactory;
+        $this->syncId                  = $uuidFactory->uuid4()->toString();
     }
 
     /**
@@ -90,6 +105,7 @@ class SyncManager implements SyncManagerInterface
         foreach ($this->batch->getItems($documents, $this->batchSize) as $docs) {
             $documents = $batchDataMapper->map($docs, $engine->getStoreId());
             foreach ($documents as $doc) {
+                $doc['sync_id'] = $this->syncId;
                 $this->docs[$engine->getName()][$doc['id']] = $doc;
             }
         }
@@ -109,6 +125,7 @@ class SyncManager implements SyncManagerInterface
             );
 
             foreach ($documents as $doc) {
+                $doc['sync_id'] = $this->syncId;
                 $this->docs[$engine->getName()][$doc['id']] = $doc;
             }
         }
@@ -120,12 +137,19 @@ class SyncManager implements SyncManagerInterface
     public function sync()
     {
         foreach ($this->docs as $engineName => $docs) {
+            $indexedDocs = 0;
             foreach (array_chunk($docs, $this->batchSize) as $insertDocs) {
-                $this->client->indexDocuments($engineName, $insertDocs);
+                $resp = $this->client->indexDocuments($engineName, $insertDocs);
+                $indexedDocs += count(array_filter($resp, function ($doc) {
+                    return empty($doc['errors']);
+                }));
             }
+
+            $this->waitForSync($engineName, $indexedDocs);
         }
 
-        $this->docs = [];
+        $this->docs   = [];
+        $this->syncId = $this->uuidFactory->uuid4()->toString();
     }
 
     /**
@@ -136,6 +160,24 @@ class SyncManager implements SyncManagerInterface
         foreach (array_chunk($this->getDeletedDocumentIds($engine), $this->batchSize) as $docIds) {
             $this->client->deleteDocuments($engine->getName(), $docIds);
         }
+    }
+
+    /**
+     * Wait for the engine to be synced and all update to be searchable.
+     *
+     * @param string $engineName
+     * @param int    $expectedCount
+     */
+    private function waitForSync(string $engineName, int $expectedCount)
+    {
+        $filterParams = ['sync_id' => $this->syncId];
+        $pageParams   = ['current' => 1, 'size' => 0];
+        $searchParams = ['filters' => $filterParams, 'page' => $pageParams];
+
+        do {
+            $resp = $this->client->search($engineName, '', $searchParams);
+            usleep(100);
+        } while (false && $resp['meta']['page']['total_results'] < $expectedCount);
     }
 
     /**
