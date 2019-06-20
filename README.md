@@ -97,7 +97,7 @@ bin/magento cache:clean
 bin/magento indexer:reindex catalogsearch_fulltext
 ```
 
-### Known issues:
+### Known issues
 
 The module is in its first round of beta. This first round is intended to act as a technical preview, which aims to validate our ability to integrate App Search as an implementation of a Magento search adapter interface.
 
