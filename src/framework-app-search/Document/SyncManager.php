@@ -127,4 +127,40 @@ class SyncManager implements SyncManagerInterface
 
         $this->docs = [];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function purgeDeletedDocuments(EngineInterface $engine)
+    {
+        foreach (array_chunk($this->getDeletedDocumentIds($engine), $this->batchSize) as $docIds) {
+            $this->client->deleteDocuments($engine->getName(), $docIds);
+        }
+    }
+
+    /**
+     * Return a list of product that are marked for deletion into the engine.
+     *
+     * @param EngineInterface $engine
+     *
+     * @return array
+     */
+    private function getDeletedDocumentIds(EngineInterface $engine): array
+    {
+        $docIds      = [];
+        $currentPage = 1;
+
+        do {
+            $filterParams = ['deleted' => "true"];
+            $pageParams   = ['current' => $currentPage, 'size' => 100];
+            $searchParams = ['filters' => $filterParams, 'page' => $pageParams];
+            $resp = $this->client->search($engine->getName(), '', $searchParams);
+            foreach ($resp['results'] as $doc) {
+                $docIds[] = $doc['id']['raw'];
+            }
+            $currentPage++;
+        } while (!empty($resp['results']));
+
+        return $docIds;
+    }
 }
