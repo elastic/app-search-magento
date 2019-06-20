@@ -29,11 +29,11 @@ class FieldNameResolver implements FieldNameResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function getFieldName(AttributeAdapterInterface $attribute, array $context = []): string
+    public function getFieldName(FieldInterface $field, array $context = []): string
     {
-        $fieldName = $attribute->getAttributeCode();
+        $fieldName = $field->getName();
 
-        if (isset($context['type']) && $this->useValueField($attribute, $context['type'])) {
+        if (isset($context['type']) && $this->useValueField($field, $context['type'])) {
             $fieldName = $fieldName . self::VALUE_SUFFIX;
         }
 
@@ -41,25 +41,15 @@ class FieldNameResolver implements FieldNameResolverInterface
     }
 
     /**
-     * Check if the attribute need a _value suffix for the current context.
+     * Check if the field need a _value suffix for the current context.
      *
-     * @param AttributeAdapterInterface $attribute
-     * @param array                     $context
+     * @param FieldInterface $field
+     * @param array          $context
      *
      * @return boolean
      */
-    private function useValueField(AttributeAdapterInterface $attribute, string $type)
+    private function useValueField(FieldInterface $field, string $type)
     {
-        $useValueField = false;
-
-        $frontendType = $attribute->getFrontendInput();
-
-        if ($frontendType == "boolean") {
-            $useValueField = $type == SchemaInterface::CONTEXT_SEARCH;
-        } elseif (in_array($frontendType, ['select', 'multiselect'])) {
-            $useValueField = in_array($type, [SchemaInterface::CONTEXT_SEARCH, SchemaInterface::CONTEXT_SORT]);
-        }
-
-        return $useValueField && ($attribute->isSearchable() || $attribute->isSortable());
+        return $field->useValueField() && in_array($type, [SchemaInterface::CONTEXT_SEARCH, SchemaInterface::CONTEXT_SORT]);
     }
 }

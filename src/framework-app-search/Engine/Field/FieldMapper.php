@@ -20,9 +20,9 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 class FieldMapper implements FieldMapperInterface
 {
     /**
-     * @var AttributeAdapterProviderInterface
+     * @var FieldProviderInterface
      */
-    private $attributeAdapterProvider;
+    private $fieldProvider;
 
     /**
      * @var FieldNameResolverInterface
@@ -42,20 +42,18 @@ class FieldMapper implements FieldMapperInterface
     /**
      * Constructor.
      *
-     * @SuppressWarnings(PHPMD.LongVariable)
-     *
-     * @param AttributeAdapterProviderInterface $attributeAdapterProvider
-     * @param FieldNameResolverInterface        $fieldNameResolver
-     * @param FieldTypeResolverInterface        $fieldTypeResolver
-     * @param FieldValueMapperInterface[]       $fieldValueMappers
+     * @param FieldProviderInterface      $fieldProvider
+     * @param FieldNameResolverInterface  $fieldNameResolver
+     * @param FieldTypeResolverInterface  $fieldTypeResolver
+     * @param FieldValueMapperInterface[] $fieldValueMappers
      */
     public function __construct(
-        AttributeAdapterProviderInterface $attributeAdapterProvider,
+        FieldProviderInterface $fieldProvider,
         FieldNameResolverInterface $fieldNameResolver,
         FieldTypeResolverInterface $fieldTypeResolver,
         array $fieldValueMappers = []
     ) {
-        $this->attributeAdapterProvider = $attributeAdapterProvider;
+        $this->fieldProvider     = $fieldProvider;
         $this->fieldNameResolver = $fieldNameResolver;
         $this->fieldTypeResolver = $fieldTypeResolver;
         $this->fieldValueMappers = $fieldValueMappers;
@@ -64,25 +62,25 @@ class FieldMapper implements FieldMapperInterface
     /**
      * {@inheritDoc}
      */
-    public function getFieldName(string $attributeCode, array $context = []): string
+    public function getFieldName(string $fieldName, array $context = []): string
     {
-        return $this->fieldNameResolver->getFieldName($this->getAttribute($attributeCode), $context);
+        return $this->fieldNameResolver->getFieldName($this->getField($fieldName), $context);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getFieldType(string $attributeCode): string
+    public function getFieldType(string $fieldName): string
     {
-        return $this->fieldTypeResolver->getFieldType($this->getAttribute($attributeCode));
+        return $this->fieldTypeResolver->getFieldType($this->getField($fieldName));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function mapValue($attributeCode, $value)
+    public function mapValue($fieldName, $value)
     {
-        $fieldType = $this->getFieldType($attributeCode);
+        $fieldType = $this->getFieldType($fieldName);
 
         if (isset($this->fieldValueMappers[$fieldType])) {
             $value = $this->fieldValueMappers[$fieldType]->mapValue($value);
@@ -91,15 +89,8 @@ class FieldMapper implements FieldMapperInterface
         return $value;
     }
 
-    /**
-     * Find the attribute using the attribute provider.
-     *
-     * @param string $attributeCode
-     *
-     * @return AttributeAdapterInterface
-     */
-    private function getAttribute(string $attributeCode): AttributeAdapterInterface
+    private function getField($fieldName): FieldInterface
     {
-        return $this->attributeAdapterProvider->getAttributeAdapter($attributeCode);
+        return $this->fieldProvider->getField($fieldName);
     }
 }

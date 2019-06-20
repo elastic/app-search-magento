@@ -32,7 +32,7 @@ class SyncManager implements SyncManagerInterface
     /**
      * @var array
      */
-    private $docs   = [];
+    private $docs = [];
 
     /**
      * @var int

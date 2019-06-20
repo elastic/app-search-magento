@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 
 /**
- * Used to retrieve field type from an attribute.
+ * Used to retrieve field type.
  *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
@@ -20,11 +20,11 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 interface FieldTypeResolverInterface
 {
     /**
-     * Return field type to use for the attribute.
+     * Return field type.
      *
-     * @param AttributeAdapterInterface $attribute
+     * @param FieldInterface $field
      *
      * @return string|NULL
      */
-    public function getFieldType(AttributeAdapterInterface $attribute): string;
+    public function getFieldType(FieldInterface $field): string;
 }

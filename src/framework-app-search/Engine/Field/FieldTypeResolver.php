@@ -24,16 +24,8 @@ class FieldTypeResolver implements FieldTypeResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function getFieldType(AttributeAdapterInterface $attribute): string
+    public function getFieldType(FieldInterface $field): string
     {
-        $fieldType = SchemaInterface::FIELD_TYPE_TEXT;
-
-        if ($attribute->isNumberType()) {
-            $fieldType = SchemaInterface::FIELD_TYPE_NUMBER;
-        } elseif ($attribute->isDateType()) {
-            $fieldType = SchemaInterface::FIELD_TYPE_DATE;
-        }
-
-        return $fieldType;
+        return $field->getType() ?: SchemaInterface::FIELD_TYPE_TEXT;
     }
 }

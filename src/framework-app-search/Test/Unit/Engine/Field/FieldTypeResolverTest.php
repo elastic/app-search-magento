@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\Engine\Field;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolver;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldInterface;
 
 /**
  * Unit test for the FieldTypeResolver class.
@@ -23,37 +23,27 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface
 class FieldTypeResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Test type resolution for text attributes.
+     * Default type resolution test.
      */
-    public function testStringType()
+    public function testDefaultStringType()
     {
-        $resolver         = new FieldTypeResolver();
-        $attributeAdapter = $this->createMock(AttributeAdapterInterface::class);
+        $resolver = new FieldTypeResolver();
 
-        $this->assertEquals('text', $resolver->getFieldType($attributeAdapter));
+        $field = $this->createMock(FieldInterface::class);
+
+        $this->assertEquals('text', $resolver->getFieldType($field));
     }
 
     /**
-     * Test type resolution for numeric attributes.
+     * Test type resolution when set in the field.
      */
-    public function testNumericType()
+    public function testGetFieldType($type = 'number')
     {
         $resolver         = new FieldTypeResolver();
-        $attributeAdapter = $this->createMock(AttributeAdapterInterface::class);
-        $attributeAdapter->method('isNumberType')->willReturn(true);
 
-        $this->assertEquals('number', $resolver->getFieldType($attributeAdapter));
-    }
+        $field = $this->createMock(FieldInterface::class);
+        $field->method('getType')->willReturn($type);
 
-    /**
-     * Test type resolution for date attributes.
-     */
-    public function testDateType()
-    {
-        $resolver         = new FieldTypeResolver();
-        $attributeAdapter = $this->createMock(AttributeAdapterInterface::class);
-        $attributeAdapter->method('isDateType')->willReturn(true);
-
-        $this->assertEquals('date', $resolver->getFieldType($attributeAdapter));
+        $this->assertEquals($type, $resolver->getFieldType($field));
     }
 }

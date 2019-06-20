@@ -11,8 +11,8 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\Engine\Field;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapper;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterProviderInterface;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldTypeResolverInterface;
 
@@ -33,17 +33,17 @@ class FieldMapperTest extends \PHPUnit\Framework\TestCase
      * @testWith ["foo", {}, "foo"]
      *           ["foo", {"type": "search"}, "foosearch"]
      */
-    public function testGetFieldName(string $attributeCode, array $context, string $fieldName)
+    public function testGetFieldName(string $field, array $context, string $fieldName)
     {
-        $this->assertEquals($fieldName, $this->getFieldMapper()->getFieldName($attributeCode, $context));
+        $this->assertEquals($fieldName, $this->getFieldMapper()->getFieldName($field, $context));
     }
 
     /**
      * Test getting field type through the field mapper.
      */
-    public function testGetFieldType($attributeCode = 'foo', $fieldType = 'text')
+    public function testGetFieldType($field = 'foo', $fieldType = 'text')
     {
-        $this->assertEquals($fieldType, $this->getFieldMapper()->getFieldType($attributeCode));
+        $this->assertEquals($fieldType, $this->getFieldMapper()->getFieldType($field));
     }
 
     /**
@@ -56,34 +56,32 @@ class FieldMapperTest extends \PHPUnit\Framework\TestCase
      */
     private function getFieldMapper(string $fieldName = 'foo', string $fieldType = 'text'): FieldMapper
     {
-        $attributeAdapterProvider = $this->getAttributeAdapterProvider($fieldName, $fieldType);
-        $fieldNameResolver        = $this->getFieldNameResolver();
-        $fieldTypeResolver        = $this->getFieldTypeResolver();
+        $fieldProvider     = $this->getFieldProvider($fieldName, $fieldType);
+        $fieldNameResolver = $this->getFieldNameResolver();
+        $fieldTypeResolver = $this->getFieldTypeResolver();
 
-        return new FieldMapper($attributeAdapterProvider, $fieldNameResolver, $fieldTypeResolver);
+        return new FieldMapper($fieldProvider, $fieldNameResolver, $fieldTypeResolver);
     }
 
     /**
-     * Attribute adapter provider used during tests.
+     * Field provider used during tests.
      *
      * @param string $fieldName
      * @param string $fieldType
      *
-     * @return AttributeAdapterProviderInterface
+     * @return FieldProviderInterface
      */
-    private function getAttributeAdapterProvider(
-        string $fieldName,
-        string $fieldType
-    ): AttributeAdapterProviderInterface {
-        $attributeAdapter = $this->createMock(AttributeAdapterInterface::class);
+    private function getFieldProvider(string $fieldName, string $fieldType): FieldProviderInterface
+    {
+        $field = $this->createMock(FieldInterface::class);
 
-        $attributeAdapter->method('getAttributeCode')->willReturn($fieldName);
-        $attributeAdapter->method('getFrontendInput')->willReturn($fieldType);
+        $field->method('getName')->willReturn($fieldName);
+        $field->method('getType')->willReturn($fieldType);
 
-        $attributeAdapterProvider = $this->createMock(AttributeAdapterProviderInterface::class);
-        $attributeAdapterProvider->method('getAttributeAdapter')->willReturn($attributeAdapter);
+        $fieldProvider = $this->createMock(FieldProviderInterface::class);
+        $fieldProvider->method('getField')->willReturn($field);
 
-        return $attributeAdapterProvider;
+        return $fieldProvider;
     }
 
     /**
@@ -95,8 +93,8 @@ class FieldMapperTest extends \PHPUnit\Framework\TestCase
      */
     private function getFieldNameResolver(): FieldNameResolverInterface
     {
-        $getFieldNameStub = function (AttributeAdapterInterface $attributeAdapter, array $context): string {
-            return $attributeAdapter->getAttributeCode() . ($context['type'] ?? '');
+        $getFieldNameStub = function (FieldInterface $field, array $context): string {
+            return $field->getName() . ($context['type'] ?? '');
         };
 
         $fieldNameResolver = $this->createMock(FieldNameResolverInterface::class);
@@ -112,8 +110,8 @@ class FieldMapperTest extends \PHPUnit\Framework\TestCase
      */
     private function getFieldTypeResolver(): FieldTypeResolverInterface
     {
-        $getFieldNameStub = function (AttributeAdapterInterface $attributeAdapter): string {
-            return $attributeAdapter->getFrontendInput();
+        $getFieldNameStub = function (FieldInterface $field): string {
+            return $field->getType();
         };
 
         $fieldTypeResolver = $this->createMock(FieldTypeResolverInterface::class);

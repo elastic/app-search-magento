@@ -11,13 +11,27 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 
 /**
- * Allow to load an attribute adapter by attribute code.
+ * Retrieve engine fields.
  *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
-interface AttributeAdapterProviderInterface
+interface FieldProviderInterface
 {
-    public function getAttributeAdapter(string $attributeCode, array $attributeData = []): AttributeAdapterInterface;
+    /**
+     * Get field by name.
+     *
+     * @param string $name
+     *
+     * @return FieldInterface
+     */
+    public function getField(string $name): FieldInterface;
+
+    /**
+     * Get all fields.
+     *
+     * @return FieldInterface[]
+     */
+    public function getFields(): array;
 }

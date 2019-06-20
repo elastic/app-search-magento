@@ -87,10 +87,14 @@ class SearchParamsProvider implements SearchParamsProviderInterface
      */
     private function getFieldName(string $indexIdentifier, string $requestFieldName): string
     {
-        $context   = ['type' => SchemaInterface::CONTEXT_SORT];
-        $fieldName = $this->getFieldMapper($indexIdentifier)->getFieldName($requestFieldName, $context);
+        $fieldName = $requestFieldName === 'score' ? '_score' : $requestFieldName;
 
-        return $fieldName === 'score' ? '_score' : $fieldName;
+        if ($fieldName !== '_score') {
+            $context   = ['type' => SchemaInterface::CONTEXT_SORT];
+            $fieldName = $this->getFieldMapper($indexIdentifier)->getFieldName($requestFieldName, $context);
+        }
+
+        return $fieldName;
     }
 
     /**

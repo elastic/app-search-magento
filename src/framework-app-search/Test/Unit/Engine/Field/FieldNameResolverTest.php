@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\Engine\Field;
 
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldNameResolver;
-use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface;
+use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldInterface;
 
 /**
  * Unit test for the FieldNameResolver class.
@@ -23,29 +23,29 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\AttributeAdapterInterface
 class FieldNameResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Test name resolution for text attributes.
+     * Test name resolution for various field config.
      *
-     * @testWith ["foo", null, false, false, {"type": "search"}, "foo"]
-     *            ["foo", null, false, false, {"type": "search"}, "foo"]
-     *            ["foo", "select", false, false, {"type": "search"}, "foo"]
-     *            ["foo", "select", true, false, {"type": "search"}, "foo_value"]
-     *            ["foo", "select", false, true, {"type": "search"}, "foo_value"]
-     *            ["foo", "select", false, true, {"type": "sort"}, "foo_value"]
-     *            ["foo", "select", true, true, {"type": "filter"}, "foo"]
-     *            ["foo", "multiselect", true, false, {"type": "search"}, "foo_value"]
-     *            ["foo", "boolean", true, false, {"type": "search"}, "foo_value"]
-     *            ["foo", "boolean", true, true, {"type": "sort"}, "foo"]
+     * @testWith ["foo", false, false, false, {"type": "search"}, "foo"]
+     *            ["foo", false, false, false, {"type": "search"}, "foo"]
+     *            ["foo", false, false, false, {"type": "search"}, "foo"]
+     *            ["foo", true, true, false, {"type": "search"}, "foo_value"]
+     *            ["foo", true, false, true, {"type": "search"}, "foo_value"]
+     *            ["foo", true, false, true, {"type": "sort"}, "foo_value"]
+     *            ["foo", true, true, true, {"type": "filter"}, "foo"]
+     *            ["foo", true, true, false, {"type": "search"}, "foo_value"]
+     *            ["foo", true, true, false, {"type": "search"}, "foo_value"]
+     *            ["foo", false, true, true, {"type": "sort"}, "foo"]
      */
-    public function testGetFieldName($attributeCode, $frontendInput, $searchable, $sortable, $context, $expectedName)
+    public function testGetFieldName($fieldName, $useValue, $searchable, $sortable, $context, $expectedName)
     {
-        $resolver         = new FieldNameResolver();
+        $resolver = new FieldNameResolver();
 
-        $attributeAdapter = $this->createMock(AttributeAdapterInterface::class);
-        $attributeAdapter->method('getAttributeCode')->willReturn($attributeCode);
-        $attributeAdapter->method('getFrontendInput')->willReturn($frontendInput);
-        $attributeAdapter->method('isSearchable')->willReturn($searchable);
-        $attributeAdapter->method('isSortable')->willReturn($sortable);
+        $field = $this->createMock(FieldInterface::class);
+        $field->method('getName')->willReturn($fieldName);
+        $field->method('useValueField')->willReturn($useValue);
+        $field->method('isSearchable')->willReturn($searchable);
+        $field->method('isSortable')->willReturn($sortable);
 
-        $this->assertEquals($expectedName, $resolver->getFieldName($attributeAdapter, $context));
+        $this->assertEquals($expectedName, $resolver->getFieldName($field, $context));
     }
 }

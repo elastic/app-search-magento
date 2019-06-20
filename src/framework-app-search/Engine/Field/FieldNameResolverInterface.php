@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 
 /**
- * Used to retrieve field name from an attribute depending on the context.
+ * Used to retrieve name of a field depending on the context.
  *
  * @package   Elastic\AppSearch\Framework\AppSearch\Engine\Field
  * @copyright 2019 Elastic
@@ -20,12 +20,12 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 interface FieldNameResolverInterface
 {
     /**
-     * Return field name to use for the attribute. Real field name depends on the context (search, filter, ...).
+     * Return field name to use depending on the context (search, filter, ...).
      *
-     * @param AttributeAdapterInterface $attribute
-     * @param array                     $context
+     * @param FieldInterface $field
+     * @param array          $context
      *
-     * @return string|NULL
+     * @return string
      */
-    public function getFieldName(AttributeAdapterInterface $attribute, array $context = []): string;
+    public function getFieldName(FieldInterface $field, array $context = []): string;
 }

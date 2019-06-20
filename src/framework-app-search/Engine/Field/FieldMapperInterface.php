@@ -22,30 +22,30 @@ namespace Elastic\AppSearch\Framework\AppSearch\Engine\Field;
 interface FieldMapperInterface
 {
     /**
-     * Return field name to use for the attribute.
+     * Return field name you can use depending of the context.
      *
-     * @param string $attribute
+     * @param string $fieldName
      *
      * @return string
      */
-    public function getFieldName(string $attributeCode, array $context = []): string;
+    public function getFieldName(string $fieldName, array $context = []): string;
 
     /**
-     * Return field type to use to index the attribute.
+     * Return field type.
      *
-     * @param string $attributeCode
+     * @param string $fieldName
      *
      * @return string
      */
-    public function getFieldType(string $attributeCode): string;
+    public function getFieldType(string $fieldName): string;
 
     /**
      * Prepare a value to be indexed.
      *
-     * @param string $attributeCode
+     * @param string $fieldName
      * @param mixed  $value
      *
      * @return mixed
      */
-    public function mapValue($attributeCode, $value);
+    public function mapValue($fieldName, $value);
 }
