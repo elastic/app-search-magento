@@ -1,0 +1,38 @@
+<!--
+/*
+ * This file is part of the App Search Magento module.
+ *
+ * (c) Elastic
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @package   Elastic\AppSearch\Framework\AppSearch
+ * @copyright 2019 Elastic
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="engines" type="engineListDefinition" />
+
+    <xs:complexType name="engineListDefinition">
+        <xs:sequence>
+            <xs:element name="engine" type="engineDefinition" maxOccurs="unbounded" minOccurs="0" />
+        <xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="engineDefinition">
+        <xs:sequence>
+            <xs:element name="field" type="fieldDefinition" maxOccurs="unbounded" minOccurs="0" />
+        <xs:sequence>
+        <xs:attribute type="xs:string" name="identifier" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="fieldDefinition">
+        <xs:attribute type="xs:string" name="name" use="required" />
+        <xs:attribute type="xs:string" name="type" use="required" />
+    </xs:complexType>
+
+</xs:schema>
