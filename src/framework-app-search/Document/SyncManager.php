@@ -119,16 +119,28 @@ class SyncManager implements SyncManagerInterface
         foreach ($this->batch->getItems($documents, $this->batchSize) as $entityIds) {
             $documents = array_map(
                 function ($docId) {
-                    return ['id' => $docId, 'deleted' => true];
+                    return ['id' => $docId, 'deleted' => true, 'sync_id' => $this->syncId];
                 },
                 $entityIds
             );
 
             foreach ($documents as $doc) {
-                $doc['sync_id'] = $this->syncId;
                 $this->docs[$engine->getName()][$doc['id']] = $doc;
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function deleteAllDocuments(EngineInterface $engine)
+    {
+        $currentPage = 1;
+        do {
+            $docList = $this->client->listDocuments($engine->getName(), $currentPage, 100);
+            $this->deleteDocuments($engine, $this->prepareDeleteDocIds($docList['results']));
+            $currentPage++;
+        } while ($currentPage <= $docList['meta']['page']['total_pages']);
     }
 
     /**
@@ -204,5 +216,19 @@ class SyncManager implements SyncManagerInterface
         } while (!empty($resp['results']));
 
         return $docIds;
+    }
+
+    /**
+     * Transfor array of doc into generator of doc ids.
+     *
+     * @param array $docs
+     *
+     * @return Generator
+     */
+    private function prepareDeleteDocIds(array $docs)
+    {
+        foreach ($docs as $doc) {
+            yield $doc['id'];
+        }
     }
 }
