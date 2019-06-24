@@ -160,7 +160,11 @@
     </type>
 
     <type name="Magento\CatalogSearch\Model\Search\RequestGenerator">
-        <plugin name="elastic_app_search_custom_request" type="Elastic\AppSearch\CatalogSearch\Plugin\Model\Search\RequestGeneratorPlugin" />
+        <plugin name="elastic_app_search_custom_request" type="Elastic\AppSearch\CatalogSearch\Plugin\Search\Model\RequestGeneratorPlugin" />
+    </type>
+
+    <type name="Elastic\AppSearch\Framework\AppSearch\EngineManagerInterface">
+        <plugin name="elastic_app_search_catalog_product_search_weights" type="Elastic\AppSearch\CatalogSearch\Plugin\AppSearch\EngineManagerPlugin" />
     </type>
 
 </config>

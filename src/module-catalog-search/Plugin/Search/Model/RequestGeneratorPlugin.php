@@ -8,15 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\CatalogSearch\Plugin\Model\Search;
+namespace Elastic\AppSearch\CatalogSearch\Plugin\Search\Model;
 
 use Magento\CatalogSearch\Model\Search\RequestGenerator;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Catalog\Api\Data\ProductInterface;
 
 /**
  * Add category name to search fields if needed.
  *
- * @package   Elastic\AppSearch\CatalogSearch\Plugin\Model\Search
+ * @package   Elastic\AppSearch\CatalogSearch\Plugin\Search\Model
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
  */
@@ -40,7 +41,7 @@ class RequestGeneratorPlugin
     /**
      * @var int
      */
-    const CATEGORY_DEFAULT_WEIGHT = 1;
+    const DEFAULT_WEIGHT = 1;
 
     /**
      * @var ScopeConfigInterface
@@ -74,6 +75,11 @@ class RequestGeneratorPlugin
                 'field' => self::CATEGORY_NAME_FIELD,
                 'boost' => $this->getCategoryNameWeight(),
             ];
+
+            $result['quick_search_container']['queries']['search']['match'][] = [
+                'field' => ProductInterface::SKU,
+                'boost' => self::DEFAULT_WEIGHT
+            ];
         }
 
         return $result;
@@ -96,6 +102,6 @@ class RequestGeneratorPlugin
      */
     private function getCategoryNameWeight()
     {
-        return (int) ($this->scopeConfig->getValue(self::CATEGORY_WEIGHT_PATH) ?? self::CATEGORY_DEFAULT_WEIGHT);
+        return (int) ($this->scopeConfig->getValue(self::CATEGORY_WEIGHT_PATH) ?? self::DEFAULT_WEIGHT);
     }
 }
