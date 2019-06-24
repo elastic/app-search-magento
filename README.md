@@ -101,7 +101,7 @@ bin/magento indexer:reindex catalogsearch_fulltext
 
 The module is in its first round of beta. This first round is intended to act as a technical preview, which aims to integrate App Search as a Magento search adapter interface.
 
-There are a few caveats with the current implementation, whose most notable are:
+There are a few caveats with the current implementation:
 
 - The maximum number of fields allowed by App Search (currently 64) does not allow you to index catalogs with too many products attributes (#37)
 
