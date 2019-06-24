@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Api\Search\SearchCriteriaBuilder;
 use Magento\Framework\DB\Select;
-use Magento\Framework\Search\EngineResolverInterface;
+use Elastic\AppSearch\CatalogSearch\Model\Config as AppSearchConfig;
 
 /**
  * AppSearch search product collection.
@@ -142,16 +142,6 @@ class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Col
      */
     private function isAppSearch(): bool
     {
-        return $this->getCurrentSearchEngine() === "elastic_appsearch";
-    }
-
-    /**
-     * Return current engine name.
-     *
-     * @return string
-     */
-    private function getCurrentSearchEngine(): string
-    {
-        return ObjectManager::getInstance()->get(EngineResolverInterface::class)->getCurrentSearchEngine();
+        return ObjectManager::getInstance()->get(AppSearchConfig::class)->isAppSearchEnabled();
     }
 }

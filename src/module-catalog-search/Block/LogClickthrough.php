@@ -16,6 +16,7 @@ use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Client\ClientConfigurationInterface;
 use Magento\Search\Helper\Data as SearchHelper;
 use Magento\CatalogSearch\Block\SearchTermsLog;
+use Elastic\AppSearch\CatalogSearch\Model\Config as AppSearchConfig;
 
 /**
  * Block used to add JS clicktrough tracking to a search result page.
@@ -47,6 +48,11 @@ class LogClickthrough extends Template
     private $searchTermsLog;
 
     /**
+     * @var AppSearchConfig
+     */
+    private $appSearchConfig;
+
+    /**
      * Constructor.
      *
      * @param Context                      $context
@@ -54,6 +60,7 @@ class LogClickthrough extends Template
      * @param EngineResolverInterface      $engineResolver
      * @param SearchHelper                 $searchHelper
      * @param SearchTermsLog               $searchTermsLog
+     * @param AppSearchConfig              $appSearchConfig
      * @param array                        $data
      */
     public function __construct(
@@ -62,6 +69,7 @@ class LogClickthrough extends Template
         EngineResolverInterface $engineResolver,
         SearchHelper $searchHelper,
         SearchTermsLog $searchTermsLog,
+        AppSearchConfig $appSearchConfig,
         array $data = []
     ) {
         parent::__construct($context, $data);
@@ -70,6 +78,7 @@ class LogClickthrough extends Template
         $this->clientConfiguration = $clientConfiguration;
         $this->searchHelper        = $searchHelper;
         $this->searchTermsLog      = $searchTermsLog;
+        $this->appSearchConfig     = $appSearchConfig;
     }
 
     /**
@@ -147,6 +156,6 @@ class LogClickthrough extends Template
      */
     private function isAppSearch(): bool
     {
-        return $this->_scopeConfig->getValue('catalog/search/engine') === "elastic_appsearch";
+        return $this->appSearchConfig->isAppSearchEnabled();
     }
 }
