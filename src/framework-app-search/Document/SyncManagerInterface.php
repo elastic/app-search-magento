@@ -40,6 +40,13 @@ interface SyncManagerInterface
     public function deleteDocuments(EngineInterface $engine, \Traversable $documents);
 
     /**
+     * Add all existing doc to be deleted from the engine.
+     *
+     * @param EngineInterface $engine
+     */
+    public function deleteAllDocuments(EngineInterface $engine);
+
+    /**
      * Purge documents that have been deleted using a soft delete.
      *
      * @param EngineInterface $engine

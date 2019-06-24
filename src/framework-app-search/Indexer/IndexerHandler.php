@@ -135,6 +135,7 @@ class IndexerHandler implements IndexerInterface
     public function cleanIndex($dimensions)
     {
         $this->indexStructure->create($this->engineIdentifier, [], $dimensions);
+        $this->syncManager->deleteAllDocuments($this->getEngine($dimensions));
 
         return $this;
     }
