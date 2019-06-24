@@ -107,7 +107,7 @@ There are a few caveats with the current implementation:
 
 - We will need to rework how product prices are stored into App Search to allow sites with a large number of customer groups to be indexed (#38)
 
-- Search relevance will be reworked because it is not optimal yet
+- Search relevance is still being tuned.
 
 
 ## Development
