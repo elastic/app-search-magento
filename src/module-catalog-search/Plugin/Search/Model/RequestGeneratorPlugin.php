@@ -63,7 +63,7 @@ class RequestGeneratorPlugin
     public function afterGenerate(RequestGenerator $requestGenerator, array $result)
     {
         if (!$this->config->isAppSearchEnabled()) {
-            return;
+            return $result;
         }
 
         if ($this->config->isCategoryNameSearchEnabled()) {
