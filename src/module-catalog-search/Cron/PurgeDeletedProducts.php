@@ -16,6 +16,7 @@ use Magento\CatalogSearch\Model\Indexer\Fulltext;
 use Magento\Store\Model\StoreManagerInterface;
 use Elastic\AppSearch\Framework\AppSearch\EngineResolverInterface;
 use Magento\Store\Api\Data\StoreInterface;
+use Elastic\AppSearch\CatalogSearch\Model\Config;
 
 /**
  * Purge deleted product from the app search engine.
@@ -47,6 +48,11 @@ class PurgeDeletedProducts
     private $storeManager;
 
     /**
+     * @var Config
+     */
+    private $config;
+
+    /**
      * @var string
      */
     private $engineIdentifier;
@@ -58,6 +64,7 @@ class PurgeDeletedProducts
      * @param EngineManagerInterface  $engineManager
      * @param EngineResolverInterface $engineResolver
      * @param StoreManagerInterface   $storeManager
+     * @param Config                  $config
      * @param string                  $engineIdentifier
      */
     public function __construct(
@@ -65,12 +72,14 @@ class PurgeDeletedProducts
         EngineResolverInterface $engineResolver,
         EngineManagerInterface $engineManager,
         StoreManagerInterface $storeManager,
+        Config $config,
         string $engineIdentifier = Fulltext::INDEXER_ID
     ) {
         $this->syncManager      = $syncManager;
         $this->engineResolver   = $engineResolver;
         $this->engineManager    = $engineManager;
         $this->storeManager     = $storeManager;
+        $this->config           = $config;
         $this->engineIdentifier = $engineIdentifier;
     }
 
@@ -79,8 +88,10 @@ class PurgeDeletedProducts
      */
     public function execute()
     {
-        foreach ($this->getStores() as $store) {
-            $this->purgeStoreProducts($store);
+        if ($this->config->isAppSearchEnabled()) {
+            foreach ($this->getStores() as $store) {
+                $this->purgeStoreProducts($store);
+            }
         }
     }
 
