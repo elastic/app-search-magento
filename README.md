@@ -103,7 +103,7 @@ The module is in its first round of beta. This first round is intended to act as
 
 There are a few caveats with the current implementation, whose most notable are:
 
-- The maximum number of fields allowed by App Search (currently 64) does not allow to index catalogs with too many products attributes (#37)
+- The maximum number of fields allowed by App Search (currently 64) does not allow you to index catalogs with too many products attributes (#37)
 
 - We will need to rework how product prices are stored into App Search to allow sites with a large number of customer groups to be indexed (#38)
 
