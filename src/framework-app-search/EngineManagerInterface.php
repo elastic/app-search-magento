@@ -64,4 +64,14 @@ interface EngineManagerInterface
      * @return void
      */
     public function updateSchema(EngineInterface $engine, SchemaInterface $schema): void;
+
+    /**
+     * Udpdate engine search fields / weights.
+     *
+     * @param EngineInterface $engine
+     * @param array           $searchFields
+     *
+     * @return void
+     */
+    public function updateSearchFields(EngineInterface $engine, array $searchFields): void;
 }

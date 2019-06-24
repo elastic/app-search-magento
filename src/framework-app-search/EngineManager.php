@@ -122,4 +122,19 @@ class EngineManager implements EngineManagerInterface
             throw new LocalizedException(__('Could not update engine schema: %1', $e->getMessage()), $e);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateSearchFields(EngineInterface $engine, array $searchFields): void
+    {
+        try {
+            $searchSettings = $this->client->getSearchSettings($engine->getName());
+            $searchSettings['search_fields'] = $searchFields;
+            $this->client->updateSearchSettings($engine->getName(), $searchSettings);
+        } catch (\Exception $e) {
+            $this->logger->critical($e);
+            throw new LocalizedException(__('Could not update engine search settings: %1', $e->getMessage()), $e);
+        }
+    }
 }
