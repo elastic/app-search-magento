@@ -11,8 +11,9 @@
 namespace Elastic\AppSearch\CatalogSearch\Plugin\Search\Model;
 
 use Magento\CatalogSearch\Model\Search\RequestGenerator;
-use Magento\Framework\App\Config\ScopeConfigInterface;
+use Elastic\AppSearch\CatalogSearch\Model\Config;
 use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\CatalogSearch\Model\Indexer\Fulltext\Action\DataProvider as AttributeProvider;
 
 /**
  * Add category name to search fields if needed.
@@ -24,38 +25,29 @@ use Magento\Catalog\Api\Data\ProductInterface;
 class RequestGeneratorPlugin
 {
     /**
-     * @var string
-     */
-    const CATEGORY_NAME_FIELD = 'category_name';
-
-    /**
-     * @var string
-     */
-    const CATEGORY_NAME_ENABLED_PATH = 'catalog/search/category_name_weight';
-
-    /**
-     * @var string
-     */
-    const CATEGORY_WEIGHT_PATH = 'catalog/search/category_name_weight';
-
-    /**
      * @var int
      */
     const DEFAULT_WEIGHT = 1;
 
     /**
-     * @var ScopeConfigInterface
+     * @var Config
      */
-    private $scopeConfig;
+    private $config;
+
+    /**
+     * @var AttributeProvider
+     */
+    private $attributeProvider;
 
     /**
      * Constructor.
      *
-     * @param ScopeConfigInterface $scopeConfig
+     * @param Config $config
      */
-    public function __construct(ScopeConfigInterface $scopeConfig)
+    public function __construct(Config $config, AttributeProvider $attributeProvider)
     {
-        $this->scopeConfig = $scopeConfig;
+        $this->config            = $config;
+        $this->attributeProvider = $attributeProvider;
     }
 
     /**
@@ -70,38 +62,26 @@ class RequestGeneratorPlugin
      */
     public function afterGenerate(RequestGenerator $requestGenerator, array $result)
     {
-        if ($this->enableCategoryNameSearch()) {
-            $result['quick_search_container']['queries']['search']['match'][] = [
-                'field' => self::CATEGORY_NAME_FIELD,
-                'boost' => $this->getCategoryNameWeight(),
-            ];
+        if (!$this->config->isAppSearchEnabled()) {
+            return;
+        }
 
+        if ($this->config->isCategoryNameSearchEnabled()) {
+            $result['quick_search_container']['queries']['search']['match'][] = [
+                'field' => $this->config->getCategoryNameField(),
+                'boost' => $this->config->getCategoryNameWeight() ?? self::DEFAULT_WEIGHT,
+            ];
+        }
+
+        $skuAttribute = $this->attributeProvider->getSearchableAttribute(ProductInterface::SKU);
+
+        if ($skuAttribute && $skuAttribute->getIsSearchable()) {
             $result['quick_search_container']['queries']['search']['match'][] = [
                 'field' => ProductInterface::SKU,
-                'boost' => self::DEFAULT_WEIGHT
+                'boost' => floatval($skuAttribute->getSearchWeight() ?? self::DEFAULT_WEIGHT)
             ];
         }
 
         return $result;
-    }
-
-    /**
-     * Indicate if search is search in category names is enable.
-     *
-     * @return boolean
-     */
-    private function enableCategoryNameSearch()
-    {
-        return $this->scopeConfig->isSetFlag(self::CATEGORY_NAME_ENABLED_PATH);
-    }
-
-    /**
-     * Category name search weight.
-     *
-     * @return int
-     */
-    private function getCategoryNameWeight()
-    {
-        return (int) ($this->scopeConfig->getValue(self::CATEGORY_WEIGHT_PATH) ?? self::DEFAULT_WEIGHT);
     }
 }
