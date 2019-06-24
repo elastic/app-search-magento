@@ -65,7 +65,6 @@ interface EngineManagerInterface
      */
     public function updateSchema(EngineInterface $engine, SchemaInterface $schema): void;
 
-
     /**
      * Udpdate engine search fields / weights.
      *
