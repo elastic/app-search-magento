@@ -75,7 +75,7 @@ class Config
     }
 
     /**
-     * Indicate if search is search in category names is enable.
+     * Indicate if search in category names is enabled.
      *
      * @return boolean
      */
