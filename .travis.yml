@@ -2,6 +2,7 @@ language: php
 
 php:
 - '7.2'
+- '7.1'
 
 env:
 - TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=2.2
@@ -18,8 +19,11 @@ cache:
 before_install:
 - composer global require hirak/prestissimo
 - composer config repositories.magento composer "https://repo.magento.com/"
-install: composer install -n --prefer-dist
-script: 
+install:
+- composer create-project --repository=https://repo.magento.com/ magento/project-$MAGENTO_EDITION-edition:$MAGENTO_VERSION $HOME/magento
+- cd $HOME/magento
+- ls
+script:
 - pwd
 - ls $HOME
 
