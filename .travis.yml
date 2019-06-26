@@ -1,0 +1,36 @@
+language: php
+
+php:
+- '7.2'
+
+env:
+- TEST_SUITE=unit
+- MAGENTO_VERSION=2.2
+- MAGENTO_EDITION=community
+
+stages:
+- qa
+- test
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+
+before_install:
+- composer config repositories.magento composer "https://repo.magento.com/"
+install: composer install -n --prefer-dist
+script: 
+- pwd
+- ls $HOME
+
+jobs:
+  include:
+  - stage: qa
+    install: composer install -n --prefer-dist
+    script: vendor/bin/phplint src
+  - stage: qa
+    install: composer install -n --prefer-dist
+    script: vendor/bin/phpcs --standard=PSR12 src
+  - stage: qa
+    install: composer install -n --prefer-dist
+    script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
