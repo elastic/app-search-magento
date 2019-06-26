@@ -48,6 +48,12 @@ jobs:
     before_script:
     script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
   - stage: test
+    php:
+    - '7.2'
+    - '7.1'
+    env:
+    - TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.3
+    - TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
     before_script:
     - bin/magento module:enable --all
     script:
