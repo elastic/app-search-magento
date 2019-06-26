@@ -47,6 +47,8 @@ jobs:
     install: composer install -n --prefer-dist
     before_script:
     script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
-  - before_script:
+  - stage: test
+    before_script:
+    - bin/magento module:enable --all
     script:
     - bin/magento setup:di:compile
