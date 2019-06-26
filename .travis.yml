@@ -34,11 +34,13 @@ before_script:
 script: 
 - vendor/bin/phpunit -c dev/tests/$TEST_SUITE/phpunit.xml.dist
 
-_test_functional_default: &DEFAULT
+_test_functional_default: &TEST_FUNCTIONAL_DEFAULTS
   services:
   - docker
+  - mysql
   before_script:
-  - bin/magento module:enable --all
+  - mysql -e 'CREATE DATABASE functional_testing;'
+  - bin/magento setup:install --db-host=localhost --db-name=functional_testing --db-user=travis --db-password=""
   script:
   - bin/magento setup:di:compile
 
@@ -66,18 +68,18 @@ jobs:
     script: 
     - vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
   - stage: test
-    <<: *DEFAULT
+    <<: *TEST_FUNCTIONAL_DEFAULTS
     php: '7.2'
     env: TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.3
   - stage: test
-    <<: *DEFAULT
+    <<: *TEST_FUNCTIONAL_DEFAULTS
     php: '7.2'
     env: TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
   - stage: test
-    <<: *DEFAULT
+    <<: *TEST_FUNCTIONAL_DEFAULTS
     php: '7.1'
     env: TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.3
   - stage: test
-    <<: *DEFAULT
+    <<: *TEST_FUNCTIONAL_DEFAULTS
     php: '7.1'
     env: TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
