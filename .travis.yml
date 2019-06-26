@@ -4,9 +4,8 @@ php:
 - '7.2'
 
 env:
-- TEST_SUITE=unit
-- MAGENTO_VERSION=2.2
-- MAGENTO_EDITION=community
+- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=2.2
+- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=2.3
 
 stages:
 - qa
@@ -17,6 +16,7 @@ cache:
   - $HOME/.composer/cache
 
 before_install:
+- composer global require hirak/prestissimo
 - composer config repositories.magento composer "https://repo.magento.com/"
 install: composer install -n --prefer-dist
 script: 
@@ -26,11 +26,14 @@ script:
 jobs:
   include:
   - stage: qa
+    name: phplint
     install: composer install -n --prefer-dist
     script: vendor/bin/phplint src
   - stage: qa
+    name: phpcs
     install: composer install -n --prefer-dist
-    script: vendor/bin/phpcs --standard=PSR12 src
+    script: vendor/bin/phpcs --standard=PSR12 --extensions=php src
   - stage: qa
+    name: phpmd
     install: composer install -n --prefer-dist
     script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
