@@ -22,7 +22,8 @@
   "require-dev" : {
     "squizlabs/php_codesniffer": "@stable",
     "phpmd/phpmd": "@stable",
-    "magento/marketplace-eqp": "@stable"
+    "magento/marketplace-eqp": "@stable",
+    "overtrue/phplint": "@stable"
   },
   "autoload" : {
     "psr-4" : {
