@@ -11,6 +11,7 @@ env:
 stages:
 - qa
 - test
+- test-functional
 
 cache:
   directories:
@@ -34,23 +35,27 @@ jobs:
   include:
   - stage: qa
     name: phplint
-    install: composer install -n --prefer-dist
+    install: 
+    - composer install -n --prefer-dist
     before_script:
-    script: vendor/bin/phplint src
+    script: 
+    - vendor/bin/phplint src
   - stage: qa
     name: phpcs
-    install: composer install -n --prefer-dist
+    install: 
+    - composer install -n --prefer-dist
     before_script:
-    script: vendor/bin/phpcs --standard=PSR12 --extensions=php src
+    script: 
+    - vendor/bin/phpcs --standard=PSR12 --extensions=php src
   - stage: qa
     name: phpmd
-    install: composer install -n --prefer-dist
+    install: 
+    - composer install -n --prefer-dist
     before_script:
-    script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
-  - stage: test
-    php:
-    - '7.2'
-    - '7.1'
+    script: 
+    - vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
+  - stage: test-functional
+    php: '7.2'
     env:
     - TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.3
     - TEST_SUITE=functional MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
