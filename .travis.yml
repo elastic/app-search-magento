@@ -22,10 +22,10 @@ before_install:
 install:
 - composer create-project --repository=https://repo.magento.com/ magento/project-$MAGENTO_EDITION-edition:$MAGENTO_VERSION $HOME/magento
 - cd $HOME/magento
+- env
 - ls
 script:
 - pwd
-- ls $HOME
 
 jobs:
   include:
