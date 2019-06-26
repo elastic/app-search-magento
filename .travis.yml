@@ -25,9 +25,10 @@ install:
 - composer config repositories.app-search '{"type":"path","url":"'$TRAVIS_BUILD_DIR'"}'
 - cat composer.json
 - composer require "$TRAVIS_REPO_SLUG:dev-$TRAVIS_BRANCH@dev"
-before_script: cp $TRAVIS_BUILD_DIR/dev/tests/$TEST_SUITE/phpunit.xml.dist dev/tests/$TEST_SUITE
-script:
-- pwd
+before_script: 
+- cp $TRAVIS_BUILD_DIR/dev/tests/$TEST_SUITE/phpunit.xml.dist dev/tests/$TEST_SUITE
+script: 
+- vendor/bin/phpunit -c dev/tests/$TEST_SUITE/phpunit.xml.dist
 
 jobs:
   include:
