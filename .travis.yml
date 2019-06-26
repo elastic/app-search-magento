@@ -5,8 +5,8 @@ php:
 - '7.1'
 
 env:
-- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=2.2
-- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=2.3
+- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
+- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=^2.3
 
 stages:
 - qa
@@ -23,6 +23,7 @@ install:
 - composer create-project --repository=https://repo.magento.com/ magento/project-$MAGENTO_EDITION-edition:$MAGENTO_VERSION $HOME/magento
 - cd $HOME/magento
 - composer config repositories.app-search {"type":"path","url":"$TRAVIS_BUILD_DIR"}
+- cat composer.json
 - composer require "$TRAVIS_REPO_SLUG:dev-$TRAVIS_BRANCH@dev"
 before_script: cp $TRAVIS_BUILD_DIR/dev/tests/$TEST_SUITE/phpunit.xml.dist dev/tests/$TEST_SUITE
 script:
