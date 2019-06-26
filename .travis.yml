@@ -22,8 +22,9 @@ before_install:
 install:
 - composer create-project --repository=https://repo.magento.com/ magento/project-$MAGENTO_EDITION-edition:$MAGENTO_VERSION $HOME/magento
 - cd $HOME/magento
-- env
-- ls
+- composer config repositories.app-search {"type":"path","url":"$TRAVIS_BUILD_DIR"}
+- composer require "$TRAVIS_REPO_SLUG:dev-$TRAVIS_BRANCH@dev"
+before_script: cp $TRAVIS_BUILD_DIR/dev/tests/$TEST_SUITE/phpunit.xml.dist dev/tests/$TEST_SUITE
 script:
 - pwd
 
@@ -32,12 +33,15 @@ jobs:
   - stage: qa
     name: phplint
     install: composer install -n --prefer-dist
+    before_script:
     script: vendor/bin/phplint src
   - stage: qa
     name: phpcs
     install: composer install -n --prefer-dist
+    before_script:
     script: vendor/bin/phpcs --standard=PSR12 --extensions=php src
   - stage: qa
     name: phpmd
     install: composer install -n --prefer-dist
+    before_script:
     script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
