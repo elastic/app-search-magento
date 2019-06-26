@@ -5,8 +5,8 @@ php:
 - '7.1'
 
 env:
-- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
 - TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=^2.3
+- TEST_SUITE=unit MAGENTO_EDITION=community MAGENTO_VERSION=^2.2
 
 stages:
 - qa
@@ -47,3 +47,6 @@ jobs:
     install: composer install -n --prefer-dist
     before_script:
     script: vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode --suffixes php
+  - before_script:
+    script:
+    - bin/magento setup:di:compile
