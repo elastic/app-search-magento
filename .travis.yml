@@ -17,6 +17,7 @@ cache:
   - $HOME/.composer/cache
 
 before_install:
+- phpenv config-rm xdebug.ini
 - composer global require hirak/prestissimo
 - composer config repositories.magento composer "https://repo.magento.com/"
 
@@ -34,6 +35,8 @@ script:
 - vendor/bin/phpunit -c dev/tests/$TEST_SUITE/phpunit.xml.dist
 
 _test_functional_default: &DEFAULT
+  services:
+  - docker
   before_script:
   - bin/magento module:enable --all
   script:
