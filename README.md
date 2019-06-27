@@ -13,8 +13,8 @@
 - [Usage](#usage)
 - [Development](#development)
 - [FAQ](#faq-)
-- [Contribute](#contribute-) 
-- [License](#license-)
+- [Contribute](#contribute-)  
+- [License](#license-) 
 
 ***
 
