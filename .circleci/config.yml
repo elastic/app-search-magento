@@ -127,7 +127,7 @@ workflows:
     - build:
         name: build-php-7.2-mage-2.3
         executor: php-72
-        magento_version: ^2.3
+        magento_version: 2.3.1
     - compile:
         name: compile-php-7.2-mage-2.3
         executor: php-72
@@ -147,7 +147,7 @@ workflows:
     - build:
         name: build-php-7.1-mage-2.3
         executor: php-71
-        magento_version: ^2.3
+        magento_version: 2.3.1
     - compile:
         name: compile-php-7.1-mage-2.3
         executor: php-71
@@ -164,9 +164,9 @@ workflows:
     - build:
         name: build-php-7.2-mage-2.2
         executor: php-72
-        magento_version: ^2.2
+        magento_version: 2.2.8
     - compile:
-        name: compile-php-7.1-mage-2.2
+        name: compile-php-7.2-mage-2.2
         executor: php-72
         requires:
         - build-php-7.2-mage-2.2
@@ -181,7 +181,7 @@ workflows:
     - build:
         name: build-php-7.1-mage-2.2
         executor: php-71
-        magento_version: ^2.2
+        magento_version: 2.2.8
     - compile:
         name: compile-php-7.1-mage-2.2
         executor: php-71

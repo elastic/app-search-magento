@@ -2,12 +2,12 @@ FROM php:7.2-apache
 
 # Installing packages required to run Magento.
 RUN apt-get update \
- && apt-get install -y libfreetype6-dev libicu-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libxslt1-dev sendmail-bin sendmail unzip sudo \
+ && apt-get install -y libfreetype6-dev libicu-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libxslt1-dev libsodium-dev sendmail-bin sendmail unzip sudo \
  && rm -rf /var/lib/apt/lists/*
 
 # Building PHP extensions required to run Magento.
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
- && docker-php-ext-install dom gd intl mbstring pdo_mysql xsl zip soap bcmath opcache
+ && docker-php-ext-install dom gd intl mbstring pdo_mysql xsl zip soap bcmath opcache sodium
 
 # Installing composer as a globally available system command.
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
