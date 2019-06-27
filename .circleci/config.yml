@@ -13,12 +13,6 @@ executors:
     environment:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
       PHP_INI_MEMORY_LIMIT: "-1"
-  php-70:
-    docker:
-    - image: thecodingmachine/php:7.0-v2-apache
-    environment:
-      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
-      PHP_INI_MEMORY_LIMIT: "-1"
 
 commands:
   configure_php:
@@ -182,20 +176,3 @@ workflows:
         testsuite: unit
         requires:
         - build-php-7.1-mage-2.2
-  php-7.0-mage-2.2:
-    jobs:
-    - build:
-        name: build-php-7.0-mage-2.2
-        executor: php-70
-        magento_version: ^2.2
-    - compile:
-        name: compile-php-7.0-mage-2.2
-        executor: php-70
-        requires:
-        - build-php-7.0-mage-2.2
-    - tests:
-        name: unit-test-php-7.0-mage-2.2
-        executor: php-70
-        testsuite: unit
-        requires:
-        - build-php-7.0-mage-2.2
