@@ -5,13 +5,19 @@ executors:
     docker:
     - image: thecodingmachine/php:7.2-v2-apache
     environment:
-      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
+      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
       PHP_INI_MEMORY_LIMIT: "-1"
   php-71:
     docker:
     - image: thecodingmachine/php:7.1-v2-apache
     environment:
-      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache
+      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
+      PHP_INI_MEMORY_LIMIT: "-1"
+  php-70:
+    docker:
+    - image: thecodingmachine/php:7.0-v2-apache
+    environment:
+      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
       PHP_INI_MEMORY_LIMIT: "-1"
 
 commands:
@@ -159,29 +165,12 @@ workflows:
         testsuite: unit
         requires:
         - build-php-7.1-mage-2.3
-  php-7.2-mage-2.2:
-    jobs:
-    - build:
-        name: build-php-7.2-mage-2.2
-        executor: php-72
-        magento_version: 2.2.8
-    - compile:
-        name: compile-php-7.2-mage-2.2
-        executor: php-72
-        requires:
-        - build-php-7.2-mage-2.2
-    - tests:
-        name: unit-test-php-7.2-mage-2.2
-        executor: php-72
-        testsuite: unit
-        requires:
-        - build-php-7.2-mage-2.2
   php-7.1-mage-2.2:
     jobs:
     - build:
         name: build-php-7.1-mage-2.2
         executor: php-71
-        magento_version: 2.2.8
+        magento_version: ^2.2
     - compile:
         name: compile-php-7.1-mage-2.2
         executor: php-71
@@ -193,3 +182,20 @@ workflows:
         testsuite: unit
         requires:
         - build-php-7.1-mage-2.2
+  php-7.0-mage-2.2:
+    jobs:
+    - build:
+        name: build-php-7.0-mage-2.2
+        executor: php-70
+        magento_version: ^2.2
+    - compile:
+        name: compile-php-7.0-mage-2.2
+        executor: php-70
+        requires:
+        - build-php-7.0-mage-2.2
+    - tests:
+        name: unit-test-php-7.0-mage-2.2
+        executor: php-70
+        testsuite: unit
+        requires:
+        - build-php-7.0-mage-2.2
