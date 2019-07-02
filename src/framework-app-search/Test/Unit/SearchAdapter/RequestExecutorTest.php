@@ -171,7 +171,7 @@ class RequestExecutorTest extends \PHPUnit\Framework\TestCase
     /**
      * Return rescorer used during tests.
      *
-     * @return RescorerResolverInterface
+     * @return ResponseProcessorInterface
      */
     private function getResponseProcessor()
     {
