@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Fulltext;
+namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor\Fulltext;
 
 use Magento\Framework\Search\RequestInterface;
 use Magento\Framework\Search\Request\QueryInterface;
@@ -22,7 +22,7 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
  *
- * @package   Elastic\AppSearch\Framework\AppSearch\Test\Unit\AppSearch\SearchAdapter\RequestExecutor\Fulltext
+ * @package   Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor\Fulltext
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

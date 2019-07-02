@@ -173,7 +173,7 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
      * @param $startIndex
      * @param $lastIndex
      *
-     * @return Generator
+     * @return \Generator
      */
     private function getAddedDocuments(int $startIndex, int $lastIndex)
     {
@@ -195,7 +195,7 @@ class SyncManagerTest extends \PHPUnit\Framework\TestCase
      * @param $startIndex
      * @param $lastIndex
      *
-     * @return Generator
+     * @return \Generator
      */
     private function getDeletedDocuments(int $startIndex, $lastIndex)
     {

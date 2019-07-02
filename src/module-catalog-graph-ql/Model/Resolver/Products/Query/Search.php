@@ -19,7 +19,7 @@ use Magento\CatalogGraphQl\Model\Resolver\Products\Query\Filter;
 use Magento\CatalogGraphQl\Model\Resolver\Products\SearchResultFactory;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\CatalogGraphQl\Model\Layer\Context as LayerContext;
-use Elastic\AppSearch\CatalogSearch\Model\GraphQl\Layer\CollectionProvider;
+use Elastic\AppSearch\CatalogGraphQl\Model\Layer\CollectionProvider;
 
 /**
  * Run search for the products resolver.
