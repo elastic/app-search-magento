@@ -28,6 +28,11 @@ use Magento\Framework\Exception\LocalizedException;
 class ConfigFieldProvider implements FieldProviderInterface
 {
     /**
+     * @var FieldFactory
+     */
+    private $fieldFactory;
+
+    /**
      * @var FieldConfig
      */
     private $fieldConfig;
