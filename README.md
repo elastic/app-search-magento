@@ -65,7 +65,7 @@ You can update credentials using the Magento CLI:
 ```bash
 bin/magento config:set elastic_appsearch/client/api_endpoint "https://host-xxxx.api.swiftype.com"
 bin/magento config:set elastic_appsearch/client/private_api_key "private-XXXXX"
-bin/magento config:set elastic_appsearch/client/search_api_endpoint "search-XXXXX"
+bin/magento config:set elastic_appsearch/client/search_api_key "search-XXXXX"
 ```
 
 You can additionally set the Engine prefix:
