@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Framework\AppSearch\Document;
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Magento\Framework\Indexer\SaveHandler\Batch;
 use Elastic\AppSearch\Framework\AppSearch\Client\ConnectionManagerInterface;
-use Elastic\AppSearch\Framework\AppSearch\Client;
+use Elastic\AppSearch\Client\Client;
 use Ramsey\Uuid\UuidFactory;
 
 /**
@@ -223,7 +223,7 @@ class SyncManager implements SyncManagerInterface
      *
      * @param array $docs
      *
-     * @return Generator
+     * @return \Generator
      */
     private function prepareDeleteDocIds(array $docs)
     {

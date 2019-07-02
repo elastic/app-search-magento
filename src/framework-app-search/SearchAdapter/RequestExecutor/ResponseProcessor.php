@@ -22,14 +22,14 @@ use Magento\Framework\Search\RequestInterface;
 class ResponseProcessor implements ResponseProcessorInterface
 {
     /**
-     * @var ProcessorInterface[]
+     * @var ResponseProcessorInterface[]
      */
     private $processors;
 
     /**
      * Constructor.
      *
-     * @param ProcessorInterface[] $processors
+     * @param ResponseProcessorInterface[] $processors
      */
     public function __construct(array $processors = [])
     {
