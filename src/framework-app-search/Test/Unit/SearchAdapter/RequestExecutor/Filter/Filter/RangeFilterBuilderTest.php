@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor\Filter;
+namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor\Filter\Filter;
 
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter\Filter\RangeFilterBuilder;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
@@ -18,7 +18,7 @@ use Magento\Framework\Search\Request\Filter\Range as RangeFilter;
 /**
  * Unit test for the RangeFilterBuilder class.
  *
- * @package   Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor\Filter\QueryFilter
+ * @package   Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor\Filter\Filter
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */

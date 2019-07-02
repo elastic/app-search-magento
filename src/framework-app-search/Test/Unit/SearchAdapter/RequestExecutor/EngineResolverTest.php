@@ -15,11 +15,11 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineRe
 /**
  * Unit test for the EngineResolver class.
  *
- * @package   Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor
+ * @package   EElastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\RequestExecutor
  * @copyright 2019 Elastic
  * @license   Open Software License ('OSL') v. 3.0
  */
-class EnngineResolverTest extends \PHPUnit\Framework\TestCase
+class EngineResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test resolve engine from a search request.
