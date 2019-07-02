@@ -68,9 +68,6 @@ class EngineManagerTest extends \PHPUnit\Framework\TestCase
         $engineManager = new EngineManager($connectionManager, new NullLogger());
 
         $this->assertEquals(false, $engineManager->engineExists($engine));
-
-        // Check the result is cached.
-        $engineManager->engineExists($engine);
     }
 
     /**

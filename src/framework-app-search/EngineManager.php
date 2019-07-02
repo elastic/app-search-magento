@@ -86,7 +86,7 @@ class EngineManager implements EngineManagerInterface
                 $this->client->getEngine($engine->getName());
                 $this->engines[$engine->getName()] = true;
             } catch (NotFoundException $e) {
-                $this->engines[$engine->getName()] = false;
+                // Does nothing. Yhe engine does not exists. Just return false.
             } catch (\Exception $e) {
                 $this->engines[$engine->getName()] = false;
                 $this->logger->critical($e);
@@ -94,7 +94,7 @@ class EngineManager implements EngineManagerInterface
             }
         }
 
-        return $this->engines[$engine->getName()];
+        return $this->engines[$engine->getName()] ?? false;
     }
 
     /**
@@ -104,6 +104,9 @@ class EngineManager implements EngineManagerInterface
     {
         try {
             $this->client->createEngine($engine->getName(), $engine->getLanguage());
+            while ($this->engineExists($engine) === false) {
+                usleep(100);
+            }
         } catch (\Exception $e) {
             $this->logger->critical($e);
             throw new LocalizedException(__('Could not create engine: %1', $e->getMessage()), $e);
