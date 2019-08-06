@@ -24,12 +24,12 @@ class LanguageResolver
     /**
      * @var NULL
      */
-    private const UNIVERSAL_LANGUAGE_CODE = null;
+    const UNIVERSAL_LANGUAGE_CODE = null;
 
     /**
      * @var string[]
      */
-    private const SUPPORTED_LANGUAGES = [
+    const SUPPORTED_LANGUAGES = [
         "da", "de", "en", "es", "fr", "it", "ja",
         "ko", "nl", "pt", "pt-br", "ru", "th", "zh",
     ];
