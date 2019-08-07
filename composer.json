@@ -15,7 +15,7 @@
     {"name" : "Aurélien FOUCRET", "email": "aurelien.foucret@elastic.co"}
   ],
   "require" : {
-    "php" : "^7.0",
+    "php" : "^7.1",
     "elastic/app-search" : "^1.0.0",
     "magento/framework": ">=101.0.0"
   },

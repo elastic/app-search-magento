@@ -1,6 +1,10 @@
-<p style="float:right"><a href="https://circleci.com/gh/elastic/app-search-magento"><img src="https://circleci.com/gh/elastic/app-search-magento.svg?style=svg&circle-token=f396f44f6e5dbcced1d3d8e3b42bcee791b805a0" alt="CircleCI build"></a></p>
+<p align="center"><img src="https://github.com/elastic/app-search-magento/raw/master/docs/assets/logo-app-search.png?raw=true" alt="Elastic App Search Logo"></p>
 
-![Elastic App Search Logo](docs/assets/logo-app-search.png)
+<p align="center">
+  <img src="https://img.shields.io/packagist/l/elastic/app-search-magento" />
+  <a href="https://github.com/elastic/app-search-magento/releases"><img src="https://img.shields.io/github/release/elastic/app-search-magento/all.svg?style=flat-square" alt="GitHub release" /></a>
+  <a href="https://circleci.com/gh/elastic/app-search-magento"><img src="https://img.shields.io/circleci/build/github/elastic/app-search-magento/master" alt="CircleCI build" /></a>
+</p>
 
 > A first-party Magento integration for building excellent, relevant search experiences with [Elastic App Search](https://www.elastic.co/cloud/app-search-service).
 
@@ -23,7 +27,7 @@
 Using this client assumes that you have already:
 
 - Created an App Search account on https://swiftype.com/ or you have a self managed version of App Search available
-
+- PHP >= 7.1
 - Magento >= 2.2.x installed and running
 
 You can install the module in your project by using this composer command from your Magento project root:
