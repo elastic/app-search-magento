@@ -23,6 +23,8 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 /**
  * AppSearch search GraphQL products resolver.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @deprecated Will be removed when Magento GraphQL implementation will have better support for sort / pagination.
  *
  * @package   Elastic\AppSearch\CatalogGraphQl\Model\Resolver
@@ -53,8 +55,6 @@ class Products implements ResolverInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param SearchQuery           $searchQuery
      * @param SearchFilter          $searchFilter

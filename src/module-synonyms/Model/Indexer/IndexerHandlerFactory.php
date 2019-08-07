@@ -58,6 +58,8 @@ class IndexerHandlerFactory
     /**
      * Create indexer handler
      *
+     * @SuppressWarnings(PHPMD.MissingImport)
+     *
      * @param array $data
      *
      * @return IndexerInterface

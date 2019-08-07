@@ -90,9 +90,10 @@ class CategoryPositionProvider
      */
     public function getPositionedDocuments(RequestInterface $request): array
     {
-        $docIds = [];
+        $docIds     = [];
+        $categoryId = $this->getCategoryId($request);
 
-        if ($categoryId = $this->getCategoryId($request)) {
+        if ($categoryId) {
             $storeId  = $this->getStoreId($request);
             $cacheKey = $categoryId . '_' . $storeId;
 

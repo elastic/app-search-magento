@@ -20,6 +20,7 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountRe
  * Process facet from the App Search response.
  *
  * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
+ * @SuppressWarnings(PHPMD.LongVariable)
  *
  * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Facet
  * @copyright 2019 Elastic
@@ -44,8 +45,6 @@ class ResponseProcessor implements ResponseProcessorInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param DocumentCountResolver $documentCountResolver
      * @param AlgorithmInterface[]  $algorithms

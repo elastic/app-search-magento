@@ -18,7 +18,6 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\EngineRe
 use Elastic\AppSearch\Framework\AppSearch\EngineInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\SearchParamsProviderInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Fulltext\QueryTextResolverInterface;
-use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\RescorerResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\ResponseProcessorInterface;
 
 /**
@@ -63,6 +62,8 @@ class RequestExecutorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * Test client exception handling.
+     *
+     * @SuppressWarnings(PHPMD.MissingImport)
      */
     public function testExceptionHandling()
     {

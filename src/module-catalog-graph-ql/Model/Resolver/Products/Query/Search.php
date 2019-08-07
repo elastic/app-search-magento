@@ -24,6 +24,8 @@ use Elastic\AppSearch\CatalogGraphQl\Model\Layer\CollectionProvider;
 /**
  * Run search for the products resolver.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @deprecated Will be removed when Magento GraphQL implementation will have better support for sort / pagination.
  *
  * @package   Elastic\AppSearch\CatalogGraphQl\Model\Resolver\Products\Query

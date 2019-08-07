@@ -21,6 +21,7 @@ use Elastic\AppSearch\CatalogSearch\Model\Config as AppSearchConfig;
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)
+ * @SuppressWarnings(PHPMD.LongVariable)
  *
  * @package   Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext
  * @copyright 2019 Elastic
@@ -97,8 +98,6 @@ class Collection extends \Magento\CatalogSearch\Model\ResourceModel\Fulltext\Col
 
     // phpcs:disable
     /**
-     * @SuppressWarnings(PHPMD.LongVariable)
-     *
      * {@inheritDoc}
      */
     protected function _renderFiltersBefore()

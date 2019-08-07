@@ -19,6 +19,8 @@ use Magento\Catalog\Api\Data\ProductAttributeInterface;
 /**
  * Retrieve engine fields from product EAV attributes.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Field
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -42,8 +44,6 @@ class AttributeFieldProvider implements FieldProviderInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param AttributeDataProvider $attributeDataProvider
      * @param AttributeFieldFactory $fieldFactory

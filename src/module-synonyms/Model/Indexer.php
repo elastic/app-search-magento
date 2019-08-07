@@ -77,6 +77,8 @@ class Indexer implements
     }
 
     /**
+     * @SuppressWarnings(PHPMD.MissingImport)
+     *
      * {@inheritDoc}
      */
     public function executeByDimensions(array $dimensions, \Traversable $entityIds = null)

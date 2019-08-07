@@ -17,6 +17,8 @@ use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterf
 /**
  * Extract and build filters from the search request.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\RequestExecutor\Filter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -40,8 +42,6 @@ class SearchParamsProvider implements SearchParamsProviderInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param QueryFilterBuilderInterfaceFactory $queryFilterBuilderFactory
      * @param FieldMapperResolverInterface       $fieldMapperResolver
