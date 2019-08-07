@@ -24,7 +24,9 @@ Using this client assumes that you have already:
 
 - Created an App Search account on https://swiftype.com/ or you have a self managed version of App Search available
 
-- Magento >= 2.2.x installed and running
+- Magento >= 2.3.x installed and running
+
+- Php >= 7.1
 
 You can install the module in your project by using this composer command from your Magento project root:
 
