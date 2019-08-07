@@ -18,6 +18,8 @@ use Magento\Framework\Api\CustomAttributesDataInterface;
 /**
  * App Search search adapter response document factory.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -36,8 +38,6 @@ class DocumentFactory
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param BaseDocumentFactory   $documentFactory
      * @param AttributeValueFactory $attributeValueFactory

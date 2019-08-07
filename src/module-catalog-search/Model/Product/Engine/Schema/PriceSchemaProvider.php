@@ -23,6 +23,8 @@ use Magento\CatalogSearch\Model\Indexer\Fulltext;
 /**
  * Price fields for the product schema.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\CatalogSearch\Model\Product\Engine\Schema
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -56,8 +58,6 @@ class PriceSchemaProvider implements SchemaProviderInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param SchemaBuilderInterface           $schemaBuilder
      * @param FieldMapperResolverInterface     $fieldMapperResolver

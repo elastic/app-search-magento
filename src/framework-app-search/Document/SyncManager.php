@@ -19,6 +19,8 @@ use Ramsey\Uuid\UuidFactory;
 /**
  * Implementation of the sync manager component.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\Document
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -67,8 +69,6 @@ class SyncManager implements SyncManagerInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param BatchDataMapperResolverInterface $batchDataMapperResolver
      * @param ConnectionManagerInterface       $connectionManager

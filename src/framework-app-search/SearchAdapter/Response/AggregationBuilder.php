@@ -20,6 +20,8 @@ use Magento\Framework\Search\Response\Aggregation\Value as AggregationValue;
 /**
  * Build response aggregation from the App Search response.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -43,8 +45,6 @@ class AggregationBuilder
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param AggregationFactory      $aggregationFactory
      * @param BucketFactory           $bucketFactory

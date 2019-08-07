@@ -19,6 +19,8 @@ use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\DocumentCountRe
 /**
  * AppSearch search adapter response factory implementation.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Framework\AppSearch\SearchAdapter
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -47,8 +49,6 @@ class ResponseBuilder
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param ResponseFactory         $responseFactory
      * @param DocumentFactory         $documentFactory

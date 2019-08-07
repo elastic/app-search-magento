@@ -21,6 +21,8 @@ use Magento\Framework\Search\SearchEngineInterface;
  *
  * @deprecated Will be removed when dropping compat. with Magento < 2.4.x.
  *
+ * @SuppressWarnings(PHPMD.LongVariable)
+ *
  * @package   Elastic\AppSearch\Search\Model
  * @copyright 2019 Elastic
  * @license   Open Software License ("OSL") v. 3.0
@@ -44,8 +46,6 @@ class Search implements SearchInterface
 
     /**
      * Constructor.
-     *
-     * @SuppressWarnings(PHPMD.LongVariable)
      *
      * @param RequestBuilder        $requestBuilder
      * @param SearchEngineInterface $searchEngine
