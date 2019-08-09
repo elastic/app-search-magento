@@ -10,7 +10,6 @@
 
 namespace Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 
-
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterfaceFactory;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
 

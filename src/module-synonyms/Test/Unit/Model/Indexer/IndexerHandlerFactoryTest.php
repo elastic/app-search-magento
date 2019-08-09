@@ -13,7 +13,7 @@ namespace Elastic\AppSearch\Synonyms\Test\Unit\Model\Indexer;
 use Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandlerFactory;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 use Magento\Framework\ObjectManagerInterface;
-use Magento\Framework\Search\EngineResolverInterface;
+use Magento\Search\Model\EngineResolver;
 
 /**
  * Unit test for the IndexerHandlerFactory class.
@@ -35,7 +35,7 @@ class IndexerHandlerFactoryTest extends \PHPUnit\Framework\TestCase
         $objectManager = $this->createMock(ObjectManagerInterface::class);
         $objectManager->method('create')->willReturn($indexerHandler);
 
-        $engineResolver = $this->createMock(EngineResolverInterface::class);
+        $engineResolver = $this->createMock(EngineResolver::class);
         $engineResolver->method('getCurrentSearchEngine')->willReturn('search_engine');
 
         $factory = $this->createFactory($objectManager, $engineResolver);
@@ -53,7 +53,7 @@ class IndexerHandlerFactoryTest extends \PHPUnit\Framework\TestCase
         $objectManager  = $this->createMock(ObjectManagerInterface::class);
         $objectManager->expects($this->never())->method('create');
 
-        $engineResolver = $this->createMock(EngineResolverInterface::class);
+        $engineResolver = $this->createMock(EngineResolver::class);
         $engineResolver->method('getCurrentSearchEngine')->willReturn('other_engine');
 
         $this->assertNull($this->createFactory($objectManager, $engineResolver)->create());
@@ -71,7 +71,7 @@ class IndexerHandlerFactoryTest extends \PHPUnit\Framework\TestCase
         $objectManager = $this->createMock(ObjectManagerInterface::class);
         $objectManager->method('create')->willReturn($indexerHandler);
 
-        $engineResolver = $this->createMock(EngineResolverInterface::class);
+        $engineResolver = $this->createMock(EngineResolver::class);
         $engineResolver->method('getCurrentSearchEngine')->willReturn('search_engine');
 
         $this->createFactory($objectManager, $engineResolver)->create();
@@ -90,7 +90,7 @@ class IndexerHandlerFactoryTest extends \PHPUnit\Framework\TestCase
         $objectManager = $this->createMock(ObjectManagerInterface::class);
         $objectManager->method('create')->willReturn($indexerHandler);
 
-        $engineResolver = $this->createMock(EngineResolverInterface::class);
+        $engineResolver = $this->createMock(EngineResolver::class);
         $engineResolver->method('getCurrentSearchEngine')->willReturn('search_engine');
 
         $this->createFactory($objectManager, $engineResolver)->create();
@@ -99,8 +99,8 @@ class IndexerHandlerFactoryTest extends \PHPUnit\Framework\TestCase
     /**
      * Create the index handler factory.
      *
-     * @param ObjectManagerInterface  $objectManager
-     * @param EngineResolverInterface $engineResolver
+     * @param ObjectManagerInterface $objectManager
+     * @param EngineResolver         $engineResolver
      *
      * @return IndexerHandlerFactory
      */

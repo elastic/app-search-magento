@@ -1,4 +1,5 @@
-FROM php:7.2-apache
+ARG base_image=php:7.1-apache
+FROM $base_image
 
 # Installing packages required to run Magento.
 RUN apt-get update \
@@ -7,7 +8,7 @@ RUN apt-get update \
 
 # Building PHP extensions required to run Magento.
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
- && docker-php-ext-install dom gd intl mbstring pdo_mysql xsl zip soap bcmath opcache sodium
+ && docker-php-ext-install dom gd intl mbstring pdo_mysql xsl zip soap bcmath opcache mcrypt
 
 # Installing composer as a globally available system command.
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \

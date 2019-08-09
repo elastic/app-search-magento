@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
-use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
+use Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Index as ResourceModel;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 use Magento\CatalogSearch\Model\Indexer\Fulltext;
@@ -27,11 +27,6 @@ use Magento\CatalogSearch\Model\Indexer\Fulltext;
  */
 class CategoryDataProvider implements DataProviderInterface
 {
-    /**
-     * @var array
-     */
-    private $mappedField = ['id' => 'category_ids', 'name' => 'category_name'];
-
     /**
      * @var ResourceModel
      */
@@ -63,7 +58,7 @@ class CategoryDataProvider implements DataProviderInterface
      */
     public function getData(array $entityIds, int $storeId): array
     {
-        $categoryData = $this->resourceModel->getFullCategoryProductIndexData($storeId, $entityIds);
+        $categoryData = $this->resourceModel->getCategoryProductIndexData($entityIds, $storeId);
 
         return array_map([$this, 'processCategoryData'], $categoryData);
     }
@@ -79,10 +74,9 @@ class CategoryDataProvider implements DataProviderInterface
     {
         $categoryData = [];
 
-        foreach ($this->mappedField as $srcField => $targetField) {
-            $fieldName  = $this->fieldMapper->getFieldName($targetField);
-            $fieldValue = $this->fieldMapper->mapValue($targetField, array_column($data, $srcField));
-            $categoryData[$fieldName] = $fieldValue;
+        foreach ($data as $field => $value) {
+            $fieldName = $this->fieldMapper->getFieldName($field);
+            $categoryData[$fieldName] = $this->fieldMapper->mapValue($field, $value);
         }
 
         return $categoryData;

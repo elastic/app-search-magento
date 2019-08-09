@@ -10,9 +10,8 @@
 
 namespace Elastic\AppSearch\CatalogSearch\Model;
 
-use Magento\Framework\Search\EngineResolverInterface;
+use Magento\Search\Model\EngineResolver;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-
 
 /**
  * App Search catalog search config.
@@ -49,16 +48,16 @@ class Config
     private $scopeConfig;
 
     /**
-     * @var EngineResolverInterface
+     * @var EngineResolver
      */
     private $engineResolver;
 
     /**
      * Constructor.
      *
-     * @param EngineResolverInterface $engineResolver
+     * @param EngineResolver $engineResolver
      */
-    public function __construct(EngineResolverInterface $engineResolver, ScopeConfigInterface $scopeConfig)
+    public function __construct(EngineResolver $engineResolver, ScopeConfigInterface $scopeConfig)
     {
         $this->engineResolver = $engineResolver;
         $this->scopeConfig    = $scopeConfig;

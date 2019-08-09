@@ -17,7 +17,8 @@
   "require" : {
     "php" : "^7.1",
     "elastic/app-search" : "^1.0.0",
-    "magento/framework": ">=101.0.0"
+    "magento/framework": ">=101.0.0",
+    "magento/module-catalog": ">=102.0.6"
   },
   "require-dev" : {
     "squizlabs/php_codesniffer": "@stable",

@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\Synonyms\Model\Indexer;
 
 use Magento\Framework\ObjectManagerInterface;
-use Magento\Framework\Search\EngineResolverInterface;
+use Magento\Search\Model\EngineResolver;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
 
 /**
@@ -34,20 +34,20 @@ class IndexerHandlerFactory
     private $handlers = null;
 
     /**
-     * @var EngineResolverInterface
+     * @var EngineResolver
      */
     private $engineResolver;
 
     /**
      * Factory constructor
      *
-     * @param ObjectManagerInterface  $objectManager
-     * @param EngineResolverInterface $engineResolver
-     * @param string[]                $handlers
+     * @param ObjectManagerInterface $objectManager
+     * @param EngineResolver         $engineResolver
+     * @param string[]               $handlers
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        EngineResolverInterface $engineResolver,
+        EngineResolver $engineResolver,
         array $handlers = []
     ) {
         $this->objectManager = $objectManager;
