@@ -19,7 +19,7 @@
     <type name="Magento\CatalogSearch\Model\ResourceModel\EngineProvider">
         <arguments>
             <argument name="engines" xsi:type="array">
-                <item name="elastic_appsearch" xsi:type="string">Magento\Elasticsearch\Model\ResourceModel\Engine</item>
+                <item name="elastic_appsearch" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Engine</item>
             </argument>
         </arguments>
     </type>

@@ -11,7 +11,7 @@
 namespace Elastic\AppSearch\CatalogSearch\Model\Product\Document\BatchDataMapper;
 
 use Elastic\AppSearch\Framework\AppSearch\Document\DataProviderInterface;
-use Magento\Elasticsearch\Model\ResourceModel\Index as ResourceModel;
+use Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Index as ResourceModel;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperResolverInterface;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Field\FieldMapperInterface;
 use Magento\CatalogSearch\Model\Indexer\Fulltext;
