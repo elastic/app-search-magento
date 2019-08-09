@@ -20,12 +20,6 @@
         <plugin name="synonym_group_indexing" type="Elastic\AppSearch\Synonyms\Model\Indexer\Plugin\SynonymGroupPlugin" />
     </type>
 
-    <type name="Elastic\AppSearch\Synonyms\Model\Indexer">
-        <arguments>
-            <argument name="dimensionProvider" xsi:type="object" shared="false">Magento\Store\Model\StoreDimensionProvider</argument>
-        </arguments>
-    </type>
-
     <type name="Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandlerFactory">
         <arguments>
             <argument name="handlers" xsi:type="array">

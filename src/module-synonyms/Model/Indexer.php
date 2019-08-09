@@ -12,10 +12,11 @@ namespace Elastic\AppSearch\Synonyms\Model;
 
 use Magento\Framework\Indexer\DimensionProviderInterface;
 use Magento\Indexer\Model\ProcessManager;
-use Magento\Store\Model\StoreDimensionProvider;
 use Elastic\AppSearch\Synonyms\Model\Indexer\IndexerHandlerFactory;
 use Elastic\AppSearch\Synonyms\Model\Indexer\Action\Full as FullAction;
 use Magento\Framework\Indexer\SaveHandler\IndexerInterface;
+use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\Search\Request\DimensionFactory;
 
 /**
  * Sync synonyms with the search engine.
@@ -45,9 +46,14 @@ class Indexer implements
     private $fullAction;
 
     /**
-     * @var DimensionProviderInterface
+     * @var StoreManagerInterface
      */
-    private $dimensionProvider;
+    private $storeManager;
+
+    /**
+     * @var DimensionFactory
+     */
+    private $dimensionFactory;
 
     /**
      * @var ProcessManager
@@ -61,19 +67,21 @@ class Indexer implements
      *
      * @param FullAction                 $fullAction
      * @param IndexerHandlerFactory      $indexerHandlerFactory
-     * @param DimensionProviderInterface $dimensionProvider
+     * @param DimensionProviderInterface $storeManager
      * @param ProcessManager             $processManager
      */
     public function __construct(
         FullAction $fullAction,
         IndexerHandlerFactory $indexerHandlerFactory,
-        DimensionProviderInterface $dimensionProvider,
+        StoreManagerInterface $storeManager,
+        DimensionFactory $dimensionFactory,
         ProcessManager $processManager
     ) {
-        $this->indexerHandler    = $indexerHandlerFactory->create();
-        $this->fullAction        = $fullAction;
-        $this->dimensionProvider = $dimensionProvider;
-        $this->processManager    = $processManager;
+        $this->indexerHandler   = $indexerHandlerFactory->create();
+        $this->fullAction       = $fullAction;
+        $this->storeManager     = $storeManager;
+        $this->dimensionFactory = $dimensionFactory;
+        $this->processManager   = $processManager;
     }
 
     /**
@@ -83,11 +91,11 @@ class Indexer implements
      */
     public function executeByDimensions(array $dimensions, \Traversable $entityIds = null)
     {
-        if (count($dimensions) > 1 || !isset($dimensions[StoreDimensionProvider::DIMENSION_NAME])) {
+        if (count($dimensions) > 1 || !isset($dimensions['scope'])) {
             throw new \InvalidArgumentException('Indexer "' . self::INDEXER_ID . '" support only Store dimension');
         }
 
-        $storeId  = $dimensions[StoreDimensionProvider::DIMENSION_NAME]->getValue();
+        $storeId  = $dimensions['scope']->getValue();
 
         $synonyms = $this->fullAction->getSynonymSets($storeId);
 
@@ -103,9 +111,12 @@ class Indexer implements
         if ($this->indexerHandler !== null) {
             $userFunctions = [];
 
-            foreach ($this->dimensionProvider->getIterator() as $dimension) {
+            $storeIds = array_keys($this->storeManager->getStores());
+
+            foreach ($storeIds as $storeId) {
+                $dimension = $this->dimensionFactory->create(['name' => 'scope', 'value' => $storeId]);
                 $userFunctions[] = function () use ($dimension) {
-                    $this->executeByDimensions($dimension);
+                    $this->executeByDimensions([$dimension->getName() => $dimension]);
                 };
             }
 
