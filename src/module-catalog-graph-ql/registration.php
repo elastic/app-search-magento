@@ -8,8 +8,10 @@
  * file that was distributed with this source code.
  */
 
-\Magento\Framework\Component\ComponentRegistrar::register(
-    \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'ElasticAppSearch_CatalogGraphQl',
-    __DIR__
-);
+use Magento\Framework\Component\ComponentRegistrar;
+
+$canEnable = @ComponentRegistrar::getPath(ComponentRegistrar::MODULE, 'Magento_GraphQl') != null;
+
+if ($canEnable) {
+    ComponentRegistrar::register(ComponentRegistrar::MODULE, 'ElasticAppSearch_CatalogGraphQl', __DIR__);
+}
