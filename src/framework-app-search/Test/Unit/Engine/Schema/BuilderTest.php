@@ -13,6 +13,7 @@ namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\Engine\Schema;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema\Builder as SchemaBuilder;
 use Elastic\AppSearch\Framework\AppSearch\Engine\Schema;
 use Elastic\AppSearch\Framework\AppSearch\Engine\SchemaInterface;
+
 /**
  * Unit test for the Builder class.
  *
