@@ -36,6 +36,13 @@ You can install the module in your project by using this composer command from y
 composer require elastic/app-search-magento:1.0.0-beta1@beta
 ```
 
+Once the module is installed, you should clean your cache and update your Magento instance if already installed:
+
+```bash
+bin/magento cache:clean
+bin/magento setup:upgrade
+```
+
 ## Usage
 
 ### Configuring App Search credentials
