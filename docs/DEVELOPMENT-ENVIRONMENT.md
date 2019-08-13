@@ -99,7 +99,4 @@ To create an admin account, use the following command:
 bin/magento admin:user:create
 ```
 
-You can check the App Search extension is correctly installed and configured by connecting to the admin:
-1. Go into `Stores --> Configuration`.
-2. You should be able to find a `Èlastic App Search` tab into the General section
-3. Click on it and see if your API Endpoint is correctly configured (should be disabled for edit if using env variable).
+You can then complete your setup by following the [Usage guide from the README](https://github.com/elastic/app-search-magento/#usage)
