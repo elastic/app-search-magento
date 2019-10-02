@@ -79,7 +79,7 @@ jobs:
           composer install
     - run:
         name: Check coding quality against PSR12 rules
-        command: vendor/bin/phpcs . --standard=PSR12 --extensions=php --ignore=vendor/*,.git/*,dev
+        command: vendor/bin/phpcs . --extensions=php --ignore=vendor/*,.git/*,dev
     - run:
         name: Check coding quality using phpmd
         command: vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,.git --suffixes php
