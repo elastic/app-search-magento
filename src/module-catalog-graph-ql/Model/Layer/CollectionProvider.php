@@ -66,7 +66,7 @@ class CollectionProvider implements ItemCollectionProviderInterface
      *
      * @return Collection
      */
-    public function getCollection(Category $category) : Collection
+    public function getCollection(Category $category): Collection
     {
         if (!$this->collection) {
             $this->collection = $this->collectionFactory->create();
