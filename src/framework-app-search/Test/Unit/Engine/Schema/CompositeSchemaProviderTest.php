@@ -53,7 +53,7 @@ class CompositeSchemaProviderTest extends \PHPUnit\Framework\TestCase
      */
     private function createSchemaProvider(array $fields)
     {
-        return new class($fields) implements SchemaProviderInterface {
+        return new class ($fields) implements SchemaProviderInterface {
             /**
              * @var array
              */

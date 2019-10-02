@@ -13,7 +13,6 @@ namespace Elastic\AppSearch\Framework\AppSearch\Test\Unit\SearchAdapter\Response
 use Elastic\AppSearch\Framework\AppSearch\SearchAdapter\Response\AggregationBuilder;
 use Magento\Framework\Api\Search\AggregationInterface;
 use Magento\Framework\Api\Search\BucketInterface;
-use \Magento\Framework\Api\Search\AggregationValueInterface;
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 use Magento\Framework\Search\Response\Aggregation;
 use Magento\Framework\Search\Response\Bucket;
