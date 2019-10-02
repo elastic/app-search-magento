@@ -1,6 +1,6 @@
 # Using App Search with Magento Cloud
 
-The documentation will help you to run App Search against your Magento Cloud project.
+This documentation will help you to run App Search against your Magento Cloud project.
 
 **Note:**
 
