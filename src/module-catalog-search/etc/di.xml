@@ -141,13 +141,29 @@
 
     <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
         <arguments>
-            <argument name="instanceName" xsi:type="string">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext\Collection</argument>
+            <argument name="instanceName" xsi:type="string">Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollection</argument>
         </arguments>
     </virtualType>
 
     <virtualType name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\SearchCollection" type="Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext\Collection">
         <arguments>
             <argument name="searchRequestName" xsi:type="string">quick_search_container</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="elasticsearchLayerSearchItemCollectionProvider">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="object">Magento\CatalogSearch\Model\ResourceModel\Fulltext\CollectionFactory</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="elasticsearchLayerCategoryItemCollectionProvider">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="elastic_appsearch" xsi:type="object">Elastic\AppSearch\CatalogSearch\Model\ResourceModel\Product\Fulltext\CollectionFactory</item>
+            </argument>
         </arguments>
     </virtualType>
 
