@@ -206,7 +206,7 @@ class SyncManager implements SyncManagerInterface
                     usleep(200);
                 }
                 $resp = $this->client->search($engineName, '', $searchParams);
-                $attempts --;
+                $attempts--;
             } while ($attempts > 0 && $resp['meta']['page']['total_results'] < $expectedCount);
         }
     }
