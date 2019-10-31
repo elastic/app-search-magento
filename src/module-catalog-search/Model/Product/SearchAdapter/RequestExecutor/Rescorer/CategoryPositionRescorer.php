@@ -114,6 +114,9 @@ class CategoryPositionRescorer implements RescorerInterface
 
     private function canRescore(RequestInterface $request): bool
     {
-        return count($request->getSort()) < 1 || current($request->getSort())->getField() == '_score';
+        $isNotEmpty  = $request->getSize() > 0;
+        $isScoreSort = count($request->getSort()) < 1 || current($request->getSort())->getField() == '_score';
+
+        return $isNotEmpty && $isScoreSort;
     }
 }
