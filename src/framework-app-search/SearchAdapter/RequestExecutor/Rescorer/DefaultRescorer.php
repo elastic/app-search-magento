@@ -163,7 +163,10 @@ class DefaultRescorer implements RescorerInterface
      */
     private function getSortDirection(RequestInterface $request): string
     {
-        return count($request->getSort()) < 1 ? 'DESC' : current($request->getSort())->getDirection();
+        $isNotEmpty  = $request->getSize() > 0;
+        $isScoreSort = count($request->getSort()) < 1 || current($request->getSort())->getField() == '_score';
+
+        return $isNotEmpty && $isScoreSort;
     }
 
     /**
