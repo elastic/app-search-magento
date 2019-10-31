@@ -18,7 +18,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="index">
         <job name="app_search_purge_deleted_documents" instance="Elastic\AppSearch\CatalogSearch\Cron\PurgeDeletedProducts" method="execute">
-            <schedule>* * * * *</schedule>
+            <schedule>0 * * * *</schedule>
         </job>
     </group>
 </config>
