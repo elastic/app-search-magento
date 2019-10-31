@@ -33,6 +33,16 @@ class SyncManager implements SyncManagerInterface
     private const DEFAULT_BATCH_SIZE = 100;
 
     /**
+     * @var int
+     */
+    private const MAX_SYNC_TRIES = 20;
+
+    /**
+     * @var string
+     */
+    private const SEARCH_ANALYTICS_TAG = 'sync_manager';
+
+    /**
      * @var array
      */
     private $docs = [];
@@ -182,14 +192,23 @@ class SyncManager implements SyncManagerInterface
      */
     private function waitForSync(string $engineName, int $expectedCount)
     {
-        $filterParams = ['sync_id' => $this->syncId];
-        $pageParams   = ['current' => 1, 'size' => 0];
-        $searchParams = ['filters' => $filterParams, 'page' => $pageParams];
+        if ($expectedCount > 0) {
+            $searchParams = [
+                'filters'   => ['sync_id' => $this->syncId],
+                'page'      => ['current' => 1, 'size' => 0],
+                'analytics' => ['tags' => [self::SEARCH_ANALYTICS_TAG]],
+            ];
 
-        do {
-            $resp = $this->client->search($engineName, '', $searchParams);
-            usleep(100);
-        } while (false && $resp['meta']['page']['total_results'] < $expectedCount);
+            $attempts = self::MAX_SYNC_TRIES;
+
+            do {
+                if ($attempts != self::MAX_SYNC_TRIES) {
+                    usleep(200);
+                }
+                $resp = $this->client->search($engineName, '', $searchParams);
+                $attempts --;
+            } while ($attempts > 0 && $resp['meta']['page']['total_results'] < $expectedCount);
+        }
     }
 
     /**
@@ -205,9 +224,12 @@ class SyncManager implements SyncManagerInterface
         $currentPage = 1;
 
         do {
-            $filterParams = ['deleted' => "true"];
-            $pageParams   = ['current' => $currentPage, 'size' => 100];
-            $searchParams = ['filters' => $filterParams, 'page' => $pageParams];
+            $searchParams = [
+                'filters' => ['deleted' => "true"],
+                'page'    => ['current' => $currentPage, 'size' => 100],
+                'analytics' => ['tags' => [self::SEARCH_ANALYTICS_TAG]],
+            ];
+
             $resp = $this->client->search($engine->getName(), '', $searchParams);
             foreach ($resp['results'] as $doc) {
                 $docIds[] = $doc['id']['raw'];
