@@ -38,13 +38,11 @@ jobs:
     - run:
         name: Install Magento
         command: |
-            MAGE_REPO="https://repo.magento.com/"
+            composer config -g "https://repo.magento.com/"
             if [[ -z $COMPOSER_AUTH ]]; then
-              MAGE_REPO="https://repo-magento-mirror.fooman.co.nz/"
+              composer config -g "https://repo-magento-mirror.fooman.co.nz/"
             fi
-            echo $MAGE_REPO
-            composer config -g repositories.magento composer ${MAGE_REPO}
-            composer create-project --repository=${MAGE_REPO} magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento --no-install
+            composer create-project --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run:
         name: Install App Search module
         command: |
