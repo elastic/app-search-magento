@@ -1,15 +1,11 @@
 version: 2.1
 
 executors:
-  php-72:
+  php:
+    parameters:
+      php_version: { type: string, default: "7.2" }
     docker:
-    - image: thecodingmachine/php:7.2-v2-apache
-    environment:
-      PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
-      PHP_INI_MEMORY_LIMIT: "-1"
-  php-71:
-    docker:
-    - image: thecodingmachine/php:7.1-v2-apache
+    - image: thecodingmachine/php:<< parameters.php_version >>-v2-apache
     environment:
       PHP_EXTENSIONS: gd intl pdo_mysql xsl zip soap bcmath opcache mcrypt
       PHP_INI_MEMORY_LIMIT: "-1"
@@ -24,25 +20,32 @@ commands:
 jobs:
   build:
     parameters:
-      executor:
-        type: executor
-      magento_version:
-        type: string
-      magento_edition:
-        type: string
-        default: community
-    executor: << parameters.executor >>
+      php_version: { type: string }
+      magento_version: { type: string }
+      magento_edition: { type: string, default: commumity }
+    executor:
+      name: php
+      php_version: << parameters.php_version >>
     steps:
     - configure_php
     - checkout:
         path: repo
     - restore_cache:
         keys:
-        - v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
+        - v1-dependencies-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
+    - restore_cache:
+        keys:
+        - v1-mage-install-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>
     - run:
         name: Install Magento
         command: |
-          composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
+          if [ ! -d magento ]; then
+            composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
+          fi
+    - save_cache:
+        paths:
+        - ~/project/magento
+        key: v1-mage-install-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>
     - run:
         name: Install App Search module
         command: |
@@ -56,14 +59,14 @@ jobs:
     - save_cache:
         paths:
         - ~/.composer/cache/
-        key: v1-dependencies-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
+        key: v1-dependencies-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
     - persist_to_workspace:
         root: .
         paths:
         - .
 
   code-quality:
-    executor: php-72
+    executor: php
     working_directory: ~/project/repo
     steps:
     - configure_php
@@ -90,9 +93,10 @@ jobs:
 
   compile:
     parameters:
-      executor:
-        type: executor
-    executor: << parameters.executor >>
+      php_version: { type: string }
+    executor:
+      name: php
+      php_version: << parameters.php_version >>
     working_directory: ~/project/magento
     steps:
     - configure_php
@@ -104,11 +108,11 @@ jobs:
 
   tests:
     parameters:
-      executor:
-        type: executor
-      testsuite:
-        type: string
-    executor: << parameters.executor >>
+      php_version: { type: string }
+      testsuite: { type: string }
+    executor:
+      name: php
+      php_version: << parameters.php_version >>
     working_directory: ~/project/magento
     steps:
     - configure_php
@@ -126,16 +130,16 @@ workflows:
     jobs:
     - build:
         name: build-php-7.2-mage-2.3
-        executor: php-72
+        php_version: "7.2"
         magento_version: 2.3.1
     - compile:
         name: compile-php-7.2-mage-2.3
-        executor: php-72
+        php_version: "7.2"
         requires:
         - build-php-7.2-mage-2.3
     - tests:
         name: unit-test-php-7.2-mage-2.3
-        executor: php-72
+        php_version: "7.2"
         testsuite: unit
         requires:
         - build-php-7.2-mage-2.3
@@ -146,16 +150,16 @@ workflows:
     jobs:
     - build:
         name: build-php-7.1-mage-2.3
-        executor: php-71
+        php_version: "7.1"
         magento_version: 2.3.1
     - compile:
         name: compile-php-7.1-mage-2.3
-        executor: php-71
+        php_version: "7.1"
         requires:
         - build-php-7.1-mage-2.3
     - tests:
         name: unit-test-php-7.1-mage-2.3
-        executor: php-71
+        php_version: "7.1"
         testsuite: unit
         requires:
         - build-php-7.1-mage-2.3
@@ -163,16 +167,16 @@ workflows:
     jobs:
     - build:
         name: build-php-7.1-mage-2.2
-        executor: php-71
+        php_version: "7.1"
         magento_version: ^2.2
     - compile:
         name: compile-php-7.1-mage-2.2
-        executor: php-71
+        php_version: "7.1"
         requires:
         - build-php-7.1-mage-2.2
     - tests:
         name: unit-test-php-7.1-mage-2.2
-        executor: php-71
+        php_version: "7.1"
         testsuite: unit
         requires:
         - build-php-7.1-mage-2.2
