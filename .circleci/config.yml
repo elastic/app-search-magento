@@ -32,20 +32,15 @@ jobs:
         path: repo
     - restore_cache:
         keys:
-        - v1-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
-    - restore_cache:
-        keys:
-        - v1-mage-install-{{ .Environment.CIRCLE_JOB }}
+        - v2-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
+        - v2-dependencies-{{ .Environment.CIRCLE_JOB }}
+        - v2-dependencies-
     - run:
         name: Install Magento
         command: |
           if [ ! -d magento ]; then
             composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
           fi
-    - save_cache:
-        paths:
-        - ~/project/magento
-        key: v1-mage-install-{{ .Environment.CIRCLE_JOB }}
     - run:
         name: Install App Search module
         command: |
@@ -58,8 +53,9 @@ jobs:
         command: cd magento && bin/magento module:enable --all
     - save_cache:
         paths:
-        - ~/.composer/cache/
-        key: v1-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
+        - ~/.composer
+        - magento
+        key: v2-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
     - persist_to_workspace:
         root: .
         paths:
@@ -74,7 +70,8 @@ jobs:
         at: ~/project
     - restore_cache:
         keys:
-        - v1-qa-dependencies-{{ checksum "composer.json" }}
+        - v2-qa-dependencies-{{ checksum "composer.json" }}
+        - v2-qa-dependencies-
     - run:
         name: Install dev dependencies
         command: |
@@ -88,8 +85,8 @@ jobs:
         command: vendor/bin/phpmd . text cleancode,codesize,controversial,design,naming,unusedcode --exclude vendor,.git --suffixes php
     - save_cache:
         paths:
-        - ~/.composer/cache/
-        key: v1-qa-dependencies-{{ checksum "composer.json" }}
+        - ~/.composer
+        key: v2-qa-dependencies-{{ checksum "composer.json" }}
 
   compile:
     parameters:
