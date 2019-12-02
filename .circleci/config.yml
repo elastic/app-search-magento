@@ -33,10 +33,6 @@ jobs:
     - restore_cache:
         keys:
         - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
-        - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>
-        - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>
-        - v2-dependencies-<< parameters.magento_version >>
-        - v2-dependencies-
     - run:
         name: Install Magento
         command: |
