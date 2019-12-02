@@ -41,9 +41,10 @@ jobs:
           if [ ! -d magento ]; then
             composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
           fi
+          cd magento && tar zcf ~/magento.tar.gz . && cd ..
     - store_artifacts:
-        path: ~/project/magento/
-        destination: magento
+        path: ~/project/magento.tar.gz
+        destination: magento.tar.gz
     - run:
         name: Install App Search module
         command: |
