@@ -33,6 +33,8 @@ jobs:
     - restore_cache:
         keys:
         - v3-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
+        - v3-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>
+        - v3-dependencies-<< parameters.magento_version >>
     - run:
         name: Install Magento
         command: |
@@ -46,6 +48,7 @@ jobs:
         name: Install App Search module
         command: |
           cd magento
+          composer config --unset repo.0
           composer config repositories.app-search '{"type": "path", "url": "../repo"}'
           composer config "minimum-stability" dev
           composer require elastic/app-search-magento --no-update
@@ -69,6 +72,9 @@ jobs:
     - configure_php
     - attach_workspace:
         at: ~/project
+    - restore_cache:
+        keys:
+        - v3-dependencies-<< parameters.magento_version >>
     - restore_cache:
         keys:
         - v3-qa-dependencies-{{ checksum "composer.json" }}
