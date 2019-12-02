@@ -74,7 +74,7 @@ jobs:
         at: ~/project
     - restore_cache:
         keys:
-        - v3-dependencies-<< parameters.magento_version >>
+        - v3-dependencies-
     - restore_cache:
         keys:
         - v3-qa-dependencies-{{ checksum "composer.json" }}
