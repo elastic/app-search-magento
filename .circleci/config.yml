@@ -32,10 +32,10 @@ jobs:
         path: repo
     - restore_cache:
         keys:
-        - v1-dependencies-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
+        - v1-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
     - restore_cache:
         keys:
-        - v1-mage-install-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>
+        - v1-mage-install-{{ .Environment.CIRCLE_JOB }}
     - run:
         name: Install Magento
         command: |
@@ -45,7 +45,7 @@ jobs:
     - save_cache:
         paths:
         - ~/project/magento
-        key: v1-mage-install-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>
+        key: v1-mage-install-{{ .Environment.CIRCLE_JOB }}
     - run:
         name: Install App Search module
         command: |
@@ -59,7 +59,7 @@ jobs:
     - save_cache:
         paths:
         - ~/.composer/cache/
-        key: v1-dependencies-<< parameters.php_version >>-<< parameters.magento_edition >>-<< parameters.magento_version >>-{{ checksum "repo/composer.json" }}
+        key: v1-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
     - persist_to_workspace:
         root: .
         paths:
