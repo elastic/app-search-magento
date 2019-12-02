@@ -38,20 +38,21 @@ jobs:
     - run:
         name: Install Magento
         command: |
-            composer config -g repositories.magento composer "https://repo.magento.com/"
+            MAGE_REPO="https://repo.magento.com/"
             if [[ -z $COMPOSER_AUTH ]]; then
-              composer config -g repositories.magento composer "https://repo-magento-mirror.fooman.co.nz/"
+              MAGE_REPO="https://repo-magento-mirror.fooman.co.nz/"
             fi
+            composer config -g repositories.magento composer ${MAGE_REPO}
             composer create-project --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
+            cd magento
+            composer config --unset repo.0
+            composer install
     - run:
         name: Install App Search module
         command: |
-          cd magento
-          composer config --unset repo.0
           composer config repositories.app-search '{"type": "path", "url": "../repo"}'
           composer config "minimum-stability" dev
-          composer require elastic/app-search-magento --no-update
-          composer install
+          composer require elastic/app-search-magento
     - run:
         name: Enable Magento modules
         command: cd magento && bin/magento module:enable --all
