@@ -32,8 +32,10 @@ jobs:
         path: repo
     - restore_cache:
         keys:
-        - v2-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
-        - v2-dependencies-{{ .Environment.CIRCLE_JOB }}
+        - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
+        - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>
+        - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>
+        - v2-dependencies-<< parameters.magento_version >>
         - v2-dependencies-
     - run:
         name: Install Magento
@@ -41,10 +43,6 @@ jobs:
           if [ ! -d magento ]; then
             composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
           fi
-          cd magento && tar zcf ~/magento.tar.gz . && cd ..
-    - store_artifacts:
-        path: ~/project/magento.tar.gz
-        destination: magento.tar.gz
     - run:
         name: Install App Search module
         command: |
@@ -59,7 +57,7 @@ jobs:
         paths:
         - ~/.composer
         - magento
-        key: v2-dependencies-{{ .Environment.CIRCLE_JOB }}-{{ checksum "repo/composer.json" }}
+        key: v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
     - persist_to_workspace:
         root: .
         paths:
