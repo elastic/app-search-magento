@@ -38,9 +38,9 @@ jobs:
     - run:
         name: Install Magento
         command: |
-            composer config -g repositories.magento "https://repo.magento.com/"
+            composer config -g repositories.magento composer "https://repo.magento.com/"
             if [[ -z $COMPOSER_AUTH ]]; then
-              composer config -g repositories.magento "https://repo-magento-mirror.fooman.co.nz/"
+              composer config -g repositories.magento composer "https://repo-magento-mirror.fooman.co.nz/"
             fi
             composer create-project --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run:
