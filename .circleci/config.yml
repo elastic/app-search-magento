@@ -22,7 +22,7 @@ jobs:
     parameters:
       php_version: { type: string }
       magento_version: { type: string }
-      magento_edition: { type: string, default: commumity }
+      magento_edition: { type: string, default: community }
     executor:
       name: php
       php_version: << parameters.php_version >>
