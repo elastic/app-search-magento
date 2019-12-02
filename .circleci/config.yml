@@ -32,28 +32,31 @@ jobs:
         path: repo
     - restore_cache:
         keys:
-        - v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
+        - v3-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
     - run:
         name: Install Magento
         command: |
-          if [ ! -d magento ]; then
-            composer create-project --repository=https://repo.magento.com/ magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
-          fi
+            MAGE_REPO="https://repo.magento.com/"
+            if [ -z "$COMPOSER_AUTH" ]; then
+              MAGE_REPO="https://repo-magento-mirror.fooman.co.nz/"
+            fi
+            composer config -g repositories.magento composer ${MAGE_REPO}
+            composer create-project --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run:
         name: Install App Search module
         command: |
           cd magento
           composer config repositories.app-search '{"type": "path", "url": "../repo"}'
           composer config "minimum-stability" dev
-          composer require elastic/app-search-magento
+          composer require elastic/app-search-magento --no-update
+          composer install
     - run:
         name: Enable Magento modules
         command: cd magento && bin/magento module:enable --all
     - save_cache:
         paths:
         - ~/.composer
-        - magento
-        key: v2-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
+        key: v3-dependencies-<< parameters.magento_version >>-<< parameters.magento_edition >>-<< parameters.php_version >>-{{ checksum "repo/composer.json" }}
     - persist_to_workspace:
         root: .
         paths:
@@ -68,13 +71,10 @@ jobs:
         at: ~/project
     - restore_cache:
         keys:
-        - v2-qa-dependencies-{{ checksum "composer.json" }}
-        - v2-qa-dependencies-
+        - v3-qa-dependencies-{{ checksum "composer.json" }}
     - run:
         name: Install dev dependencies
-        command: |
-          composer config repositories.magento composer "https://repo.magento.com/"
-          composer install
+        command: composer install
     - run:
         name: Check coding quality against PSR12 rules
         command: vendor/bin/phpcs . --extensions=php --ignore=vendor/*,.git/*,dev
@@ -84,7 +84,7 @@ jobs:
     - save_cache:
         paths:
         - ~/.composer
-        key: v2-qa-dependencies-{{ checksum "composer.json" }}
+        key: v3-qa-dependencies-{{ checksum "composer.json" }}
 
   compile:
     parameters:
