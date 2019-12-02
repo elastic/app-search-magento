@@ -42,6 +42,7 @@ jobs:
             if [ -z "$COMPOSER_AUTH" ]; then
               MAGE_REPO="https://repo-magento-mirror.fooman.co.nz/"
             fi
+            echo $MAGE_REPO
             composer config -g repositories.magento composer ${MAGE_REPO}
             composer create-project --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
     - run:
