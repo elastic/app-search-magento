@@ -43,7 +43,7 @@ jobs:
               MAGE_REPO="https://repo-magento-mirror.fooman.co.nz/"
             fi
             composer config -g repositories.magento composer ${MAGE_REPO}
-            composer create-project --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
+            composer create-project --no-plugins --no-install magento/project-<< parameters.magento_edition >>-edition:<< parameters.magento_version >> magento
             cd magento
             composer config --unset repo.0
             composer install
