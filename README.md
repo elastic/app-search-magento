@@ -8,7 +8,7 @@
 
 > A first-party Magento integration for building excellent, relevant search experiences with [Elastic App Search](https://www.elastic.co/cloud/app-search-service).
 
-> **:warning: This is a beta version of the client. [View known issues](#known-issues).**
+> **:warning: This is a beta version of the client, not for production use. [View known issues](#known-issues).**
 
 
 ## Contents
